@@ -28,6 +28,16 @@ class EquipeTutor(models.Model):
         verbose_name = "equipe_tutor"
         verbose_name_plural = "equipe_tutor"
 
+class Inscrito(models.Model):
+    nome = models.CharField(max_length=100)
+    data_nasc = models.DateField(auto_now=False)
+    escola = models.CharField(max_length=100)
+
+    class Meta:
+        db_table  =  'inscritos'
+        verbose_name = "inscrito"
+        verbose_name_plural = "inscritos"
+
 class Evento(models.Model):
     nome_evento = models.CharField(max_length=150)
     descricao = models.CharField(max_length=200)
@@ -48,8 +58,17 @@ class EventoEquipe(models.Model):
         verbose_name = "evento_equipe"
         verbose_name_plural = "evento_equipe"
 
+class EventoInscrito(models.Model):
+    evento =  models.ForeignKey(Evento, on_delete=models.CASCADE)
+    inscrito =  models.ForeignKey(Inscrito, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table  =  'evento_inscrito'
+        verbose_name = "evento_inscrito"
+        verbose_name_plural = "evento_inscrito"
+
 class Encontro(models.Model):
-    data_realizao = models.DateField(auto_now=False, auto_now_add=False)
+    data_realizao = models.DateField(auto_now=False)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
 
     class Meta:
@@ -66,28 +85,9 @@ class Atividade(models.Model):
         verbose_name = "atividade"
         verbose_name_plural = "atividades"
 
-class Inscrito(models.Model):
-    nome = models.CharField(max_length=100)
-    data_nasc = models.DateField(auto_now=False, auto_now_add=False)
-    escola = models.CharField(max_length=100)
-
-    class Meta:
-        db_table  =  'inscritos'
-        verbose_name = "inscrito"
-        verbose_name_plural = "inscritos"
-
-class EventoInscrito(models.Model):
-    evento =  models.ForeignKey(Evento, on_delete=models.CASCADE)
-    inscrito =  models.ForeignKey(Inscrito, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table  =  'evento_inscrito'
-        verbose_name = "evento_inscrito"
-        verbose_name_plural = "evento_inscrito"
-
 class Feedback(models.Model):
     status = models.IntegerField()
-    timestamp = models. DateTimeField(auto_now=True, auto_now_add=True)
+    timestamp = models. DateTimeField(auto_now=True)
     dir_audio = models.FileField(upload_to='uploads/%Y/%m/%d/')
     tutor = models.ForeignKey(Tutor, on_delete=models.PROTECT)
     inscrito = models.ForeignKey(Inscrito, on_delete=models.PROTECT)

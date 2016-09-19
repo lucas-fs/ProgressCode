@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'ProgressCodeWeb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ProgressCode',
+        'NAME': 'progress_code',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '3306',
     }
 }
 
