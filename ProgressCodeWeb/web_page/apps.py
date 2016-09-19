@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class ViewsWebConfig(AppConfig):
-    name = 'views_web'
+class WebPageConfig(AppConfig):
+    name = 'web_page'
