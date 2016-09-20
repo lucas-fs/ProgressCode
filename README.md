@@ -2,4 +2,4 @@
 
 ## Banco de Dados
 
-- Modelar banco de dados (    )
+- Modelar banco de dados ( OK  )
