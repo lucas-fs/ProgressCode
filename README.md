@@ -10,22 +10,22 @@ Já o sistema web, será responsável por agrupar as informações provenientes 
 
 ## Pacotes, libs e frameworks necessários
 
-Cliente MySQL
+**Cliente MySQL**
 ```
 sudo apt-get install libmysqlclient-dev
 ```
 
-Cliente MySQL para Python 3
+**Cliente MySQL para Python 3**
 ```
 sudo pip3 install mysqlclient
 ```
 
-Django Framework
+**Django Framework (versão 10.1)**
 ```
 pip3 install Django
 ```
 
-Django Tastypie RESTful API
+**Django Tastypie RESTful API**
 ```
 pip3 install django-tastypie==0.13.3
 
