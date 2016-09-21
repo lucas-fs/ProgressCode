@@ -38,6 +38,7 @@ pip3 install lxml
 ## Cronograma de atividades
 
 | Data Limite | Atividade a ser desenvolvida | Status |
+| --------|---------|-------|
 | 16/09 | Criação do banco de dados | x |
 | 23/09 | Criação do CRUD do banco de dados | x | 
 | 23/09 | Criação do Web Service RESTful |   |
