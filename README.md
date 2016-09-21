@@ -1,4 +1,4 @@
-# Projeto de Software II
+# ProgressCode - Projeto de Software II
 A partir do estudo de caso do Clube, constatou-se a necessidade de uma ferramenta que pudesse auxiliar os tutores no processo de acompanhamento dos alunos, bem como algo que centralizasse a grande quantidade de informações relacionadas as atividades e seus respectivos participantes. Sendo assim, o presente projeto visa o desenvolvimento de um sistema que atenda a esses dois requisitos de forma integrada.
 
 O sistema proposto basicamente fará uso de duas tecnologias de forma conjunta, a primeira delas refere-se a um aplicativo mobile com o objetivo de auxiliar os tutores na supervisão dos alunos e a segunda trata-se de um pequeno sistema web em que se concentrarão as informações coletadas pelos tutores por meio do app.
