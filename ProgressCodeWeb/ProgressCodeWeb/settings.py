@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'progress_code',
-        'USER': 'root',
+        'USER': 'pcode',
         'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306',
