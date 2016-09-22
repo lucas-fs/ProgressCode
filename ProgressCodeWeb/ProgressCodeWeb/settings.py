@@ -79,13 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'progress_code',
-<<<<<<< HEAD
-        'USER': 'root',
-        'PASSWORD': 'teutudao',
-=======
         'USER': 'pcode',
         'PASSWORD': 'root',
->>>>>>> a4477e838e8b30b233ae79e55c708f56d3d21a57
         'HOST': 'localhost',
         'PORT': '3306',
     }
