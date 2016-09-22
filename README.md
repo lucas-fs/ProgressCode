@@ -36,7 +36,7 @@ pip3 install lxml
 
 ## Criando o banco de dados para a conexão com o Django
 
-**Criar database com nomeada como: "progress_code"**
+**Criar database nomeada como: "progress_code"**
 ```
 CREATE DATABASE progress_code;
 ```
