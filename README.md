@@ -34,6 +34,32 @@ pip3 install defusedxml
 pip3 install lxml
 ```
 
+## Criando o banco de dados para a conexão com o Django
+
+**Criar database nomeada como: "progress_code"**
+```
+CREATE DATABASE progress_code;
+```
+
+**Criar usuário "pcode" com privilégios de root e password "root"**
+```
+CREATE USER 'pcode'@'localhost' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'pcode'@'localhost' WITH GRANT OPTION;
+```
+
+**Configuração do arquivo "settings.py" do projeto Django**
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'progress_code',
+        'USER': 'pcode',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+```
 
 ## Cronograma de atividades
 
