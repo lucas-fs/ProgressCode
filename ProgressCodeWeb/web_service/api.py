@@ -3,6 +3,7 @@ from tastypie.constants import ALL
 from tastypie.authorization import Authorization
 from tastypie import fields
 
+# import das models 
 from web_service.models import Tutor
 from web_service.models import Equipe
 from web_service.models import Inscrito
