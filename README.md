@@ -60,6 +60,47 @@ DATABASES = {
     }
 }
 ```
+## Acessar WebService RESTful
+
+**No webservice só estão liberadas as funções de GET e POST, as demais funções também funcionam mas não estão ativadas no codigo. Abaixo exemplos de GET e POST**
+
+
+OBS.: para relização do POST dos exemplos utilizou-se o plugin do Chrome "Postman", disponível em: [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop)
+
+### GET
+
+**Para interagir com o webservice basta utilizar a url da query que se deseja fazer, exemplo:**
+```
+http://127.0.0.1:8000/api/webservice/model_do_banco/?format=json
+```
+
+**Exemplo de consulta de todos tutores cadastrados:**
+```
+http://127.0.0.1:8000/api/webservice/tutores/?format=json
+```
+
+**Exemplo de consulta do tutor de id "1":**
+```
+http://127.0.0.1:8000/api/webservice/tutores/1/?format=json
+```
+
+**Exemplo de consulta de tutores cujo email contém "lferreira":**
+```
+http://127.0.0.1:8000/api/webservice/tutores/?format=json&email__contains=lferreira
+```
+
+### POST
+
+**Exemplo (imagem) de cadastro de tutor via método POST usando o plugin "Postman"**
+
+- Marcar opção post no lado esquerdo do campo onde é fornecia a URL;
+- Logo abaixo do campo da URL marcar a opção "Body";
+- Com a opção "Body" já marcada selecionar o formato de entrada "raw";
+- Informar os dados do POST no formato JSON;
+- Send.
+
+![Exemplo POST](img.png)
+
 
 ## Cronograma de atividades
 
@@ -67,7 +108,7 @@ DATABASES = {
 | --------|---------|-------|
 | 16/09 | Criação do banco de dados | x |
 | 23/09 | Criação do CRUD do banco de dados | x | 
-| 23/09 | Criação do Web Service RESTful |   |
+| 23/09 | Criação do Web Service RESTful | x |
 | 30/09 | Criação de funções de request do app mobile |   |
 | 30/09 | Criação de funções de response do app mobile |   |
 | 05/10 | Criação de funções de request do sistema web |   |
