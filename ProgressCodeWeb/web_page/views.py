@@ -42,6 +42,16 @@ def tutor_form(request):
 		form = TutorForm()
 	return render(request, 'web_page/tutor_form.html', locals())
 
+def equipe_form(request):
+	if request.method == "POST":
+		form = EquipeForm(request.POST)
+		if form.is_valid():
+			form.save()
+	else:
+		form = EquipeForm()
+	return render(request, 'web_page/equipe_form.html', locals())
+
+
 def encontro_form(request):
 	if request.method == "POST":
 		form = EncontroForm(request.POST)

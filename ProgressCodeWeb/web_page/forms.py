@@ -2,23 +2,26 @@ from django import forms
 from django.contrib import admin
 from web_service.models import *
 
-class EventoForm(forms.ModelForm):
-	class Meta:
-		model = Evento
-		fields = ('nome_evento', 'descricao')
-
 class TutorForm(forms.ModelForm):
 	class Meta:
 		model = Tutor
-		fields = ('nome', 'email', 'senha')
+		fields = ['nome', 'email', 'senha']
+
+class EquipeForm(forms.ModelForm):
+	class Meta:
+		model = Equipe
+		fields = ['descricao', 'membros']
+
+class EventoForm(forms.ModelForm):
+	membros = forms.ModelMultipleChoiceField(queryset=Tutor.objects.all())
+
+	class Meta:
+		model = Evento
+		fields = ['nome_evento']
 
 class EncontroForm(forms.ModelForm):
+	evento = forms.ModelMultipleChoiceField(queryset=Evento.objects.all())
+
 	class Meta:
 		model = Encontro
-		fields = "__all__"
-	def __init__(self, *args, **kwargs):
-		super(EncontroForm, self).__init__(*args, **kwargs)
-		if self.instance:
-			self.fields['evento'].queryset = Evento.objects.all()
-			self.fields['data_realizao'] = forms.CharField()
-
+		fields = ['data_realizao']

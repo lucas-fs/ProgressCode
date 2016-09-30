@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<style>
-	      body{
-	        font-family:Arial,Helvetica,sans-serif;
-	        font-size: 12px;
-	      }
-	</style>
-	<meta charset="utf-8">
-	<title>ProgressCode</title>
-</head>
-<body>
+{% extends "web_page/base.html" %}
+{% block content %}
 	<ul>
 		<li><a href="/form/csv/"><h2>Inserir Inscritos</h2></a></li>
 		<li><a href="/form/event/"><h2>Cadastrar Evento</h2></a></li>
 		<li><a href="/form/tutor/"><h2>Cadastrar novo Tutor</h2></a></li>
 		<li><a href="/form/encontro/"><h2>Cadastrar Encontros</h2></a></li>
 	</ul>
-</body>
-</html>
+{% endblock %}

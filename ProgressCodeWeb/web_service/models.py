@@ -5,6 +5,9 @@ class Tutor(models.Model):
     email = models.EmailField(max_length=254)
     senha = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.nome
+
     class Meta:
         db_table  =  'tutores'
         verbose_name = "tutor"
@@ -13,6 +16,9 @@ class Tutor(models.Model):
 class Equipe(models.Model):
     descricao = models.CharField(max_length=100)
     membros = models.ManyToManyField(Tutor, through='EquipeTutor')
+
+    def __str__(self):
+        return self.descricao
 
     class Meta:
         db_table  =  'equipes'
@@ -33,7 +39,10 @@ class Inscrito(models.Model):
     data_nasc = models.DateField(auto_now=False)
     escola = models.CharField(max_length=100)
 
-    class Meta:
+    def __str__(self):
+        return self.nome
+
+    class Meta: 
         db_table  =  'inscritos'
         verbose_name = "inscrito"
         verbose_name_plural = "inscritos"
@@ -43,6 +52,9 @@ class Evento(models.Model):
     descricao = models.CharField(max_length=200)
     equipes = models.ManyToManyField(Equipe, through='EventoEquipe')
     inscritos = models.ManyToManyField(Inscrito, through='EventoInscrito')
+
+    def __str__(self):
+        return self.nome_evento
 
     class Meta:
         db_table  =  'eventos'
@@ -79,6 +91,9 @@ class Encontro(models.Model):
 class Atividade(models.Model):
     descricao = models.CharField(max_length=200)
     encontro = models.ForeignKey(Encontro, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.descricao
 
     class Meta:
         db_table  =  'atividades'
