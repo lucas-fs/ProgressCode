@@ -15,10 +15,5 @@ class TutorForm(forms.ModelForm):
 class EncontroForm(forms.ModelForm):
 	class Meta:
 		model = Encontro
-		fields = "__all__"
-	def __init__(self, *args, **kwargs):
-		super(EncontroForm, self).__init__(*args, **kwargs)
-		if self.instance:
-			self.fields['evento'].queryset = Evento.objects.all()
-			self.fields['data_realizao'] = forms.CharField()
-
+		fields = ('data_realizao', 'evento')
+		exclude = ('evento')
