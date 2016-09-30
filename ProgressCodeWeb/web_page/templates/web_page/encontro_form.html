@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,3 +20,20 @@
     	</form>
 	{% endblock %}
 </html>
+=======
+{% extends "web_page/base.html" %}
+{% block content %}
+	<h1>Novo encontro</h1>
+	<form method="POST" class="post-form">{% csrf_token %}
+	    <!--{{ form.as_p.nome_evento }}-->
+	    <table>
+			{% for field in form %}
+			<tr>
+				<td>{{ field.label }}: {{ field }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	    <button type="submit" class="save btn btn-default">Guardar</button>
+    </form>
+{% endblock %}
+>>>>>>> afceea53636efadee190c4238bbf289631b42076

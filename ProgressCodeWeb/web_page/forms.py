@@ -16,4 +16,3 @@ class EncontroForm(forms.ModelForm):
 	class Meta:
 		model = Encontro
 		fields = ('data_realizao', 'evento')
-		exclude = ('evento')

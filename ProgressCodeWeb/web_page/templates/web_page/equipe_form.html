@@ -1,6 +1,6 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-    <h1>Cadastro tutor:</h1>
+    <h1>Cadastro equipe:</h1>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Guardar</button>
