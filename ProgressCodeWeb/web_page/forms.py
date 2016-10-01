@@ -16,3 +16,13 @@ class EncontroForm(forms.ModelForm):
 	class Meta:
 		model = Encontro
 		fields = ('data_realizao', 'evento')
+
+class FeedbackForm(forms.ModelForm):
+	class Meta:
+		model = Feedback
+		fields = ('__all__')
+
+class AtividadeForm(forms.ModelForm):
+	class Meta:
+		model = Atividade
+		fields = ('descricao', 'encontro')

@@ -104,9 +104,9 @@ class Feedback(models.Model):
     status = models.IntegerField()
     timestamp = models. DateTimeField(auto_now=True)
     dir_audio = models.FileField(upload_to='uploads/%Y/%m/%d/')
-    tutor = models.ForeignKey(Tutor, on_delete=models.PROTECT)
-    inscrito = models.ForeignKey(Inscrito, on_delete=models.PROTECT)
-    atividade = models.ForeignKey(Atividade, on_delete=models.PROTECT)
+    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+    inscrito = models.ForeignKey(Inscrito, on_delete=models.CASCADE)
+    atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE)
 
     class Meta:
         db_table  =  'feedback'

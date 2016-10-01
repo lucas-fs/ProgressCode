@@ -4,6 +4,9 @@ import csv
 from web_service.models import *
 from .forms import *
 
+def forms(request):
+	return render(request, 'web_page/forms.html', locals())
+
 def index(request):
 	username = passwd = ''
 	if request.POST:
@@ -20,9 +23,6 @@ def csv_reader(request):
 		for i in range(len(tabela)):
 			Inscrito.objects.create(nome=tabela[i][0], data_nasc=tabela[i][1], escola=tabela[i][2])
 	return render(request, 'web_page/csv_reader.html', locals())
-
-def forms(request):
-	return render(request, 'web_page/forms.html', locals())
 
 def evento_form(request):
 	if request.method == "POST":
@@ -42,16 +42,6 @@ def tutor_form(request):
 		form = TutorForm()
 	return render(request, 'web_page/tutor_form.html', locals())
 
-def equipe_form(request):
-	if request.method == "POST":
-		form = EquipeForm(request.POST)
-		if form.is_valid():
-			form.save()
-	else:
-		form = EquipeForm()
-	return render(request, 'web_page/equipe_form.html', locals())
-
-
 def encontro_form(request):
 	if request.method == "POST":
 		form = EncontroForm(request.POST)
@@ -61,3 +51,23 @@ def encontro_form(request):
 	else:
 		form = EncontroForm()
 	return render(request, 'web_page/encontro_form.html', locals())
+
+def feedback_form(request):
+	if request.method == "POST":
+		form = FeedbackForm(request.POST)
+		print(type(form))
+		if form.is_valid():
+			form.save()
+	else:
+		form = FeedbackForm()
+	return render(request, 'web_page/feedback_form.html', locals())
+
+def atividade_form(request):
+	if request.method == "POST":
+		form = AtividadeForm(request.POST)
+		print(type(form))
+		if form.is_valid():
+			form.save()
+	else:
+		form = AtividadeForm()
+	return render(request, 'web_page/atividade_form.html', locals())
