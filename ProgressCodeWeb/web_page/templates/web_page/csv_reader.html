@@ -1,7 +1,7 @@
 {% extends "web_page/base.html" %}
 {% block content %}
 	<h1>Import CSV</h1>
-    <form action="/wservice/" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="csv_file"/>
         <input type="submit" value="Upload"/>
