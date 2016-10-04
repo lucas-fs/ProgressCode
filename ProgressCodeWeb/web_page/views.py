@@ -30,7 +30,9 @@ def evento_form(request):
 
 	if request.method == "POST":
 		form = EventoForm(request.POST)
-		print(request.POST.getlist('check_equipes'))
+		#print(request.POST.getlist('check_equipes'))
+		#print(request.POST.getlist('check_inscritos'))
+
 		if form.is_valid():
 			form.save()
 	else:
