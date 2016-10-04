@@ -4,5 +4,13 @@
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Guardar</button>
+
+        <h3>list</h3>
+        <input type="checkbox" name="list_exp"><label> Experiment : teste1</label>
+        <br>
+        <input type="checkbox" name="list_exp"><label> Experiment : teste2</label>
+        <br>
+        
 	</form>
+
 {% endblock %}

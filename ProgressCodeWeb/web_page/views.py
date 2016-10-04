@@ -27,6 +27,7 @@ def forms(request):
 def evento_form(request):
 	if request.method == "POST":
 		form = EventoForm(request.POST)
+		print(request.POST['list_exp'])
 		if form.is_valid():
 			form.save()
 	else:
