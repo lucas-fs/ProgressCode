@@ -25,9 +25,12 @@ def csv_reader(request):
 	return render(request, 'web_page/csv_reader.html', locals())
 
 def evento_form(request):
+	equipes = Equipe.objects.all()
+	inscritos = Inscrito.objects.all()
+
 	if request.method == "POST":
 		form = EventoForm(request.POST)
-		print(request.POST['list_exp'])
+		print(request.POST.getlist('check_equipes'))
 		if form.is_valid():
 			form.save()
 	else:
