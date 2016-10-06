@@ -7,6 +7,8 @@ urlpatterns = [
 	url(r'^form/csv/$', views.csv_reader),
 	url(r'^form/evento/$', views.evento_form),
 	url(r'^form/tutor/$', views.tutor_form),
+	url(r'^form/equipe/$', views.equipe_form),
+	url(r'^form/inscrito/$', views.inscrito_form),
 	url(r'^form/encontro/$', views.encontro_form),
 	url(r'^form/feedback/$', views.feedback_form),
 	url(r'^form/atividade/$', views.atividade_form)

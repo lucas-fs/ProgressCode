@@ -1,0 +1,25 @@
+{% extends "web_page/base.html" %}
+{% block content %}
+    <h1>New equipe</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th>Tutores</th>
+            </tr>
+            {% for membro in membros %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="check_tutores" value="{{ membro.id }}"><label> {{ membro.nome }}</label>
+                        <br>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <button type="submit" class="save btn btn-default">Guardar</button>
+	</form>
+
+{% endblock %}

@@ -42,7 +42,7 @@ class Inscrito(models.Model):
     def __str__(self):
         return self.nome
 
-    class Meta: 
+    class Meta:
         db_table  =  'inscritos'
         verbose_name = "inscrito"
         verbose_name_plural = "inscritos"
@@ -83,6 +83,9 @@ class Encontro(models.Model):
     data_realizao = models.DateField(auto_now=False)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.data_realizao)
+
     class Meta:
         db_table  =  'encontros'
         verbose_name = "encontro"
@@ -103,7 +106,7 @@ class Atividade(models.Model):
 class Feedback(models.Model):
     status = models.IntegerField()
     timestamp = models. DateTimeField(auto_now=True)
-    dir_audio = models.FileField(upload_to='uploads/%Y/%m/%d/')
+    dir_audio = models.FileField(upload_to='feedbacks/')
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     inscrito = models.ForeignKey(Inscrito, on_delete=models.CASCADE)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE)
