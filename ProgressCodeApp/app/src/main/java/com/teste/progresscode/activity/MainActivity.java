@@ -43,9 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     // urls to load navigation header background image
     // and profile image
-    private static final String urlNavHeaderBg = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
-    private static final String urlProfileImg = "https://lh3.googleusercontent.com/eCtE_G34M9ygdkmOpYvCag1vBARCmZwnVS6rS5t4JLzJ6QgQSBquM0nuTsCpLhYbKljoyS-txg";
-
+    private static final String urlNavHeaderBg = "http://wallup.net/wp-content/uploads/2016/01/161688-minimalism-pattern-abstract-lines-geometry-300x200.jpg";
+    private static final String urlProfileImg = "https://scontent.fpoa3-1.fna.fbcdn.net/v/t1.0-9/13237857_801484059983097_2358801116926512026_n.jpg?oh=afc36f2d4be5d7ebfa3f8aae09a85882&oe=586446BD";
     // index to identify current nav menu item
     public static int navItemIndex = 0;
 
@@ -116,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Ravi Tamada");
-        txtWebsite.setText("www.androidhive.info");
+        txtName.setText("Lucas Ferreira da Silva");
+        txtWebsite.setText("lferreira@inf.ufsm.br");
 
         // loading header background image
         Glide.with(this).load(urlNavHeaderBg)
