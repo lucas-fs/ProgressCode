@@ -3,7 +3,7 @@ from tastypie.constants import ALL
 from tastypie.authorization import Authorization
 from tastypie import fields
 
-# import das models 
+# import das models
 from web_service.models import Tutor
 from web_service.models import Equipe
 from web_service.models import Inscrito
@@ -13,6 +13,7 @@ from web_service.models import EventoEquipe
 from web_service.models import EventoInscrito
 
 
+# LADO 1  - Entidade TUTOR
 class TutorResource(ModelResource):
     class Meta:
         queryset = Tutor.objects.all()
@@ -24,8 +25,9 @@ class TutorResource(ModelResource):
             'email': ALL
         }
 
+# LADO 1 - Entidade Equipe
 class EquipeResource(ModelResource):
-    tutores = fields.ToManyField('web_service.api.resources.EquipeTutorResource', 'equipetutor_set', related_name='equipe', full=True)
+    tutores = fields.ToManyField('web_service.api.EquipeTutorResource', 'equipetutor_set', related_name='equipe', full=True)
     # o parametro equipetutor_set nao se refere ao db_table ou resource_name do model?
 
     class Meta:
@@ -38,14 +40,17 @@ class EquipeResource(ModelResource):
             'membros': ALL
         }
 
+# NxN - Relacao Tutor_Equipe
 class EquipeTutorResource(ModelResource):
-    tutor = fields.ToOneField('mquiz.api.resources.TutorResource', 'tutor', full=True)
-
+    tutor = fields.ToOneField('web_service.api.TutorResource', 'tutor', full=True, use_in = 'list')
+    equipe = fields.ToOneField('web_service.api.EquipeResource', 'equipe', full=True, use_in = 'list')
     class Meta:
+        resource_name = "equipe_tutor"
         queryset = EquipeTutor.objects.all()
         allowed_methods = ['get', 'post']
         authorization = Authorization()
 
+# LADO 1 - Entidade Inscrito
 class InscritoResource(ModelResource):
     class Meta:
         queryset = Inscrito.objects.all()
@@ -58,6 +63,7 @@ class InscritoResource(ModelResource):
             'escola': ALL
         }
 
+# LADO 1 - Entidade Evento
 class EventoResource(ModelResource):
     equipes = fields.ToManyField('web_service.api.resources.EventoEquipeResource', 'eventoequipe_set', related_name='evento', full=True)
     inscritos = fields.ToManyField('web_service.api.resources.EventoInscritoResource', 'eventoinscrito_set', related_name='evento')
@@ -72,6 +78,7 @@ class EventoResource(ModelResource):
             'descricao': ALL,
         }
 
+# NxN - Relacao Evento_Equipe
 class EventoEquipeResource(ModelResource):
     equipe = fields.ToOneField('mquiz.api.resources.EquipeResource', 'equipe', full=True)
     # adicionar mais um atributo para outro lado da relacao?
@@ -80,7 +87,3 @@ class EventoEquipeResource(ModelResource):
         queryset = EventoEquipe.objects.all()
         allowed_methods = ['get', 'post']
         authorization = Authorization()
-
-class EventoInscritoResource(ModelResource):
-    class Meta:
-        pass
