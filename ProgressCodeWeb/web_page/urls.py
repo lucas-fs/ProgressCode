@@ -11,5 +11,15 @@ urlpatterns = [
 	url(r'^form/inscrito/$', views.inscrito_form),
 	url(r'^form/encontro/$', views.encontro_form),
 	url(r'^form/feedback/$', views.feedback_form),
-	url(r'^form/atividade/$', views.atividade_form)
+	url(r'^form/atividade/$', views.atividade_form),
+
+
+	url(r'^form/choiceInsc/$', views.choiceInsc),
+
+	url(r'^list/inscritos/$', views.inscritos_list),
+	url(r'^list/feedbacks/$', views.feedbacks_list),
+	url(r'^list/tutores/$', views.tutores_list),
+	url(r'^list/eventos/$', views.eventos_list),
+	url(r'^list/encontros/$', views.encontros_list),
+	url(r'^list/atividades/$', views.atividades_list)
 ]

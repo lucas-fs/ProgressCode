@@ -1,0 +1,21 @@
+{% extends "web_page/base.html" %}
+{% block content %}
+	<h1 align="center">Inscritos</h1>
+    <table align="center">
+		<tr>
+			<th>N⁰ Inscrito</th>
+			<th>Nome</th>
+			<th>Data do Nascimento</th>
+			<th>Escola</th>
+		</tr><br>
+		{% for item in inscritos %}
+		<tr>
+			<td>{{ item.id }}</td>
+			<td>{{ item.nome }}</td>
+			<td>{{ item.data_nasc }}</td>
+			<td>{{ item.escola }}</td>
+		</tr>
+		{% endfor %}
+	</table><br>
+	<a href="/form"><input type="button" value="Voltar para o Menu"/></a>
+{% endblock %}

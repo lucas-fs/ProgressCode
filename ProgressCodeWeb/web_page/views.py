@@ -58,7 +58,6 @@ def equipe_form(request):
 			for membro in request.POST.getlist('check_tutores'):
 				eqTut = EquipeTutor(equipe_id=equipe.id, tutor_id=membro)
 				eqTut.save()
-
 	else:
 		form = EquipeForm()
 	return render(request, 'web_page/equipe_form.html', locals())
@@ -107,3 +106,55 @@ def atividade_form(request):
 	else:
 		form = AtividadeForm()
 	return render(request, 'web_page/atividade_form.html', locals())
+
+
+## Escolha de inserção de inscrito
+def choiceInsc(request):
+	return render(request, "web_page/escolhaInsc.html", locals())
+
+## Funções responsáveis pelas views tables
+
+def inscritos_list(request):
+	inscritos = Inscrito.objects.all()
+	return render(request, "web_page/inscritos_list.html", locals())
+
+def tutores_list(request):
+	tutores = Tutor.objects.all()
+	if request.method == "POST":
+		for tutor in request.POST.getlist("check_tutores"):
+			Tutor.objects.filter(id=tutor).delete()
+
+	return render(request, "web_page/tutor_list.html", locals())
+
+def feedbacks_list(request):
+	feedbacks = Feedback.objects.all()
+	return render(request, "web_page/feedback_list.html", locals())
+
+def eventos_list(request):
+	eventos = Evento.objects.all()
+	if request.method == "POST":
+		for evento in request.POST.getlist("check_eventos"):
+			Evento.objects.filter(id=evento).delete()
+	return render(request, "web_page/evento_list.html", locals())
+
+def encontros_list(request):
+	id_recebido = request.POST.get("evento_id")
+	print(id_recebido)
+	evento_atual = Evento.objects.filter(id=id_recebido)
+	#aux_nome = evento_atual[0].nome_evento
+	encontros = Encontro.objects.filter(evento_id=id_recebido)
+	if request.method == "POST":
+		for encont in request.POST.getlist("check_encontros"):
+			Encontro.objects.filter(id=encont).delete()
+	return render(request, "web_page/encontro_list.html", locals())
+
+def atividades_list(request):
+	id_recebido = request.GET.get("encontro_id")
+	print(id_recebido)
+	encontro_atual = Encontro.objects.filter(id=id_recebido)
+	#aux_data = encontro_atual[0].data_realizao
+	atividades = Atividade.objects.filter(encontro_id=id_recebido)
+	if request.method == "POST":
+		for ativ in request.POST.getlist("check_atividades"):
+			Atividade.objects.filter(id=ativ).delete()
+	return render(request, "web_page/atividades_list.html", locals())	
