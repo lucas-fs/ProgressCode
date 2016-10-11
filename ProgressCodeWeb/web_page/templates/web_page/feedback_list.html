@@ -1,0 +1,29 @@
+{% extends "web_page/base.html" %}
+{% block content %}
+<h1 align="center">Feedbacks</h1>
+<table align="center">
+		<tr>
+			<th>N⁰ Audio</th>
+			<th>Status</th>
+			<th>Data do Registro</th>
+			<th>audio</th>
+			<th>Atividade</th>
+			<th>Inscrito</th>
+			<th>Tutor</th>
+		</tr><br><br>
+		{% for item in feedbacks %}
+		<tr>
+			<td>{{ item.id }}</td>
+			<td>{{ item.status }}</td>
+			<td>{{ item.timestamp }}</td>
+			<td>
+				<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
+			</td>
+			<td>{{ item.atividade_id }}</td>
+			<td>{{ item.inscrito_id }}</td>
+			<td>{{ item.tutor_id}}</td>
+		</tr>
+		{% endfor %}
+	</table><br>
+	<a href="/form"><input type="button" value="Voltar para o Menu"/></a>
+{% endblock %}
