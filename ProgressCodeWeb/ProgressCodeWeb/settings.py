@@ -121,6 +121,7 @@ USE_TZ = True
 
 DATE_INPUT_FORMATS = ('%d/%m/%Y','%d-%m-%Y','%Y-%m-%d')
 
+TASTYPIE_DEFAULT_FORMATS = ['json']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
