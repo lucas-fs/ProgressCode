@@ -7,23 +7,44 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Inscrito {
-    @SerializedName("nome")
-    private String nome;
     @SerializedName("data_nasc")
     private String dataNasc;
+
     @SerializedName("escola")
     private String escola;
-    @SerializedName("id")
-    private Integer id;
 
-    public Inscrito(String nome, String dataNasc, String escola, Integer id) {
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("nome")
+    private String nome;
+
+    @SerializedName("resource_uri")
+    private String resourceUri;
+
+    public Inscrito(String nome, String dataNasc, String escola, Integer id, String resourceUri) {
         this.nome = nome;
         this.dataNasc = dataNasc;
         this.escola = escola;
         this.id = id;
+        this.resourceUri = resourceUri;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getResourceUri() {
+        return resourceUri;
+    }
+
+    public void setResourceUri(String resourceUri) {
+        this.resourceUri = resourceUri;
+    }
 
     public String getNome() {
         return nome;
@@ -49,11 +70,4 @@ public class Inscrito {
         this.escola = escola;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 }

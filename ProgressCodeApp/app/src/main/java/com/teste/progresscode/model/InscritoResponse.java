@@ -9,44 +9,30 @@ import java.util.List;
  */
 
 public class InscritoResponse {
-    @SerializedName("page")
-    private int page;
-    @SerializedName("results")
-    private List<Inscrito> results;
-    @SerializedName("total_results")
-    private int totalResults;
-    @SerializedName("total_pages")
-    private int totalPages;
+    @SerializedName("meta")
+    private Meta meta;
 
-    public int getPage() {
-        return page;
+    @SerializedName("objects")
+    private List<Inscrito> inscritos;
+
+    public InscritoResponse(Meta meta, List<Inscrito> inscritos) {
+        this.meta = meta;
+        this.inscritos = inscritos;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public Meta getMeta() {
+        return meta;
     }
 
-    public List<Inscrito> getResults() {
-        return results;
+    public void setMeta(Meta meta) {
+        this.meta = meta;
     }
 
-    public void setResults(List<Inscrito> results) {
-        this.results = results;
+    public List<Inscrito> getInscritos() {
+        return inscritos;
     }
 
-    public int getTotalResults() {
-        return totalResults;
-    }
-
-    public void setTotalResults(int totalResults) {
-        this.totalResults = totalResults;
-    }
-
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
+    public void setInscritos(List<Inscrito> inscritos) {
+        this.inscritos = inscritos;
     }
 }

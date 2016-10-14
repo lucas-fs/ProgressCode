@@ -47,6 +47,11 @@ public class InscritoAdapter extends RecyclerView.Adapter<InscritoAdapter.Inscri
         this.context = context;
     }
 
+    public InscritoAdapter(int rowLayout, Context context) {
+        this.rowLayout = rowLayout;
+        this.context = context;
+    }
+
     @Override
     public InscritoAdapter.InscritoViewHolder onCreateViewHolder(ViewGroup parent,
                                                             int viewType) {

@@ -11,11 +11,16 @@ import retrofit2.http.Path;
  */
 
 public interface ApiInterface {
+
+    // Retorna inscrito com id informado na consulta
     @GET("inscrito/{id}")
     Call<InscritoResponse> getInscritoId(@Path("id") int id);
 
+    // Retorna todos inscritos cadastrados
     @GET("inscrito/")
-    Call<InscritoResponse> getInscritos();
+    Call<InscritoResponse> getAllInscritos();
+
+
 
 }
 
