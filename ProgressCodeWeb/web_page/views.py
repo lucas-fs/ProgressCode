@@ -141,7 +141,7 @@ def encontros_list(request):
 	id_recebido = request.POST.get("evento_id")
 	print(id_recebido)
 	evento_atual = Evento.objects.filter(id=id_recebido)
-	#aux_nome = evento_atual[0].nome_evento
+	aux_nome = evento_atual[0].nome_evento
 	encontros = Encontro.objects.filter(evento_id=id_recebido)
 	if request.method == "POST":
 		for encont in request.POST.getlist("check_encontros"):
@@ -149,10 +149,10 @@ def encontros_list(request):
 	return render(request, "web_page/encontro_list.html", locals())
 
 def atividades_list(request):
-	id_recebido = request.GET.get("encontro_id")
+	id_recebido = request.POST.get("encontro_id")
 	print(id_recebido)
 	encontro_atual = Encontro.objects.filter(id=id_recebido)
-	#aux_data = encontro_atual[0].data_realizao
+	aux_data = encontro_atual[0].data_realizao
 	atividades = Atividade.objects.filter(encontro_id=id_recebido)
 	if request.method == "POST":
 		for ativ in request.POST.getlist("check_atividades"):
