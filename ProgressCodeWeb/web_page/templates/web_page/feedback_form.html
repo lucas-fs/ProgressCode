@@ -5,6 +5,6 @@
     <form action="/form/feedback/" method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
         {{ form.as_p }}
 		<button type="submit" class="save btn btn-default" name="save_fb">Guardar</button>
-	</form>
+	</form><br>
 	<a href="/form"><input type="button" value="Voltar para o Menu"/></a>
 {% endblock %}

@@ -1,21 +1,26 @@
 {% extends "web_page/base.html" %}
 {% block content %}
+<form action="/list/inscritos/" method="post" class="post-form">{% csrf_token %}
 	<h1 align="center">Inscritos</h1>
     <table align="center">
 		<tr>
+			<th></th>
 			<th>N⁰ Inscrito</th>
 			<th>Nome</th>
 			<th>Data do Nascimento</th>
 			<th>Escola</th>
 		</tr><br>
 		{% for item in inscritos %}
-		<tr>
-			<td>{{ item.id }}</td>
-			<td>{{ item.nome }}</td>
-			<td>{{ item.data_nasc }}</td>
-			<td>{{ item.escola }}</td>
-		</tr>
+			<tr>
+				<td><input type="checkbox" name="check_inscritos" value="{{ item.id }}"></td>
+				<td>{{ item.id }}</td>
+				<td>{{ item.nome }}</td>
+				<td>{{ item.data_nasc }}</td>
+				<td>{{ item.escola }}</td>
+			</tr>
 		{% endfor %}
 	</table><br>
+	<button align="center" type="submit" class="del btn btn-default">Deletar Inscrito</button>
+</form><br>
 	<a href="/form"><input type="button" value="Voltar para o Menu"/></a>
 {% endblock %}

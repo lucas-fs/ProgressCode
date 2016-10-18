@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-import csv
+from django.conf import settings
 
 from web_service.models import *
 from .forms import *
+
+import csv, os
 
 def index(request):
 	username = passwd = ''
@@ -138,8 +140,12 @@ def choiceInsc(request):
 @login_required
 def inscritos_list(request):
 	inscritos = Inscrito.objects.all()
+	if request.method == "POST":
+		for inscrito in request.POST.getlist("check_inscritos"):
+			Inscrito.objects.filter(id=inscrito).delete()
 	return render(request, "web_page/inscritos_list.html", locals())
 
+@login_required
 def tutores_list(request):
 	tutores = Tutor.objects.all()
 	if request.method == "POST":
@@ -150,7 +156,16 @@ def tutores_list(request):
 
 @login_required
 def feedbacks_list(request):
-	teste = Feedback.objects.raw("select f.id, f.status, f.timestamp, f.dir_audio, a.descricao, i.nome as nome_i, t.nome as nome_t from feedback f inner join inscritos i on f.inscrito_id = i.id inner join tutores t on f.tutor_id = t.id inner join atividades a on f.atividade_id = a.id")
+	fb_result = Feedback.objects.raw("select f.id, f.status, f.timestamp, f.dir_audio, a.descricao, i.nome as nome_i, t.nome as nome_t from feedback f inner join inscritos i on f.inscrito_id = i.id inner join tutores t on f.tutor_id = t.id inner join atividades a on f.atividade_id = a.id")
+
+	if request.method == "POST":
+		for feedback in request.POST.getlist("check_fb"):
+			teste = Feedback.objects.filter(id=feedback).values("dir_audio")
+			path = os.path.join(settings.BASE_DIR, 'media') + "/" + teste[0]['dir_audio']
+			if os.path.exists(path):
+				os.remove(path)
+			Feedback.objects.filter(id=feedback).delete()
+
 	return render(request, "web_page/feedback_list.html", locals())
 
 @login_required
@@ -164,7 +179,6 @@ def eventos_list(request):
 @login_required
 def encontros_list(request):
 	id_recebido = request.POST.get("evento_id")
-	print(id_recebido)
 	evento_atual = Evento.objects.filter(id=id_recebido)
 	aux_nome = evento_atual[0].nome_evento
 	encontros = Encontro.objects.filter(evento_id=id_recebido)
@@ -176,7 +190,6 @@ def encontros_list(request):
 @login_required
 def atividades_list(request):
 	id_recebido = request.POST.get("encontro_id")
-	print(id_recebido)
 	encontro_atual = Encontro.objects.filter(id=id_recebido)
 	aux_data = encontro_atual[0].data_realizao
 	atividades = Atividade.objects.filter(encontro_id=id_recebido)

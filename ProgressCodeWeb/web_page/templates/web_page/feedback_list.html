@@ -1,8 +1,10 @@
 {% extends "web_page/base.html" %}
 {% block content %}
+<form action="/list/feedbacks/" method="post" class="post-form">{% csrf_token %}
 	<h1 align="center">Feedbacks</h1>
 	<table align="center">
 		<tr>
+			<th></th>
 			<th>N⁰ Audio</th>
 			<th>Status</th>
 			<th>Data do Registro</th>
@@ -11,19 +13,22 @@
 			<th>Inscrito</th>
 			<th>Tutor</th>
 		</tr><br><br>
-		{% for item in teste %}
-		<tr>
-			<td>{{ item.id }}</td>
-			<td>{{ item.status }}</td>
-			<td>{{ item.timestamp }}</td>
-			<td>
-				<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
-			</td>
-			<td>{{ item.descricao }}</td>
-			<td>{{ item.nome_i }}</td>
-			<td>{{ item.nome_t }}</td>
-		</tr>
+		{% for item in fb_result %}
+			<tr>
+				<td><input type="checkbox" name="check_fb" value="{{ item.id }}"></td>
+				<td>{{ item.id }}</td>
+				<td>{{ item.status }}</td>
+				<td>{{ item.timestamp }}</td>
+				<td>
+					<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
+				</td>
+				<td>{{ item.descricao }}</td>
+				<td>{{ item.nome_i }}</td>
+				<td>{{ item.nome_t }}</td>
+			</tr>
 		{% endfor %}
 	</table><br>
+	<button align="center" type="submit" class="del btn btn-default">Deletar Feedback</button>
+</form><br>
 	<a href="/form"><input type="button" value="Voltar para o Menu"/></a>
 {% endblock %}
