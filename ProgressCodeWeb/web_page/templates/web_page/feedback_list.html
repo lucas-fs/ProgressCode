@@ -1,7 +1,7 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-<h1 align="center">Feedbacks</h1>
-<table align="center">
+	<h1 align="center">Feedbacks</h1>
+	<table align="center">
 		<tr>
 			<th>N⁰ Audio</th>
 			<th>Status</th>
@@ -11,7 +11,7 @@
 			<th>Inscrito</th>
 			<th>Tutor</th>
 		</tr><br><br>
-		{% for item in feedbacks %}
+		{% for item in teste %}
 		<tr>
 			<td>{{ item.id }}</td>
 			<td>{{ item.status }}</td>
@@ -19,9 +19,9 @@
 			<td>
 				<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
 			</td>
-			<td>{{ item.atividade_id }}</td>
-			<td>{{ item.inscrito_id }}</td>
-			<td>{{ item.tutor_id}}</td>
+			<td>{{ item.descricao }}</td>
+			<td>{{ item.nome_i }}</td>
+			<td>{{ item.nome_t }}</td>
 		</tr>
 		{% endfor %}
 	</table><br>

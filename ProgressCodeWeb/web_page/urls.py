@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', views.index),
+	url(r'^logout/$', views.logout),
 	url(r'^form/$', views.forms),
 	url(r'^form/csv/$', views.csv_reader),
 	url(r'^form/evento/$', views.evento_form),

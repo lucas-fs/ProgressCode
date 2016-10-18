@@ -1,19 +1,33 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import auth
 import csv
 
 from web_service.models import *
 from .forms import *
-
-def forms(request):
-	return render(request, 'web_page/forms.html', locals())
 
 def index(request):
 	username = passwd = ''
 	if request.POST:
 			username = request.POST.get('username')
 			passwd = request.POST.get('passwd')
+			user = authenticate(username=username, password=passwd)
+			if user is not None:
+				login(request, user)
+				return render(request, 'web_page/forms.html', locals())
 	return render(request, 'web_page/index.html', locals())
 
+@login_required
+def logout(request):
+	auth.logout(request)
+	return render(request, 'web_page/logout.html', locals())
+
+@login_required
+def forms(request):
+	return render(request, 'web_page/forms.html', locals())
+
+@login_required
 def csv_reader(request):
 	tabela = []
 	if request.POST and request.FILES:
@@ -24,6 +38,7 @@ def csv_reader(request):
 			Inscrito.objects.create(nome=tabela[i][0], data_nasc=tabela[i][1], escola=tabela[i][2])
 	return render(request, 'web_page/csv_reader.html', locals())
 
+@login_required
 def evento_form(request):
 	equipes = Equipe.objects.all()
 	inscritos = Inscrito.objects.all()
@@ -46,6 +61,7 @@ def evento_form(request):
 		form = EventoForm()
 	return render(request, 'web_page/evento_form.html', locals())
 
+@login_required
 def equipe_form(request):
 	membros = Tutor.objects.all()
 
@@ -62,6 +78,7 @@ def equipe_form(request):
 		form = EquipeForm()
 	return render(request, 'web_page/equipe_form.html', locals())
 
+@login_required
 def tutor_form(request):
 	if request.method == "POST":
 		form = TutorForm(request.POST)
@@ -71,6 +88,7 @@ def tutor_form(request):
 		form = TutorForm()
 	return render(request, 'web_page/tutor_form.html', locals())
 
+@login_required
 def encontro_form(request):
 	if request.method == "POST":
 		form = EncontroForm(request.POST)
@@ -80,6 +98,7 @@ def encontro_form(request):
 		form = EncontroForm()
 	return render(request, 'web_page/encontro_form.html', locals())
 
+@login_required
 def inscrito_form(request):
 	if request.method == "POST":
 		form = InscritoForm(request.POST)
@@ -89,6 +108,7 @@ def inscrito_form(request):
 		form = InscritoForm()
 	return render(request, 'web_page/inscrito_form.html', locals())
 
+@login_required
 def feedback_form(request):
 	if request.method == "POST":
 		form = FeedbackForm(request.POST, request.FILES)
@@ -98,6 +118,7 @@ def feedback_form(request):
 		form = FeedbackForm()
 	return render(request, 'web_page/feedback_form.html', locals())
 
+@login_required
 def atividade_form(request):
 	if request.method == "POST":
 		form = AtividadeForm(request.POST)
@@ -109,11 +130,12 @@ def atividade_form(request):
 
 
 ## Escolha de inserção de inscrito
+@login_required
 def choiceInsc(request):
 	return render(request, "web_page/escolhaInsc.html", locals())
 
 ## Funções responsáveis pelas views tables
-
+@login_required
 def inscritos_list(request):
 	inscritos = Inscrito.objects.all()
 	return render(request, "web_page/inscritos_list.html", locals())
@@ -126,10 +148,12 @@ def tutores_list(request):
 
 	return render(request, "web_page/tutor_list.html", locals())
 
+@login_required
 def feedbacks_list(request):
-	feedbacks = Feedback.objects.all()
+	teste = Feedback.objects.raw("select f.id, f.status, f.timestamp, f.dir_audio, a.descricao, i.nome as nome_i, t.nome as nome_t from feedback f inner join inscritos i on f.inscrito_id = i.id inner join tutores t on f.tutor_id = t.id inner join atividades a on f.atividade_id = a.id")
 	return render(request, "web_page/feedback_list.html", locals())
 
+@login_required
 def eventos_list(request):
 	eventos = Evento.objects.all()
 	if request.method == "POST":
@@ -137,6 +161,7 @@ def eventos_list(request):
 			Evento.objects.filter(id=evento).delete()
 	return render(request, "web_page/evento_list.html", locals())
 
+@login_required
 def encontros_list(request):
 	id_recebido = request.POST.get("evento_id")
 	print(id_recebido)
@@ -148,6 +173,7 @@ def encontros_list(request):
 			Encontro.objects.filter(id=encont).delete()
 	return render(request, "web_page/encontro_list.html", locals())
 
+@login_required
 def atividades_list(request):
 	id_recebido = request.POST.get("encontro_id")
 	print(id_recebido)
