@@ -30,6 +30,9 @@ import com.teste.progresscode.fragment.PhotosFragment;
 import com.teste.progresscode.fragment.SettingsFragment;
 import com.teste.progresscode.other.CircleTransform;
 
+/**
+ * Create by Lucas Ferreira da Silva
+ * */
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
-    // urls to load navigation header background image
-    // and profile image
+    // Urls para download das imagens do header do menu drawer
     private static final String urlNavHeaderBg = "http://wallup.net/wp-content/uploads/2016/01/161688-minimalism-pattern-abstract-lines-geometry-300x200.jpg";
     private static final String urlProfileImg = "https://scontent.fpoa3-1.fna.fbcdn.net/v/t1.0-9/13237857_801484059983097_2358801116926512026_n.jpg?oh=afc36f2d4be5d7ebfa3f8aae09a85882&oe=586446BD";
-    // index to identify current nav menu item
+
+    // Indice do item atual do menu
     public static int navItemIndex = 0;
 
-    // tags used to attach the fragments
+    // Tags usadas para anexar (attach) um fragment
     private static final String TAG_HOME = "home";
     private static final String TAG_PHOTOS = "photos";
     private static final String TAG_MOVIES = "movies";
@@ -56,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
 
-    // toolbar titles respected to selected nav menu item
+    // Titulos do toolbar com os respectivos itens selecionados no menu
     private String[] activityTitles;
 
-    // flag to load home fragment when user presses back key
+    // Flag para carregar o fragment home quando o usuario preciona o botão de voltar
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
 
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -77,16 +81,17 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        // Navigation view header
+        // Header do navigation view
         navHeader = navigationView.getHeaderView(0);
         txtName = (TextView) navHeader.findViewById(R.id.name);
         txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
 
-        // load toolbar titles from string resources
+        // Carrega os titulos do toolbar de resources string
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
+        // Seta o listener do FloatingActionButton
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,10 +100,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // load nav menu header data
+        // Carrega os dados do header do menu drawer
         loadNavHeader();
 
-        // initializing navigation menu
+        // Inicializa o menu drawer
         setUpNavigationView();
 
         if (savedInstanceState == null) {
@@ -108,23 +113,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /***
-     * Load navigation menu header information
-     * like background image, profile image
-     * name, website, notifications action view (dot)
+    /*** Carrega informacoes do menu drawer como:
+     * background, imagem de perfil, nome, website(email),
+     * notifications action view (ponto)
      */
+
     private void loadNavHeader() {
-        // name, website
+
+        // nome, website
         txtName.setText("Lucas Ferreira da Silva");
         txtWebsite.setText("lferreira@inf.ufsm.br");
 
-        // loading header background image
+        // Carrega a imagem de background do header
         Glide.with(this).load(urlNavHeaderBg)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgNavHeaderBg);
 
-        // Loading profile image
+        // Carrega a imagem de perfil do header
         Glide.with(this).load(urlProfileImg)
                 .crossFade()
                 .thumbnail(0.5f)
@@ -132,35 +138,39 @@ public class MainActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
 
-        // showing dot next to notifications label
+        // Mostra o ponto de proximo no label notifications
         navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
     }
 
     /***
-     * Returns respected fragment that user
-     * selected from navigation menu
+     * Retorna o respectivo fragment que o
+     * usuario selecionou no menu drawer
      */
     private void loadHomeFragment() {
+
         // selecting appropriate nav menu item
         selectNavMenu();
 
-        // set toolbar title
+        // Seta o titulo do toolbar
         setToolbarTitle();
 
-        // if user select the current navigation menu again, don't do anything
-        // just close the navigation drawer
+        // Se o usuario selecionar o navigation menu atual denovo, nao faz nada apenas fecha o menu
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
             drawer.closeDrawers();
 
-            // show or hide the fab button
+            // Mostra ou oculta o fab
             toggleFab();
             return;
         }
 
-        // Sometimes, when fragment has huge data, screen seems hanging
-        // when switching between navigation menus
-        // So using runnable, the fragment is loaded with cross fade effect
-        // This effect can be seen in GMail app
+        /***
+         * As vezes, quando fragmento tem dados muito grandes, a tela parece
+         * "pendurada" ao alternar entre menus de navegação.
+         * Então, usando runnable, o fragmento é carregado com
+         * efeito de cross fade
+         * Este efeito pode ser visto no app do GMail
+         */
+
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
@@ -174,21 +184,22 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        // If mPendingRunnable is not null, then add to the message queue
+        // Se mPendingRunnable nao e null, entao adiciona a mensagem na fila
         if (mPendingRunnable != null) {
             mHandler.post(mPendingRunnable);
         }
 
-        // show or hide the fab button
+        // Mostra ou oculta o fab
         toggleFab();
 
-        //Closing drawer on item click
+        // Fecha o menu se um item foi selecionado
         drawer.closeDrawers();
 
-        // refresh toolbar menu
+        // Refresh toolbar menu
         invalidateOptionsMenu();
     }
 
+    // Retorna o fragment correspondente ao item selecionado
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case 0:
@@ -217,60 +228,70 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Seta o titulo do toolbar conforme o item selecionado no menu
     private void setToolbarTitle() {
         getSupportActionBar().setTitle(activityTitles[navItemIndex]);
     }
 
+    // Troca o estado do item selecionado no menu para "checked"
     private void selectNavMenu() {
         navigationView.getMenu().getItem(navItemIndex).setChecked(true);
     }
 
     private void setUpNavigationView() {
-        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        //Seta o Navigation View Item Selected Listener para tratar o click no menu drawer
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
-            // This method will trigger on item Click of navigation menu
+            // Este metodo sera disparado quando um item for selecionado no menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                //Check to see which item was being clicked and perform appropriate action
+                // Testa qual item estava sendo clicado e executa a ação apropriada
                 switch (menuItem.getItemId()) {
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
+
+                    // Substitui o main content com o ContentFragment
                     case R.id.nav_home:
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
+
                     case R.id.nav_photos:
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_PHOTOS;
                         break;
+
                     case R.id.nav_movies:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_MOVIES;
                         break;
+
                     case R.id.nav_notifications:
                         navItemIndex = 3;
                         CURRENT_TAG = TAG_NOTIFICATIONS;
                         break;
+
                     case R.id.nav_settings:
                         navItemIndex = 4;
                         CURRENT_TAG = TAG_SETTINGS;
                         break;
+
                     case R.id.nav_about_us:
-                        // launch new intent instead of loading fragment
+                        // Inicia uma nova activity ao inves de um fragment
                         startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
                         drawer.closeDrawers();
                         return true;
+
                     case R.id.nav_privacy_policy:
-                        // launch new intent instead of loading fragment
+                        // Inicia uma nova activity ao inves de um fragment
                         startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
                         drawer.closeDrawers();
                         return true;
+
                     default:
                         navItemIndex = 0;
                 }
 
-                //Checking if the item is in checked state or not, if not make it in checked state
+                // Testa se o item esta no estado selecionado ou nao, se não faz ele ficar no estado de selecionado
                 if (menuItem.isChecked()) {
                     menuItem.setChecked(false);
                 } else {
@@ -289,21 +310,21 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                // Metodo disparado quando o menu e fechado
                 super.onDrawerClosed(drawerView);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+                // Metodo disparado quando o menu e aberto
                 super.onDrawerOpened(drawerView);
             }
         };
 
-        //Setting the actionbarToggle to drawer layout
-        drawer.setDrawerListener(actionBarDrawerToggle);
+        // Seta o actionbarToggle para o drawer layout
+        drawer.addDrawerListener(actionBarDrawerToggle);
 
-        //calling sync state is necessary or else your hamburger icon wont show up
+        // Chamar o estado de sincronizacao e necessario senao o icone nao ira aparecer
         actionBarDrawerToggle.syncState();
     }
 
@@ -314,11 +335,10 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // This code loads home fragment when back key is pressed
-        // when user is in other fragment than home
+        // Este codigo carrega o fragment home quando o boto de voltar e precionado
+        // Quando o usuario estiver em outro fragmento a nao ser o home
         if (shouldLoadHomeFragOnBackPress) {
-            // checking if user is on other navigation menu
-            // rather than home
+            // Verifica se o usuario esta em outro item do menu a nao ser o home
             if (navItemIndex != 0) {
                 navItemIndex = 0;
                 CURRENT_TAG = TAG_HOME;
@@ -332,14 +352,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Infla o menu; isto acrescenta itens ao action bar se ele estiver presente.
 
-        // show menu only when home fragment is selected
+        // Mostra o menu somente quando o fragment home for selecionado
         if (navItemIndex == 0) {
             getMenuInflater().inflate(R.menu.main, menu);
         }
 
-        // when fragment is notifications, load the menu created for notifications
+        // Quando o fragment for notifications carrega o menu criado para notifications
         if (navItemIndex == 3) {
             getMenuInflater().inflate(R.menu.notifications, menu);
         }
@@ -348,9 +368,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Trata os item do action bar clicados. O action bar vai tratar automaticamente os clicks no botao Home/Up,
+        // contanto que se especifique uma atividade pai no AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -359,14 +379,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        // user is in notifications fragment
-        // and selected 'Mark all as Read'
+        // O usuario esta no fragment notifications e seleciona 'Mark all as Read'
         if (id == R.id.action_mark_all_read) {
             Toast.makeText(getApplicationContext(), "All notifications marked as read!", Toast.LENGTH_LONG).show();
         }
 
-        // user is in notifications fragment
-        // and selected 'Clear All'
+        // O usuario esta no fragment notifications e seleciona 'Clear All'
         if (id == R.id.action_clear_notifications) {
             Toast.makeText(getApplicationContext(), "Clear all notifications!", Toast.LENGTH_LONG).show();
         }
@@ -374,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // show or hide the fab
+    // Mostra ou oculta o fab
     private void toggleFab() {
         if (navItemIndex == 0)
             fab.show();

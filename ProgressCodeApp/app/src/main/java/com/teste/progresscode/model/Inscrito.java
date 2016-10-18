@@ -3,7 +3,7 @@ package com.teste.progresscode.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by lucas on 11/10/16.
+ * Created by Lucas Ferreira da Silva.
  */
 
 public class Inscrito {
