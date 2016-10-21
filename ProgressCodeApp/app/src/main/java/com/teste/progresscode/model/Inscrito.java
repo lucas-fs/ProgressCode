@@ -30,6 +30,9 @@ public class Inscrito {
         this.resourceUri = resourceUri;
     }
 
+    public Inscrito() {
+    }
+
     public void setId(int id) {
         this.id = id;
     }

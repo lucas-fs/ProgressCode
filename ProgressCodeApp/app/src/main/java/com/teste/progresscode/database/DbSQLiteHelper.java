@@ -23,7 +23,7 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
     // SQL de criacao das tabelas
     public static final String CREATE_TABLE_TUTOR = "CREATE TABLE " +
             "tutor (" +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "id INTEGER PRIMARY KEY, " +
             "email TEXT NOT NULL, " +
             "nome TEXT NOT NULL, " +
             "senha TEXT NOT NULL" +
@@ -31,20 +31,20 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_TABLE_EQUIPE = "CREATE TABLE " +
             "equipe (" +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "id INTEGER PRIMARY KEY, " +
             "descricao TEXT" +
             ");";
 
     public static final String CREATE_TABLE_EVENTO = "CREATE TABLE " +
             "evento (" +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "id INTEGER PRIMARY KEY, " +
             "nome_evento TEXT NOT NULL, " +
             "descricao TEXT" +
             ");";
 
     public static final String CREATE_TABLE_INSCRITOS = "CREATE TABLE " +
             "inscritos (" +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "id INTEGER PRIMARY KEY, " +
             "data_nasc TEXT, " +
             "nome TEXT NOT NULL, " +
             "escola TEXT" +
@@ -52,7 +52,7 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_TABLE_ENCONTRO = "CREATE TABLE " +
             "encontro (" +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "id INTEGER PRIMARY KEY, " +
             "data_realizacao TEXT, " +
             "id_evento INTEGER NOT NULL, " +
             "FOREIGN KEY(id_evento) REFERENCES evento(id)" +
@@ -60,7 +60,7 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_TABLE_ATIVIDADES = "CREATE TABLE " +
             "atividades(" +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "id INTEGER PRIMARY KEY, " +
             "descricao TEXT NOT NULL, " +
             "id_encontro INTEGER NOT NULL, " +
             "FOREIGN KEY(id_encontro) REFERENCES encontro(id)" +
