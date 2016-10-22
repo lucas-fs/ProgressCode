@@ -24,10 +24,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.teste.progresscode.R;
 import com.teste.progresscode.fragment.HomeFragment;
-import com.teste.progresscode.fragment.MoviesFragment;
-import com.teste.progresscode.fragment.NotificationsFragment;
-import com.teste.progresscode.fragment.PhotosFragment;
-import com.teste.progresscode.fragment.SettingsFragment;
 import com.teste.progresscode.other.CircleTransform;
 
 /**
@@ -53,10 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Tags usadas para anexar (attach) um fragment
     private static final String TAG_HOME = "home";
-    private static final String TAG_PHOTOS = "photos";
-    private static final String TAG_MOVIES = "movies";
-    private static final String TAG_NOTIFICATIONS = "notifications";
-    private static final String TAG_SETTINGS = "settings";
+
     public static String CURRENT_TAG = TAG_HOME;
 
     // Titulos do toolbar com os respectivos itens selecionados no menu
@@ -206,23 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 // home
                 HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
-            case 1:
-                // photos
-                PhotosFragment photosFragment = new PhotosFragment();
-                return photosFragment;
-            case 2:
-                // movies fragment
-                MoviesFragment moviesFragment = new MoviesFragment();
-                return moviesFragment;
-            case 3:
-                // notifications fragment
-                NotificationsFragment notificationsFragment = new NotificationsFragment();
-                return notificationsFragment;
 
-            case 4:
-                // settings fragment
-                SettingsFragment settingsFragment = new SettingsFragment();
-                return settingsFragment;
             default:
                 return new HomeFragment();
         }
@@ -255,35 +232,9 @@ public class MainActivity extends AppCompatActivity {
                         CURRENT_TAG = TAG_HOME;
                         break;
 
-                    case R.id.nav_photos:
-                        navItemIndex = 1;
-                        CURRENT_TAG = TAG_PHOTOS;
-                        break;
-
-                    case R.id.nav_movies:
-                        navItemIndex = 2;
-                        CURRENT_TAG = TAG_MOVIES;
-                        break;
-
-                    case R.id.nav_notifications:
-                        navItemIndex = 3;
-                        CURRENT_TAG = TAG_NOTIFICATIONS;
-                        break;
-
-                    case R.id.nav_settings:
-                        navItemIndex = 4;
-                        CURRENT_TAG = TAG_SETTINGS;
-                        break;
-
                     case R.id.nav_about_us:
                         // Inicia uma nova activity ao inves de um fragment
                         startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
-                        drawer.closeDrawers();
-                        return true;
-
-                    case R.id.nav_privacy_policy:
-                        // Inicia uma nova activity ao inves de um fragment
-                        startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
                         drawer.closeDrawers();
                         return true;
 
