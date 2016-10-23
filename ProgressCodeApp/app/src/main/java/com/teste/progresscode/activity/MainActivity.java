@@ -49,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
     // Tags usadas para anexar (attach) um fragment
     private static final String TAG_HOME = "home";
+    private static final String TAG_ENCONTROS = "encontros";
+    private static final String TAG_INSCRITOS = "inscritos";
+    private static final String TAG_EVENTOS = "eventos";
+
 
     public static String CURRENT_TAG = TAG_HOME;
 
