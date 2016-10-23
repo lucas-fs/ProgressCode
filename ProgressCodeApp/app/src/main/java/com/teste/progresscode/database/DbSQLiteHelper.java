@@ -22,7 +22,7 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
 
     // SQL de criacao das tabelas
     public static final String CREATE_TABLE_TUTOR = "CREATE TABLE " +
-            "tutor (" +
+            "tutores (" +
             "id INTEGER PRIMARY KEY, " +
             "email TEXT NOT NULL, " +
             "nome TEXT NOT NULL, " +
@@ -30,13 +30,13 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
             ");";
 
     public static final String CREATE_TABLE_EQUIPE = "CREATE TABLE " +
-            "equipe (" +
+            "equipes (" +
             "id INTEGER PRIMARY KEY, " +
             "descricao TEXT" +
             ");";
 
     public static final String CREATE_TABLE_EVENTO = "CREATE TABLE " +
-            "evento (" +
+            "eventos (" +
             "id INTEGER PRIMARY KEY, " +
             "nome_evento TEXT NOT NULL, " +
             "descricao TEXT" +
@@ -51,7 +51,7 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
             ");";
 
     public static final String CREATE_TABLE_ENCONTRO = "CREATE TABLE " +
-            "encontro (" +
+            "encontros (" +
             "id INTEGER PRIMARY KEY, " +
             "data_realizacao TEXT, " +
             "id_evento INTEGER NOT NULL, " +
@@ -59,7 +59,7 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
             ");";
 
     public static final String CREATE_TABLE_ATIVIDADES = "CREATE TABLE " +
-            "atividades(" +
+            "atividades (" +
             "id INTEGER PRIMARY KEY, " +
             "descricao TEXT NOT NULL, " +
             "id_encontro INTEGER NOT NULL, " +
@@ -67,7 +67,7 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
             ");";
 
     public static final String CREATE_TABLE_FEEDBACK = "CREATE TABLE " +
-            "feedback(" +
+            "feedback (" +
             "id_tutor INTEGER PRIMARY KEY, " +
             "id_inscrito INTEGER PRIMARY KEY, " +
             "id_atividade INTEGER PRIMARY KEY, " +
