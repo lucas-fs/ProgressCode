@@ -23,6 +23,8 @@ public class AboutUsActivity extends AppCompatActivity {
 
     private static final String TAG = AboutUsActivity.class.getSimpleName();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

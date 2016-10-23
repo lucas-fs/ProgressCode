@@ -23,7 +23,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.teste.progresscode.R;
+import com.teste.progresscode.fragment.EncontrosFragment;
 import com.teste.progresscode.fragment.HomeFragment;
+import com.teste.progresscode.fragment.IncritosFragment;
 import com.teste.progresscode.other.CircleTransform;
 
 /**
@@ -203,7 +205,14 @@ public class MainActivity extends AppCompatActivity {
                 // home
                 HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
-
+            case 1:
+                // encontros
+                EncontrosFragment encontrosFragment = new EncontrosFragment();
+                return encontrosFragment;
+            case 2:
+                // incritos
+                IncritosFragment incritosFragment = new IncritosFragment();
+                return incritosFragment;
             default:
                 return new HomeFragment();
         }
@@ -235,7 +244,14 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
-
+                    case R.id.nav_encontros:
+                        navItemIndex = 1;
+                        CURRENT_TAG = TAG_ENCONTROS;
+                        break;
+                    case R.id.nav_inscritos:
+                        navItemIndex = 2;
+                        CURRENT_TAG = TAG_INSCRITOS;
+                        break;
                     case R.id.nav_about_us:
                         // Inicia uma nova activity ao inves de um fragment
                         startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
