@@ -10,11 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.teste.progresscode.R;
 import com.teste.progresscode.adapter.InscritoAdapter;
 import com.teste.progresscode.model.Inscrito;
 import com.teste.progresscode.model.InscritoResponse;
+import com.teste.progresscode.other.DividerItemDecoration;
+import com.teste.progresscode.other.RecyclerItemClickListener;
 import com.teste.progresscode.rest.ApiClient;
 import com.teste.progresscode.rest.ApiInterface;
 
@@ -71,7 +74,9 @@ public class IncritosFragment extends Fragment {
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.inscritos_rv);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
@@ -81,7 +86,7 @@ public class IncritosFragment extends Fragment {
             public void onResponse(Call<InscritoResponse> call, Response<InscritoResponse> response) {
                 int statusCode = response.code();
                 inscritos = response.body().getInscritos();
-                recyclerView.setAdapter(new InscritoAdapter(inscritos, R.layout.row_inscrito, getContext()));
+                recyclerView.setAdapter(new InscritoAdapter(inscritos, R.layout.row_inscrito, getActivity()));
             }
 
             @Override
@@ -90,6 +95,15 @@ public class IncritosFragment extends Fragment {
                 Log.e(TAG, t.toString());
             }
         });
+
+        // Listener do click em item da lista
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Toast.makeText(getActivity(), "Inscrito: "+inscritos.get(position).getNome(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+        );
 
         return rootView;
     }
