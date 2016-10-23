@@ -15,6 +15,8 @@ public class Equipe {
         this.descricao = descricao;
     }
 
+    public Equipe(){}
+
     public int getId() {
         return id;
     }

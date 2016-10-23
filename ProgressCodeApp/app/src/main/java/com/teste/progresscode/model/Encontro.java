@@ -17,6 +17,8 @@ public class Encontro {
         this.dataRealizao = dataRealizao;
     }
 
+    public Encontro(){}
+
     public void setId(int id) {
         this.id = id;
     }

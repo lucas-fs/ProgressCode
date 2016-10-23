@@ -17,6 +17,8 @@ public class Evento {
         this.descricao = descricao;
     }
 
+    public Evento(){}
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }

@@ -15,6 +15,8 @@ public class EventoEquipe {
         this.idEvento = idEvento;
     }
 
+    public EventoEquipe(){}
+
     public int getIdEquipe() {
         return idEquipe;
     }

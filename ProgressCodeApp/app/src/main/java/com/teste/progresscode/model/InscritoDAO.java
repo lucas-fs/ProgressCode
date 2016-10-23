@@ -42,28 +42,9 @@ public class InscritoDAO {
         values.put("escola", inscrito.getEscola());
         values.put("data_nasc", inscrito.getEscola());
 
-        database.insert("inscrito", null, values);
+        database.insert("inscritos", null, values);
 
     }
-
-
-    public List<Inscrito> getAllInscritos() {
-        List<Inscrito> inscritos = new ArrayList<Inscrito>();
-
-        Cursor cursor = database.query("inscrito", new  String[] {"id", "nome", "escola", "data_nasc"}, null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Inscrito inscrito = cursorToInscrito(cursor);
-            inscritos.add(inscrito);
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return inscritos;
-    }
-
-
 
     private Inscrito cursorToInscrito(Cursor cursor) {
         Inscrito inscrito = new Inscrito();
@@ -74,5 +55,21 @@ public class InscritoDAO {
         inscrito.setDataNasc(cursor.getString(3));
 
         return inscrito;
+    }
+
+    public List<Inscrito> getAllInscritos() {
+        List<Inscrito> inscritos = new ArrayList<Inscrito>();
+
+        Cursor cursor = database.query("inscritos", new  String[] {"id", "nome", "escola", "data_nasc"}, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Inscrito inscrito = cursorToInscrito(cursor);
+            inscritos.add(inscrito);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return inscritos;
     }
 }

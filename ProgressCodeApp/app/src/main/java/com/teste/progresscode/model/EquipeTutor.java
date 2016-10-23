@@ -15,9 +15,9 @@ public class EquipeTutor {
         this.idTutor = idTutor;
     }
 
-    public int getIdEquipe() {
-        return idEquipe;
-    }
+    public EquipeTutor(){}
+
+    public int getIdEquipe() { return idEquipe; }
 
     public void setIdEquipe(int idEquipe) {
         this.idEquipe = idEquipe;

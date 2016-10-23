@@ -24,6 +24,8 @@ public class Feedback {
         this.dirAudio = dirAudio;
     }
 
+    public Feedback(){}
+
 
     public int getIdTutor() {
         return idTutor;

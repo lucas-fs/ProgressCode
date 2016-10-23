@@ -17,6 +17,8 @@ public class Atividade {
         this.descricao = descricao;
     }
 
+    public Atividade(){}
+
     public void setId(int id) {
         this.id = id;
     }

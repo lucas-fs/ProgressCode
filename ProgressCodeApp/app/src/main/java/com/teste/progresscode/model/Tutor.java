@@ -1,5 +1,7 @@
 package com.teste.progresscode.model;
 
+import android.app.job.JobInfo;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -19,6 +21,8 @@ public class Tutor {
         this.senha = senha;
         this.id = id;
     }
+
+    public Tutor(){}
 
     public int getId() {
         return id;
