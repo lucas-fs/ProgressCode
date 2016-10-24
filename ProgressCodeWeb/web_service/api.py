@@ -1,5 +1,5 @@
 from tastypie.resources import ModelResource
-from tastypie.constants import ALL
+from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization
 from tastypie import fields
 
@@ -8,12 +8,13 @@ from web_service.models import Tutor
 from web_service.models import Equipe
 from web_service.models import Inscrito
 from web_service.models import Evento
+from web_service.models import Atividade
+from web_service.models import Encontro
 from web_service.models import EquipeTutor
 from web_service.models import EventoEquipe
 from web_service.models import EventoInscrito
+from web_service.models import Feedback
 
-
-# LADO 1  - Entidade TUTOR
 class TutorResource(ModelResource):
     class Meta:
         queryset = Tutor.objects.all()
@@ -25,10 +26,8 @@ class TutorResource(ModelResource):
             'email': ALL
         }
 
-# LADO 1 - Entidade Equipe
 class EquipeResource(ModelResource):
-    tutores = fields.ToManyField('web_service.api.EquipeTutorResource', 'equipetutor_set', related_name='equipe', full=True)
-    # o parametro equipetutor_set nao se refere ao db_table ou resource_name do model?
+    #tutores = fields.ToManyField('web_service.api.EquipeTutorResource', 'equipetutor_set', related_name='equipe', full=True)
 
     class Meta:
         queryset = Equipe.objects.all()
@@ -36,21 +35,9 @@ class EquipeResource(ModelResource):
         allowed_methods = ['get', 'post']
         authorization = Authorization()
         filtering = {
-            'descricao': ALL,
-            'membros': ALL
+            'descricao': ALL
         }
 
-# NxN - Relacao Tutor_Equipe
-class EquipeTutorResource(ModelResource):
-    tutor = fields.ToOneField('web_service.api.TutorResource', 'tutor', full=True, use_in = 'list')
-    equipe = fields.ToOneField('web_service.api.EquipeResource', 'equipe', full=True, use_in = 'list')
-    class Meta:
-        resource_name = "equipe_tutor"
-        queryset = EquipeTutor.objects.all()
-        allowed_methods = ['get', 'post']
-        authorization = Authorization()
-
-# LADO 1 - Entidade Inscrito
 class InscritoResource(ModelResource):
     class Meta:
         queryset = Inscrito.objects.all()
@@ -63,11 +50,7 @@ class InscritoResource(ModelResource):
             'escola': ALL
         }
 
-# LADO 1 - Entidade Evento
 class EventoResource(ModelResource):
-    equipes = fields.ToManyField('web_service.api.resources.EventoEquipeResource', 'eventoequipe_set', related_name='evento', full=True)
-    inscritos = fields.ToManyField('web_service.api.resources.EventoInscritoResource', 'eventoinscrito_set', related_name='evento')
-
     class Meta:
         queryset = Evento.objects.all()
         resource_name = "evento"
@@ -75,15 +58,91 @@ class EventoResource(ModelResource):
         authorization = Authorization()
         filtering = {
             'nome_evento': ALL,
-            'descricao': ALL,
+            'descricao': ALL
         }
 
-# NxN - Relacao Evento_Equipe
-class EventoEquipeResource(ModelResource):
-    equipe = fields.ToOneField('mquiz.api.resources.EquipeResource', 'equipe', full=True)
-    # adicionar mais um atributo para outro lado da relacao?
+class EncontroResource(ModelResource):
+    evento = fields.ToOneField('web_service.api.EventoResource', 'evento', full=True, use_in = 'list')
 
     class Meta:
+        queryset = Encontro.objects.all()
+        resource_name = "encontros"
+        allowed_methods = ['get', 'post']
+        authorization = Authorization()
+        filtering = {
+            'data_realizao': ALL,
+            'evento': ALL_WITH_RELATIONS
+        }
+
+class AtividadeResource(ModelResource):
+    encontro = fields.ToOneField('web_service.api.EncontroResource', 'encontro', full=True, use_in = 'list')
+
+    class Meta:
+        queryset = Atividade.objects.all()
+        resource_name = "atividades"
+        allowed_methods = ['get', 'post']
+        authorization = Authorization()
+        filtering = {
+            'descricao': ALL,
+            'encontro': ALL_WITH_RELATIONS
+        }
+
+class EventoEquipeResource(ModelResource):
+    equipe = fields.ToOneField('web_service.api.EquipeResource', 'equipe', full=True, use_in = 'list')
+    evento = fields.ToOneField('web_service.api.EventoResource', 'evento', full=True, use_in = 'list')
+
+    class Meta:
+        resource_name = "evento_equipe"
         queryset = EventoEquipe.objects.all()
         allowed_methods = ['get', 'post']
         authorization = Authorization()
+        filtering = {
+            'equipe': ALL_WITH_RELATIONS,
+            'evento': ALL_WITH_RELATIONS
+        }
+
+class EventoInscritoResource(ModelResource):
+    evento = fields.ToOneField('web_service.api.EventoResource', 'evento', full=True, use_in = 'list')
+    inscrito = fields.ToOneField('web_service.api.InscritoResource', 'inscrito', full=True, use_in = 'list')
+
+    class Meta:
+        resource_name = "evento_inscrito"
+        queryset = EventoInscrito.objects.all()
+        allowed_methods = ['get', 'post']
+        authorization = Authorization()
+        filtering = {
+            'inscrito': ALL_WITH_RELATIONS,
+            'evento': ALL_WITH_RELATIONS
+        }
+
+class EquipeTutorResource(ModelResource):
+    tutor = fields.ToOneField('web_service.api.TutorResource', 'tutor', full=True, use_in = 'list')
+    equipe = fields.ToOneField('web_service.api.EquipeResource', 'equipe', full=True, use_in = 'list')
+
+    class Meta:
+        resource_name = "equipe_tutor"
+        queryset = EquipeTutor.objects.all()
+        allowed_methods = ['get', 'post']
+        authorization = Authorization()
+        filtering = {
+            'equipe': ALL_WITH_RELATIONS,
+            'tutor': ALL_WITH_RELATIONS
+        }
+
+class FeedbackResource(ModelResource):
+    tutor = fields.ToOneField('web_service.api.TutorResource', 'tutor', full=True, use_in = 'list')
+    inscrito = fields.ToOneField('web_service.api.InscritoResource', 'inscrito', full=True, use_in = 'list')
+    atividade = fields.ToOneField('web_service.api.AtividadeResource', 'atividade', full=True, use_in = 'list')
+
+    class Meta:
+        resource_name = "feedbacks"
+        queryset = Feedback.objects.all()
+        allowed_methods = ['get', 'post']
+        authorization = Authorization()
+        filtering = {
+            'tutor': ALL_WITH_RELATIONS,
+            'inscrito': ALL_WITH_RELATIONS,
+            'atividade': ALL_WITH_RELATIONS,
+            'status': ALL,
+            'timestamp': ALL
+        }
