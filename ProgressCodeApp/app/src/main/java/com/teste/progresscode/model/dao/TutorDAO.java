@@ -1,4 +1,4 @@
-package com.teste.progresscode.model;
+package com.teste.progresscode.model.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.teste.progresscode.database.DbSQLiteHelper;
+import com.teste.progresscode.model.Tutor;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.teste.progresscode.rest;
 
-import com.teste.progresscode.model.InscritoResponse;
+import com.teste.progresscode.model.response.InscritoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

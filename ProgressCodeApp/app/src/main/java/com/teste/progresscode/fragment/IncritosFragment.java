@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.teste.progresscode.R;
 import com.teste.progresscode.adapter.InscritoAdapter;
 import com.teste.progresscode.model.Inscrito;
-import com.teste.progresscode.model.InscritoResponse;
+import com.teste.progresscode.model.response.InscritoResponse;
 import com.teste.progresscode.other.DividerItemDecoration;
 import com.teste.progresscode.other.RecyclerItemClickListener;
 import com.teste.progresscode.rest.ApiClient;

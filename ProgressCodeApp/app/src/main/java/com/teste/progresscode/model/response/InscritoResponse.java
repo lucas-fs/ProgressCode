@@ -1,6 +1,8 @@
-package com.teste.progresscode.model;
+package com.teste.progresscode.model.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.teste.progresscode.model.Inscrito;
+import com.teste.progresscode.model.Meta;
 
 import java.util.List;
 

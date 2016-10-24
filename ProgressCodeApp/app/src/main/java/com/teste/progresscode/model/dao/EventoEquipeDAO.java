@@ -1,6 +1,5 @@
-package com.teste.progresscode.model;
+package com.teste.progresscode.model.dao;
 
-import android.app.usage.UsageEvents;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.teste.progresscode.database.DbSQLiteHelper;
+import com.teste.progresscode.model.EventoEquipe;
 
 import java.util.ArrayList;
 import java.util.List;

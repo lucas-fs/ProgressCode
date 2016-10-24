@@ -9,7 +9,7 @@ import android.util.Log;
 import com.teste.progresscode.R;
 import com.teste.progresscode.adapter.InscritoAdapter;
 import com.teste.progresscode.model.Inscrito;
-import com.teste.progresscode.model.InscritoResponse;
+import com.teste.progresscode.model.response.InscritoResponse;
 import com.teste.progresscode.rest.ApiClient;
 import com.teste.progresscode.rest.ApiInterface;
 
