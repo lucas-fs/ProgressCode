@@ -7,14 +7,24 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Atividade {
+
+    @SerializedName("id")
     private int id;
+
+    @SerializedName("descricao")
     private String descricao;
+
+    @SerializedName("encontro_id")
     private int idEncontro;
 
-    public Atividade(Integer id, String descricao, Integer idEncontro){
+    @SerializedName("resource_uri")
+    private String resourceUri;
+
+    public Atividade(Integer id, String descricao, Integer idEncontro, String resourceUri){
         this.id = id;
         this.idEncontro = idEncontro;
         this.descricao = descricao;
+        this.resourceUri = resourceUri;
     }
 
     public Atividade(){}
@@ -41,5 +51,13 @@ public class Atividade {
 
     public int getIdEncontro() {
         return idEncontro;
+    }
+
+    public String getResourceUri() {
+        return resourceUri;
+    }
+
+    public void setResourceUri(String resourceUri) {
+        this.resourceUri = resourceUri;
     }
 }

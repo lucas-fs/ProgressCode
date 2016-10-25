@@ -62,7 +62,8 @@ class EventoResource(ModelResource):
         }
 
 class EncontroResource(ModelResource):
-    evento = fields.ToOneField('web_service.api.EventoResource', 'evento', full=True, use_in = 'list')
+    #evento = fields.ToOneField('web_service.api.EventoResource', 'evento', full=True, use_in = 'list')
+    evento_id = fields.IntegerField(attribute="evento__id")
 
     class Meta:
         queryset = Encontro.objects.all()
@@ -75,7 +76,8 @@ class EncontroResource(ModelResource):
         }
 
 class AtividadeResource(ModelResource):
-    encontro = fields.ToOneField('web_service.api.EncontroResource', 'encontro', full=True, use_in = 'list')
+    #encontro = fields.ToOneField('web_service.api.EncontroResource', 'encontro', full=True, use_in = 'list')
+    encontro_id = fields.IntegerField(attribute="encontro__id")
 
     class Meta:
         queryset = Atividade.objects.all()
@@ -102,8 +104,10 @@ class EventoEquipeResource(ModelResource):
         }
 
 class EventoInscritoResource(ModelResource):
-    evento = fields.ToOneField('web_service.api.EventoResource', 'evento', full=True, use_in = 'list')
-    inscrito = fields.ToOneField('web_service.api.InscritoResource', 'inscrito', full=True, use_in = 'list')
+    #evento = fields.ToOneField('web_service.api.EventoResource', 'evento', full=True, use_in = 'list')
+    #inscrito = fields.ToOneField('web_service.api.InscritoResource', 'inscrito', full=True, use_in = 'list')
+    evento_id = fields.IntegerField(attribute="evento__id")
+    inscrito_id = fields.IntegerField(attribute="inscrito__id")
 
     class Meta:
         resource_name = "evento_inscrito"

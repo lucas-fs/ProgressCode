@@ -40,7 +40,7 @@ public class EncontroDAO {
         ContentValues values = new ContentValues();
 
         values.put("id", encontro.getId());
-        values.put("data_realizao", encontro.getDataRealizao());
+        values.put("data_realizacao", encontro.getDataRealizao());
         values.put("evento_id", encontro.getIdEvento());
 
         database.insert("encontros", null, values);
@@ -59,7 +59,7 @@ public class EncontroDAO {
     public List<Atividade> getAllAtividades(){
         List<Atividade> atividades = new ArrayList<>();
 
-        Cursor cursor = database.query("encontros", new  String[] {"id", "data_realizao", "evento_id"}, null, null, null, null, null);
+        Cursor cursor = database.query("encontros", new  String[] {"id", "data_realizacao", "evento_id"}, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

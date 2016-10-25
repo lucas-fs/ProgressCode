@@ -7,7 +7,11 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class EventoInscrito {
+
+    @SerializedName("evento_id")
     private int idInscrito;
+
+    @SerializedName("inscrito_id")
     private int idEvento;
 
     public EventoInscrito(Integer idInscrito, Integer idEvento){

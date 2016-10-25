@@ -33,8 +33,6 @@ public class AboutUsActivity extends AppCompatActivity {
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.inscritos_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        
-
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 

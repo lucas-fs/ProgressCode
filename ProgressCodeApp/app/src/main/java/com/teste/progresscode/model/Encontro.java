@@ -7,14 +7,24 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Encontro {
+
+    @SerializedName("id")
     private int id;
-    private String dataRealizao;
+
+    @SerializedName("data_realizao")
+    private String dataRealizacao;
+
+    @SerializedName("evento_id")
     private int idEvento;
 
-    public Encontro(Integer id, String dataRealizao, Integer idEvento){
+    @SerializedName("resource_uri")
+    private String resourceUri;
+
+    public Encontro(Integer id, String dataRealizacao, Integer idEvento, String resourceUri){
         this.id = id;
         this.idEvento = idEvento;
-        this.dataRealizao = dataRealizao;
+        this.dataRealizacao = dataRealizacao;
+        this.resourceUri = resourceUri;
     }
 
     public Encontro(){}
@@ -24,7 +34,7 @@ public class Encontro {
     }
 
     public void setDataRealizao(String dataRealizao) {
-        this.dataRealizao = dataRealizao;
+        this.dataRealizacao = dataRealizao;
     }
 
     public void setIdEvento(int idEvento) {
@@ -40,6 +50,14 @@ public class Encontro {
     }
 
     public String getDataRealizao() {
-        return dataRealizao;
+        return dataRealizacao;
+    }
+
+    public String getResourceUri() {
+        return resourceUri;
+    }
+
+    public void setResourceUri(String resourceUri) {
+        this.resourceUri = resourceUri;
     }
 }

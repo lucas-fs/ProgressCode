@@ -1,5 +1,8 @@
 package com.teste.progresscode.rest;
 
+import com.teste.progresscode.model.response.EncontroResponse;
+import com.teste.progresscode.model.response.EventoInscritoResponse;
+import com.teste.progresscode.model.response.EventoResponse;
 import com.teste.progresscode.model.response.InscritoResponse;
 
 import retrofit2.Call;
@@ -20,6 +23,20 @@ public interface ApiInterface {
     @GET("inscrito/")
     Call<InscritoResponse> getAllInscritos();
 
+    // Retorna todos eventos cadastrados
+    @GET("evento/")
+    Call<EventoResponse> getAllEventos();
+
+    // Retorna NxN evento_inscrito
+    @GET("evento_inscrito/")
+    Call<EventoInscritoResponse> getAllEventoInscrito();
+
+    // Retorna todos encontros cadastrados
+    @GET("encontros/")
+    Call<EncontroResponse> getAllEncontros();
+
+
+    // Retorna todas atividades cadastrados
 
 
 }
