@@ -1,30 +1,45 @@
 package com.teste.progresscode.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.teste.progresscode.R;
+import com.teste.progresscode.activity.AboutUsActivity;
+import com.teste.progresscode.adapter.EncontroAdapter;
+import com.teste.progresscode.model.Encontro;
+import com.teste.progresscode.model.response.EncontroResponse;
+import com.teste.progresscode.other.DividerItemDecoration;
+import com.teste.progresscode.other.RecyclerItemClickListener;
+import com.teste.progresscode.rest.ApiClient;
+import com.teste.progresscode.rest.ApiInterface;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EncontrosFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link EncontrosFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class EncontrosFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    private static final String TAG = IncritosFragment.class.getSimpleName();
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    protected RecyclerView recyclerView;
+
+    List<Encontro> encontros;
+
     private String mParam1;
     private String mParam2;
 
@@ -34,15 +49,7 @@ public class EncontrosFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EncontrosFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static EncontrosFragment newInstance(String param1, String param2) {
         EncontrosFragment fragment = new EncontrosFragment();
         Bundle args = new Bundle();
@@ -64,11 +71,52 @@ public class EncontrosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_encontros, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_encontros, container, false);
+        rootView.setTag(TAG);
+
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.encontros_rv);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<EncontroResponse> call = apiService.getAllEncontros();
+        call.enqueue(new Callback<EncontroResponse>() {
+            @Override
+            public void onResponse(Call<EncontroResponse> call, Response<EncontroResponse> response) {
+                int statusCode = response.code();
+                encontros = response.body().getEncontros();
+                recyclerView.setAdapter(new EncontroAdapter(encontros, R.layout.row_encontro, getActivity()));
+            }
+
+            @Override
+            public void onFailure(Call<EncontroResponse> call, Throwable t) {
+                // Log error here since request failed
+                Log.e(TAG, t.toString());
+            }
+        });
+
+        // Listener do click em item da lista
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Toast.makeText(getActivity(), "Encontro: "+encontros.get(position).getDataRealizao(), Toast.LENGTH_SHORT).show();
+
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("idEncontro",encontros.get(position).getId());
+                        Intent intent = new Intent(getActivity(), AboutUsActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
+                    }
+                })
+        );
+
+        return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -86,18 +134,8 @@ public class EncontrosFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

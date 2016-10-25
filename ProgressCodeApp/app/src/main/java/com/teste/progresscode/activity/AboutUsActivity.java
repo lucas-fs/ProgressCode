@@ -1,5 +1,6 @@
 package com.teste.progresscode.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,9 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.teste.progresscode.R;
-import com.teste.progresscode.adapter.InscritoAdapter;
-import com.teste.progresscode.model.Inscrito;
-import com.teste.progresscode.model.response.InscritoResponse;
+import com.teste.progresscode.adapter.AtividadeAdapter;
+import com.teste.progresscode.model.Atividade;
+import com.teste.progresscode.model.response.AtividadeResponse;
 import com.teste.progresscode.rest.ApiClient;
 import com.teste.progresscode.rest.ApiInterface;
 
@@ -31,23 +32,29 @@ public class AboutUsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_us);
         //RecyclerView.Adapter adapter = new InscritoAdapter(R.layout.list_item_inscrito, getApplicationContext());
 
+        Intent intent = getIntent();
+
+        Bundle bundle = intent.getExtras();
+
+        int id_encontro = bundle.getInt("idEncontro");
+
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.inscritos_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<InscritoResponse> call = apiService.getAllInscritos();
-        call.enqueue(new Callback<InscritoResponse>() {
+        Call<AtividadeResponse> call = apiService.getAtividadesByEncontro(id_encontro);
+        call.enqueue(new Callback<AtividadeResponse>() {
             @Override
-            public void onResponse(Call<InscritoResponse> call, Response<InscritoResponse> response) {
+            public void onResponse(Call<AtividadeResponse> call, Response<AtividadeResponse> response) {
                 int statusCode = response.code();
-                List<Inscrito> inscritos = response.body().getInscritos();
+                List<Atividade> atividades = response.body().getAtividades();
                 //adapter =  new InscritoAdapter(inscritos, R.layout.list_item_inscrito, getApplicationContext());
-                recyclerView.setAdapter(new InscritoAdapter(inscritos, R.layout.list_item_inscrito, getApplicationContext()));
+                recyclerView.setAdapter(new AtividadeAdapter(atividades, R.layout.list_item_inscrito, getApplicationContext()));
             }
 
             @Override
-            public void onFailure(Call<InscritoResponse> call, Throwable t) {
+            public void onFailure(Call<AtividadeResponse> call, Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
             }

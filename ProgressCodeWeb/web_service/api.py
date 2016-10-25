@@ -72,7 +72,7 @@ class EncontroResource(ModelResource):
         authorization = Authorization()
         filtering = {
             'data_realizao': ALL,
-            'evento': ALL_WITH_RELATIONS
+            'evento_id': ALL_WITH_RELATIONS
         }
 
 class AtividadeResource(ModelResource):
@@ -86,7 +86,7 @@ class AtividadeResource(ModelResource):
         authorization = Authorization()
         filtering = {
             'descricao': ALL,
-            'encontro': ALL_WITH_RELATIONS
+            'encontro_id': ALL_WITH_RELATIONS
         }
 
 class EventoEquipeResource(ModelResource):
