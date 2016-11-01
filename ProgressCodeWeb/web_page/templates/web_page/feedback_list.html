@@ -1,34 +1,39 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-<form action="/list/feedbacks/" method="post" class="post-form">{% csrf_token %}
-	<h1 align="center">Feedbacks</h1>
-	<table align="center">
-		<tr>
-			<th></th>
-			<th>N⁰ Audio</th>
-			<th>Status</th>
-			<th>Data do Registro</th>
-			<th>audio</th>
-			<th>Atividade</th>
-			<th>Inscrito</th>
-			<th>Tutor</th>
-		</tr><br><br>
-		{% for item in fb_result %}
-			<tr>
-				<td><input type="checkbox" name="check_fb" value="{{ item.id }}"></td>
-				<td>{{ item.id }}</td>
-				<td>{{ item.status }}</td>
-				<td>{{ item.timestamp }}</td>
-				<td>
-					<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
-				</td>
-				<td>{{ item.descricao }}</td>
-				<td>{{ item.nome_i }}</td>
-				<td>{{ item.nome_t }}</td>
-			</tr>
-		{% endfor %}
-	</table><br>
-	<button align="center" type="submit" class="del btn btn-default">Deletar Feedback</button>
-</form><br>
-	<a href="/form"><input type="button" value="Voltar para o Menu"/></a>
+
+	<div class="container">
+		<form action="/list/feedbacks/" method="post" class="post-form">{% csrf_token %}
+			<h1>Feedbacks</h1>
+			<table width="1050px" style="font-size: 11px">
+				<tr bgcolor="#E5E4E2">
+					<th></th>
+					<th>N⁰ Audio</th>
+					<th>Status</th>
+					<th>Data do Registro</th>
+					<th>audio</th>
+					<th>Atividade</th>
+					<th>Inscrito</th>
+					<th>Tutor</th>
+					<th>Observação</th>
+				</tr><br><br>
+				{% for item in fb_result %}
+					<tr>
+						<td><input type="checkbox" name="check_fb" value="{{ item.id }}"></td>
+						<td>{{ item.id }}</td>
+						<td>{{ item.status }}</td>
+						<td>{{ item.timestamp }}</td>
+						<td>
+							<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
+						</td>
+						<td>{{ item.descricao }}</td>
+						<td>{{ item.nome_i }}</td>
+						<td>{{ item.nome_t }}</td>
+						<td>{{ item.observacao }}</td>
+					</tr>
+				{% endfor %}
+			</table><br>
+			<button align="left" type="submit" class="btn btn-danger">Deletar Feedback</button>
+		</form><br>
+		<a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
+	</div>
 {% endblock %}

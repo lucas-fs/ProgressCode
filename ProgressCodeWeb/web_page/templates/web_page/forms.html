@@ -1,28 +1,30 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-	<table align="center">
-		<tr>
-			<th><h2>Inscrições</h2></th>
-			<th><h2>Listas</h2></th>
-		</tr>		
-		<td>
-			<ul>
-				<li><a href="/form/choiceInsc/"><h3>Inserir Inscritos</h3></a></li>
-				<li><a href="/form/evento/"><h3>Cadastrar Evento</h3></a></li>
-				<li><a href="/form/tutor/"><h3>Cadastrar novo Tutor</h3></a></li>
-				<li><a href="/form/encontro/"><h3>Cadastrar Encontros</h3></a></li>
-				<li><a href="/form/atividade/"><h3>Cadastro de Atividade</h3></a></li>
-				<li><a href="/form/feedback/"><h3>Feedbacks</h3></a></li>
-				<li><a href="/form/equipe/"><h3>Cadastro de Equipe</h3></a></li>
-			</ul>
-		</td>
-		<td>
-			<ul>
-				<li><a href="/list/eventos"><h3>Lista de Eventos</h3></a></li>
-				<li><a href="/list/inscritos"><h3>Lista de Inscritos</h3></a></li>
-				<li><a href="/list/feedbacks"><h3>Lista de Feedbacks</h3></a></li>
-				<li><a href="/list/tutores"><h3>Lista de Tutores</h3></a></li>
-			</ul>
-		</td>
-	</table>
+	<div class="container">
+		<table align="center">
+			<tr>
+				<th><h3>Inscrições</h3></th>
+				<th><h3>Listas</h3></th>
+			</tr>		
+			<td>
+				<ul>
+					<li><a href="/form/choiceInsc/"><h3>Inserir Inscritos</h3></a></li>
+					<li><a href="/form/evento/"><h3>Cadastrar Evento</h3></a></li>
+					<li><a href="/form/tutor/"><h3>Cadastrar novo Tutor</h3></a></li>
+					<li><a href="/form/encontro/"><h3>Cadastrar Encontros</h3></a></li>
+					<li><a href="/form/atividade/"><h3>Cadastro de Atividade</h3></a></li>
+					<li><a href="/form/feedback/"><h3>Feedbacks</h3></a></li>
+					<li><a href="/form/equipe/"><h3>Cadastro de Equipe</h3></a></li>
+				</ul>
+			</td>
+			<td>
+				<ul>
+					<li><a href="/list/eventos"><h3>Lista de Eventos</h3></a></li>
+					<li><a href="/list/inscritos"><h3>Lista de Inscritos</h3></a></li>
+					<li><a href="/list/feedbacks"><h3>Lista de Feedbacks</h3></a></li>
+					<li><a href="/list/tutores"><h3>Lista de Tutores</h3></a></li>
+				</ul>
+			</td>
+		</table>
+	</div>
 {% endblock %}

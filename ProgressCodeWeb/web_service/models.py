@@ -110,6 +110,7 @@ class Feedback(models.Model):
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     inscrito = models.ForeignKey(Inscrito, on_delete=models.CASCADE)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE)
+    observacao = models.TextField(max_length=500)
 
     class Meta:
         db_table  =  'feedback'

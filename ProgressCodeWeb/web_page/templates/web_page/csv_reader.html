@@ -1,11 +1,22 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-	<h1>Import CSV</h1>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="csv_file"/>
-        <input type="submit" value="Upload"/>
-    </form>
-    <br><a href="/form"><input type="button" value="Voltar para o Menu"/></a><br>
-	<br><a href="/form/choiceInsc"><input type="button" value="Voltar para modo de Inserção"/></a>
+	<div class="container">
+		<h1>Import CSV</h1>
+	    <form action="" method="post" enctype="multipart/form-data">
+	        {% csrf_token %}
+	        <input type="file" name="csv_file"/><br>
+	        <input class="btn btn-warning" type="submit" value="Upload"/>
+	    </form>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-5">
+				<br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a><br>
+			</div>
+			<div class="col-xs-5">
+				<br><a href="/form/choiceInsc"><input class="btn btn-success" type="button" value="Voltar para modo de Inserção"/></a>
+			</div>
+		</div>
+	</div>
 {% endblock %}
