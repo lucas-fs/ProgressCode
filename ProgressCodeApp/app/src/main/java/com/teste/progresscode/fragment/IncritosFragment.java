@@ -68,7 +68,7 @@ public class IncritosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_incritos, container, false);
         rootView.setTag(TAG);
 
@@ -91,7 +91,6 @@ public class IncritosFragment extends Fragment {
 
             @Override
             public void onFailure(Call<InscritoResponse> call, Throwable t) {
-                // Log error here since request failed
                 Log.e(TAG, t.toString());
             }
         });
