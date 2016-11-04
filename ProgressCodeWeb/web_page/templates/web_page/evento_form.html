@@ -1,39 +1,47 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-    <h1>New evento</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <br>
-        <br>
-        <table>
-            <tr>
-                <th>Equipes</th>
-            </tr>
-            {% for equipe in equipes %}
-                <tr>
-                    <td>
-                        <input type="checkbox" name="check_equipes" value="{{ equipe.id }}"><label> {{ equipe.descricao }}</label>
-                        <br>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-        <br>
-        <br>
-        <table>
-            <tr>
-                <th>Inscritos</th>
-            </tr>
-            {% for inscrito in inscritos %}
-                <tr>
-                    <td>
-                        <input type="checkbox" name="check_inscritos" value="{{ inscrito.id }}"><label> {{ inscrito.nome }}</label>
-                        <br>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table><br>
-        <button type="submit" class="save btn btn-default">Guardar</button>
-	</form>
-    <br><a href="/form"><input type="button" value="Voltar para o Menu"/></a>
+    <div class="container">
+        <div class="row">
+            <h1>New evento</h1>
+            <div class="col-xs-5">
+                <form method="POST" class="post-form">{% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <br>
+                <table>
+                    <tr>
+                        <th>Equipes</th>
+                    </tr>
+                    {% for equipe in equipes %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="check_equipes" value="{{ equipe.id }}"><label> {{ equipe.descricao }}</label>
+                                <br>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <br>
+                <table>
+                    <tr>
+                        <th>Inscritos</th>
+                    </tr>
+                    {% for inscrito in inscritos %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="check_inscritos" value="{{ inscrito.id }}"><label> {{ inscrito.nome }}</label>
+                                <br>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table><br>
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </form>
+            </div>
+            
+        </div>
+        
+    </div>
+    <br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
 {% endblock %}

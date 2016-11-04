@@ -1,9 +1,11 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-    <h1>Nova Atividade</h1>
-    <form action="" method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Guardar</button>
-	</form>
-	<br><a href="/form"><input type="button" value="Voltar para o Menu"/></a>
+	<div class="container">
+		<h1>Nova Atividade</h1>
+	    <form action="" method="POST" class="post-form">{% csrf_token %}
+	        {{ form.as_p }}
+	        <button type="submit" class="btn btn-success">Guardar</button>
+		</form>
+		<br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
+	</div>
 {% endblock %}

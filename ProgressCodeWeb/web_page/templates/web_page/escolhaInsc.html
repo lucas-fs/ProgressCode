@@ -1,8 +1,10 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-	<h1>Escolha a forma de inserção de inscritos:</h1><br>
-    <a href="/form/csv/"><h2>Adicionar inscrito via arquivo CSV</h2></a>
-    <a href="/form/inscrito/"><h2>Adicionar inscrito único</h2></a>
-
-    <br><a href="/form"><input type="button" value="Voltar para o Menu"/></a>
+	<div class="container">
+		<h4>Escolha a forma de inserção de inscritos:</h4>
+	    <a href="/form/csv/"><h6>Adicionar inscrito via arquivo CSV</h6></a>
+	    <a href="/form/inscrito/"><h6>Adicionar inscrito único</h6></a>
+	    <br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
+	</div>
+	
 {% endblock %}

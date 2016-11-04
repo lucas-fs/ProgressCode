@@ -1,26 +1,29 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-<form action="/list/eventos/" method="post" class="post-form">{% csrf_token %}
-	<h1 align="center">Eventos</h1>
-    <table align="center">
-		<tr>
-			<th></th>
-			<th>N⁰ Evento</th>
-			<th>Nome do Evento</th>
-			<th>Descrião</th>
-			<th>Encontros</th>
-		</tr><br>
-		{% for item in eventos %}
-		<tr>
-			<td><input type="checkbox" name="check_eventos" value="{{ item.id }}"></td>
-			<td>{{ item.id }}</td>
-			<td>{{ item.nome_evento }}</td>
-			<td>{{ item.descricao }}</td>
-			<td><button type="submit" formaction="/list/encontros/" aling="center" name="evento_id" value="{{ item.id }}">Ver encontros</button></td>
-		</tr>
-		{% endfor %}
-	</table><br>
-	<button align="center" type="submit" class="del btn btn-default">Delete Evento</button>
-</form>
-<br><a href="/form"><input type="button" value="Voltar para o Menu"/></a>
+
+	<div class="container">
+		<h1 align="center">Eventos</h1>
+		<form action="/list/eventos/" method="post" class="post-form">{% csrf_token %}
+		    <table align="center">
+				<tr bgcolor="#E5E4E2">
+					<th></th>
+					<th>N⁰ Evento</th>
+					<th>Nome do Evento</th>
+					<th>Descrião</th>
+					<th>Encontros</th>
+				</tr><br>
+				{% for item in eventos %}
+				<tr>
+					<td><input type="checkbox" name="check_eventos" value="{{ item.id }}"></td>
+					<td>{{ item.id }}</td>
+					<td>{{ item.nome_evento }}</td>
+					<td>{{ item.descricao }}</td>
+					<td><button class="btn btn-default btn-xs" type="submit" formaction="/list/encontros/" aling="center" name="evento_id" value="{{ item.id }}">Ver encontros</button></td>
+				</tr>
+				{% endfor %}
+			</table><br>
+			<button align="center" type="submit" class="btn btn-danger">Delete Evento</button>
+		</form>
+		<br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
+	</div>
 {% endblock %}
