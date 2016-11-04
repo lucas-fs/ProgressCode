@@ -90,8 +90,10 @@ class AtividadeResource(ModelResource):
         }
 
 class EventoEquipeResource(ModelResource):
-    equipe = fields.ToOneField('web_service.api.EquipeResource', 'equipe', full=True, use_in = 'list')
-    evento = fields.ToOneField('web_service.api.EventoResource', 'evento', full=True, use_in = 'list')
+    #equipe = fields.ToOneField('web_service.api.EquipeResource', 'equipe', full=True, use_in = 'list')
+    #evento = fields.ToOneField('web_service.api.EventoResource', 'evento', full=True, use_in = 'list')
+    evento_id = fields.IntegerField(attribute="evento__id")
+    equipe_id = fields.IntegerField(attribute="equipe__id")
 
     class Meta:
         resource_name = "evento_equipe"
@@ -99,8 +101,8 @@ class EventoEquipeResource(ModelResource):
         allowed_methods = ['get', 'post']
         authorization = Authorization()
         filtering = {
-            'equipe': ALL_WITH_RELATIONS,
-            'evento': ALL_WITH_RELATIONS
+            'equipe_id': ALL_WITH_RELATIONS,
+            'evento_id': ALL_WITH_RELATIONS
         }
 
 class EventoInscritoResource(ModelResource):
@@ -115,13 +117,15 @@ class EventoInscritoResource(ModelResource):
         allowed_methods = ['get', 'post']
         authorization = Authorization()
         filtering = {
-            'inscrito': ALL_WITH_RELATIONS,
-            'evento': ALL_WITH_RELATIONS
+            'inscrito_id': ALL_WITH_RELATIONS,
+            'evento_id': ALL_WITH_RELATIONS
         }
 
 class EquipeTutorResource(ModelResource):
-    tutor = fields.ToOneField('web_service.api.TutorResource', 'tutor', full=True, use_in = 'list')
-    equipe = fields.ToOneField('web_service.api.EquipeResource', 'equipe', full=True, use_in = 'list')
+    #tutor = fields.ToOneField('web_service.api.TutorResource', 'tutor', full=True, use_in = 'list')
+    #equipe = fields.ToOneField('web_service.api.EquipeResource', 'equipe', full=True, use_in = 'list')
+    tutor_id = fields.IntegerField(attribute="tutor__id")
+    equipe_id = fields.IntegerField(attribute="equipe__id")
 
     class Meta:
         resource_name = "equipe_tutor"
@@ -129,14 +133,17 @@ class EquipeTutorResource(ModelResource):
         allowed_methods = ['get', 'post']
         authorization = Authorization()
         filtering = {
-            'equipe': ALL_WITH_RELATIONS,
-            'tutor': ALL_WITH_RELATIONS
+            'equipe_id': ALL_WITH_RELATIONS,
+            'tutor_id': ALL_WITH_RELATIONS
         }
 
 class FeedbackResource(ModelResource):
-    tutor = fields.ToOneField('web_service.api.TutorResource', 'tutor', full=True, use_in = 'list')
-    inscrito = fields.ToOneField('web_service.api.InscritoResource', 'inscrito', full=True, use_in = 'list')
-    atividade = fields.ToOneField('web_service.api.AtividadeResource', 'atividade', full=True, use_in = 'list')
+    #tutor = fields.ToOneField('web_service.api.TutorResource', 'tutor', full=True, use_in = 'list')
+    #inscrito = fields.ToOneField('web_service.api.InscritoResource', 'inscrito', full=True, use_in = 'list')
+    #atividade = fields.ToOneField('web_service.api.AtividadeResource', 'atividade', full=True, use_in = 'list')
+    tutor_id = fields.IntegerField(attribute="tutor__id")
+    inscrito_id = fields.IntegerField(attribute="inscrito__id")
+    atividade_id = fields.IntegerField(attribute="atividade__id")
 
     class Meta:
         resource_name = "feedbacks"

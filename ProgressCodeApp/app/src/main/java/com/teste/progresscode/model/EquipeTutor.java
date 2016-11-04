@@ -7,11 +7,19 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class EquipeTutor {
+
+    @SerializedName("equipe_id")
     private int idEquipe;
+
+    @SerializedName("tutor_id")
     private int idTutor;
 
-    public EquipeTutor(Integer idEquipe, Integer idTutor){
+    @SerializedName("resource_uri")
+    private String resourceUri;
+
+    public EquipeTutor(int idEquipe, String resourceUri, int idTutor) {
         this.idEquipe = idEquipe;
+        this.resourceUri = resourceUri;
         this.idTutor = idTutor;
     }
 
@@ -29,5 +37,13 @@ public class EquipeTutor {
 
     public void setIdTutor(int idTutor) {
         this.idTutor = idTutor;
+    }
+
+    public String getResourceUri() {
+        return resourceUri;
+    }
+
+    public void setResourceUri(String resourceUri) {
+        this.resourceUri = resourceUri;
     }
 }

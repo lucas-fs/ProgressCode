@@ -40,7 +40,7 @@ public class FeedbackDAO {
         values.put("id_inscrito", feedback.getIdInscrito());
         values.put("id_atividade", feedback.getIdAtividade());
         values.put("status", feedback.getStatus());
-        values.put("time_stamp", feedback.getTimeStamp());
+        values.put("timestamp", feedback.getTimeStamp());
         values.put("dir_audio", feedback.getDirAudio());
 
         database.insert("feedback", null, values);

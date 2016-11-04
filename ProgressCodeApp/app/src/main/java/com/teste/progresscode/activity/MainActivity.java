@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,10 +24,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.teste.progresscode.R;
+import com.teste.progresscode.database.SyncDatabaseApi;
 import com.teste.progresscode.fragment.EncontrosFragment;
 import com.teste.progresscode.fragment.HomeFragment;
 import com.teste.progresscode.fragment.IncritosFragment;
+import com.teste.progresscode.model.Atividade;
+import com.teste.progresscode.model.dao.AtividadeDAO;
 import com.teste.progresscode.other.CircleTransform;
+
+import java.util.List;
 
 /**
  * Create by Lucas Ferreira da Silva
@@ -34,6 +40,7 @@ import com.teste.progresscode.other.CircleTransform;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
@@ -70,6 +77,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final SyncDatabaseApi syncDatabaseApi = new SyncDatabaseApi(getApplicationContext());
+
+        // Thread necessária, pois não é possível realizar as requisições http na thread principal
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    syncDatabaseApi.syncAllDatabase();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        // ========== bloco de teste ==========
+
+        Log.v(TAG, "Path database: "+getApplicationContext().getDatabasePath("progresscode.db"));
+
+        while (thread.isAlive()); // Gambiarra braba, justificativa: realizacao de testes...
+
+        AtividadeDAO atividadeDAO = new AtividadeDAO(getApplicationContext());
+        atividadeDAO.openConection();
+        List<Atividade> atividades = atividadeDAO.getAllAtividades();
+        atividadeDAO.closeConection();
+
+        // ====================================
+
+        for (Atividade a : atividades) {
+            Log.v(TAG, "Atividade: "+a.getDescricao());
+        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

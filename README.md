@@ -99,7 +99,7 @@ http://127.0.0.1:8000/api/webservice/tutores/?format=json&email__contains=lferre
 - Informar os dados do POST no formato JSON;
 - Send.
 
-![Exemplo POST](img.png)
+![Exemplo POST](Arquivos/img.png)
 
 
 ## Cronograma de atividades

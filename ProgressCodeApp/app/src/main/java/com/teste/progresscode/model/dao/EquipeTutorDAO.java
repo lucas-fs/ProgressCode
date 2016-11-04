@@ -36,8 +36,8 @@ public class EquipeTutorDAO {
 
         ContentValues values = new ContentValues();
 
-        values.put("equipe_id", equipeTutor.getIdEquipe());
-        values.put("tutor_id", equipeTutor.getIdTutor());
+        values.put("id_equipe", equipeTutor.getIdEquipe());
+        values.put("id_tutor", equipeTutor.getIdTutor());
 
         database.insert("equipe_tutor", null, values);
     }
@@ -54,7 +54,7 @@ public class EquipeTutorDAO {
     public List<EquipeTutor> getAllEquipeTutor() {
         List<EquipeTutor> equipeTutores = new ArrayList<EquipeTutor>();
 
-        Cursor cursor = database.query("equipe_tutor", new  String[] {"equipe_id", "tutor_id"}, null, null, null, null, null);
+        Cursor cursor = database.query("equipe_tutor", new  String[] {"id_equipe", "id_tutor"}, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

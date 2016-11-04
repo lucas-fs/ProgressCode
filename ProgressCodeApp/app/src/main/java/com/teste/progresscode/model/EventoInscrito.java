@@ -14,9 +14,13 @@ public class EventoInscrito {
     @SerializedName("inscrito_id")
     private int idEvento;
 
-    public EventoInscrito(Integer idInscrito, Integer idEvento){
-        this.idEvento = idEvento;
+    @SerializedName("resource_uri")
+    private String resourceUri;
+
+    public EventoInscrito(int idInscrito, int idEvento, String resourceUri) {
         this.idInscrito = idInscrito;
+        this.idEvento = idEvento;
+        this.resourceUri = resourceUri;
     }
 
     public EventoInscrito(){}
@@ -35,5 +39,13 @@ public class EventoInscrito {
 
     public void setIdEvento(int idEvento) {
         this.idEvento = idEvento;
+    }
+
+    public String getResourceUri() {
+        return resourceUri;
+    }
+
+    public void setResourceUri(String resourceUri) {
+        this.resourceUri = resourceUri;
     }
 }
