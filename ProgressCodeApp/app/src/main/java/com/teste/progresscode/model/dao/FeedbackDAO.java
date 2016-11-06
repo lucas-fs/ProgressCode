@@ -62,7 +62,7 @@ public class FeedbackDAO {
     public List<Feedback> getAllFeedbacks() {
         List<Feedback> feedbacks = new ArrayList<Feedback>();
 
-        Cursor cursor = database.query("feedback", new  String[] {"id_tutor", "id_inscrito", "id_atividade", "status", "dir_audio"}, null, null, null, null, null);
+        Cursor cursor = database.query("feedback", new  String[] {"id_tutor", "id_inscrito", "id_atividade", "status", "timestamp", "dir_audio"}, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

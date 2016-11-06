@@ -80,15 +80,18 @@ public class SyncDatabaseApi {
 
                 for (Tutor t : tutores) {
                     int cont = 0;
-                    for (Tutor ta : tutoresApp) {
-                        if (t.getId() == ta.getId()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (taSize != 0) {
+                        for (Tutor ta : tutoresApp) {
+                            if (t.getId() == ta.getId()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
                     if (cont == taSize) {
                         tutorDAO.insertTutor(t);
+                        Log.v(TAG, "Inserindo tutor: "+t.getNome());
                     }
                 }
 
@@ -122,15 +125,18 @@ public class SyncDatabaseApi {
 
                 for (Equipe e : equipes) {
                     int cont = 0;
-                    for (Equipe ea : equipesApp) {
-                        if (e.getId() == ea.getId()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (eaSize != 0) {
+                        for (Equipe ea : equipesApp) {
+                            if (e.getId() == ea.getId()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
                     if (cont == eaSize) {
                         equipeDAO.insertEquipe(e);
+                        Log.v(TAG, "Inserindo equipe: "+e.getDescricao());
                     }
                 }
 
@@ -164,15 +170,18 @@ public class SyncDatabaseApi {
 
                 for (EquipeTutor et : equipeTutores) {
                     int cont = 0;
-                    for (EquipeTutor eta : equipeTutoresApp) {
-                        if (et.getIdEquipe() == eta.getIdEquipe() && et.getIdTutor() == eta.getIdTutor()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (etaSize != 0) {
+                        for (EquipeTutor eta : equipeTutoresApp) {
+                            if (et.getIdEquipe() == eta.getIdEquipe() && et.getIdTutor() == eta.getIdTutor()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
                     if (cont == etaSize) {
                         equipeTutorDAO.insertEquipeTutor(et);
+                        Log.v(TAG, "Inserindo equipe_tutor: "+et.getResourceUri());
                     }
                 }
 
@@ -206,15 +215,18 @@ public class SyncDatabaseApi {
 
                 for (Evento e : eventos) {
                     int cont = 0;
-                    for (Evento ea : eventoApp) {
-                        if (e.getId() == ea.getId()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (eaSize != 0) {
+                        for (Evento ea : eventoApp) {
+                            if (e.getId() == ea.getId()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
                     if (cont == eaSize) {
                         eventoDAO.insertEvento(e);
+                        Log.v(TAG, "Inserindo evento: "+e.getNomeEvento());
                     }
                 }
 
@@ -248,15 +260,18 @@ public class SyncDatabaseApi {
 
                 for (EventoEquipe ee : eventoEquipes) {
                     int cont = 0;
-                    for (EventoEquipe eea : eventoEquipesApp) {
-                        if (ee.getIdEquipe() == eea.getIdEquipe() && ee.getIdEvento() == eea.getIdEvento()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (eeaSize != 0) {
+                        for (EventoEquipe eea : eventoEquipesApp) {
+                            if (ee.getIdEquipe() == eea.getIdEquipe() && ee.getIdEvento() == eea.getIdEvento()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
                     if (cont == eeaSize) {
                         eventoEquipeDAO.insertEventoEquipe(ee);
+                        Log.v(TAG, "Inserindo evento_equipe: "+ee.getResourceUri());
                     }
                 }
 
@@ -290,15 +305,18 @@ public class SyncDatabaseApi {
 
                 for (Inscrito i : inscritos) {
                     int cont = 0;
-                    for (Inscrito ia : inscritosApp) {
-                        if (i.getId() == ia.getId()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (iaSize != 0) {
+                        for (Inscrito ia : inscritosApp) {
+                            if (i.getId() == ia.getId()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
                     if (cont == iaSize) {
                         inscritoDAO.insertInscrito(i);
+                        Log.v(TAG, "Inserindo inscrito: "+i.getNome());
                     }
                 }
 
@@ -332,16 +350,18 @@ public class SyncDatabaseApi {
 
                 for (EventoInscrito ei : eventoInscritos) {
                     int cont = 0;
-                    for (EventoInscrito eia : eventoInscritosApp) {
-                        if (ei.getIdEvento() == eia.getIdEvento() && ei.getIdInscrito() == eia.getIdInscrito()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (eiaSize != 0) {
+                        for (EventoInscrito eia : eventoInscritosApp) {
+                            if (ei.getIdEvento() == eia.getIdEvento() && ei.getIdInscrito() == eia.getIdInscrito()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
-                    if (cont == eiaSize && eiaSize != 0) {
+                    if (cont == eiaSize) {
                         eventoInscritoDAO.insertEventoInscrito(ei);
-                        Log.e(TAG, "Inserindo evento_inscrito: "+ei.getResourceUri());
+                        Log.v(TAG, "Inserindo evento_inscrito: "+ei.getResourceUri());
                     }
                 }
 
@@ -375,16 +395,18 @@ public class SyncDatabaseApi {
 
                 for (Encontro e : encontros) {
                     int cont = 0;
-                    for (Encontro ea : encontrosApp) {
-                        if (e.getId() == ea.getId()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (eaSize != 0) {
+                        for (Encontro ea : encontrosApp) {
+                            if (e.getId() == ea.getId()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
                     if (cont == eaSize) {
                         encontroDAO.insertEncontro(e);
-                        Log.e(TAG, "Inserindo encontro: "+e.getId());
+                        Log.v(TAG, "Inserindo encontro: "+e.getId());
                     }
                 }
 
@@ -419,16 +441,18 @@ public class SyncDatabaseApi {
 
                 for (Atividade a : atividades) {
                     int cont = 0;
-                    for (Atividade aa : atividadesApp) {
-                        if (a.getId() == aa.getId()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (aaSize != 0) {
+                        for (Atividade aa : atividadesApp) {
+                            if (a.getId() == aa.getId()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
                     if (cont == aaSize) {
                         atividadeDAO.insertAtividade(a);
-                        Log.e(TAG, "Inserindo atividade: "+a.getDescricao());
+                        Log.v(TAG, "Inserindo atividade: "+a.getDescricao());
                     }
                 }
 
@@ -462,16 +486,18 @@ public class SyncDatabaseApi {
 
                 for (Feedback f : feedbacks) {
                     int cont = 0;
-                    for (Feedback fa : feedbacksApp) {
-                        if (f.getIdInscrito() == fa.getIdInscrito() && f.getIdTutor() == fa.getIdTutor() && f.getIdAtividade() == fa.getIdAtividade()) {
-                            break;
-                        } else {
-                            cont++;
+                    if (faSize != 0) {
+                        for (Feedback fa : feedbacksApp) {
+                            if (f.getIdInscrito() == fa.getIdInscrito() && f.getIdTutor() == fa.getIdTutor() && f.getIdAtividade() == fa.getIdAtividade()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
                         }
                     }
                     if (cont == faSize) {
                         feedbackDAO.insertFeedback(f);
-                        Log.e(TAG, "Inserindo Feedback: "+f.getResourceUri());
+                        Log.v(TAG, "Inserindo Feedback: "+f.getResourceUri());
                     }
                 }
 
@@ -484,15 +510,69 @@ public class SyncDatabaseApi {
 
 
     public void syncAllDatabase() {
-        syncTutor();
-        syncEquipe();
-        syncEquipeTutor();
-        syncEvento();
-        syncEventoEquipe();
-        syncInscrito();
-        syncEventoInscrito();
-        syncEncontro();
-        syncAtividades();
-        syncFeedback();
+        final Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    syncInscrito();
+                    syncEventoInscrito();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        final Thread thread3 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    syncEncontro();
+                    syncAtividades();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        final Thread thread4 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    syncEventoEquipe();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        final Thread thread5 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    syncEquipeTutor();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    syncEvento();
+                    thread2.start();
+                    thread3.start();
+                    syncEquipe();
+                    thread4.start();
+                    syncTutor();
+                    thread5.start();
+                    thread2.join();
+                    thread3.join();
+                    syncFeedback();
+                    thread4.join();
+                    thread5.join();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread1.start();
     }
 }
