@@ -91,7 +91,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == taSize) {
                         tutorDAO.insertTutor(t);
-                        Log.v(TAG, "Inserindo tutor: "+t.getNome());
+                        Log.v(TAG, "Inserindo tutor: " + t.getNome());
                     }
                 }
 
@@ -136,7 +136,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == eaSize) {
                         equipeDAO.insertEquipe(e);
-                        Log.v(TAG, "Inserindo equipe: "+e.getDescricao());
+                        Log.v(TAG, "Inserindo equipe: " + e.getDescricao());
                     }
                 }
 
@@ -181,7 +181,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == etaSize) {
                         equipeTutorDAO.insertEquipeTutor(et);
-                        Log.v(TAG, "Inserindo equipe_tutor: "+et.getResourceUri());
+                        Log.v(TAG, "Inserindo equipe_tutor: " + et.getResourceUri());
                     }
                 }
 
@@ -226,7 +226,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == eaSize) {
                         eventoDAO.insertEvento(e);
-                        Log.v(TAG, "Inserindo evento: "+e.getNomeEvento());
+                        Log.v(TAG, "Inserindo evento: " + e.getNomeEvento());
                     }
                 }
 
@@ -271,7 +271,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == eeaSize) {
                         eventoEquipeDAO.insertEventoEquipe(ee);
-                        Log.v(TAG, "Inserindo evento_equipe: "+ee.getResourceUri());
+                        Log.v(TAG, "Inserindo evento_equipe: " + ee.getResourceUri());
                     }
                 }
 
@@ -316,7 +316,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == iaSize) {
                         inscritoDAO.insertInscrito(i);
-                        Log.v(TAG, "Inserindo inscrito: "+i.getNome());
+                        Log.v(TAG, "Inserindo inscrito: " + i.getNome());
                     }
                 }
 
@@ -361,7 +361,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == eiaSize) {
                         eventoInscritoDAO.insertEventoInscrito(ei);
-                        Log.v(TAG, "Inserindo evento_inscrito: "+ei.getResourceUri());
+                        Log.v(TAG, "Inserindo evento_inscrito: " + ei.getResourceUri());
                     }
                 }
 
@@ -406,7 +406,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == eaSize) {
                         encontroDAO.insertEncontro(e);
-                        Log.v(TAG, "Inserindo encontro: "+e.getId());
+                        Log.v(TAG, "Inserindo encontro: " + e.getId());
                     }
                 }
 
@@ -452,7 +452,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == aaSize) {
                         atividadeDAO.insertAtividade(a);
-                        Log.v(TAG, "Inserindo atividade: "+a.getDescricao());
+                        Log.v(TAG, "Inserindo atividade: " + a.getDescricao());
                     }
                 }
 
@@ -497,7 +497,7 @@ public class SyncDatabaseApi {
                     }
                     if (cont == faSize) {
                         feedbackDAO.insertFeedback(f);
-                        Log.v(TAG, "Inserindo Feedback: "+f.getResourceUri());
+                        Log.v(TAG, "Inserindo Feedback: " + f.getResourceUri());
                     }
                 }
 
@@ -510,10 +510,11 @@ public class SyncDatabaseApi {
 
 
     public void syncAllDatabase() {
+
         final Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                try  {
+                try {
                     syncInscrito();
                     syncEventoInscrito();
                 } catch (Exception e) {
@@ -521,10 +522,11 @@ public class SyncDatabaseApi {
                 }
             }
         });
+
         final Thread thread3 = new Thread(new Runnable() {
             @Override
             public void run() {
-                try  {
+                try {
                     syncEncontro();
                     syncAtividades();
                 } catch (Exception e) {
@@ -532,30 +534,33 @@ public class SyncDatabaseApi {
                 }
             }
         });
+
         final Thread thread4 = new Thread(new Runnable() {
             @Override
             public void run() {
-                try  {
+                try {
                     syncEventoEquipe();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+
         final Thread thread5 = new Thread(new Runnable() {
             @Override
             public void run() {
-                try  {
+                try {
                     syncEquipeTutor();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+
         Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                try  {
+                try {
                     syncEvento();
                     thread2.start();
                     thread3.start();
@@ -573,6 +578,7 @@ public class SyncDatabaseApi {
                 }
             }
         });
+        
         thread1.start();
     }
 }
