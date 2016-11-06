@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.teste.progresscode.database.DbSQLiteHelper;
-import com.teste.progresscode.model.Atividade;
 import com.teste.progresscode.model.Encontro;
 
 import java.util.ArrayList;
@@ -46,28 +45,28 @@ public class EncontroDAO {
         database.insert("encontros", null, values);
     }
 
-    private Atividade cursorToAtividade(Cursor cursor){
-        Atividade atividade = new Atividade();
+    private Encontro cursorToEncontro(Cursor cursor){
+        Encontro encontro = new Encontro();
 
-        atividade.setId(cursor.getInt(0));
-        atividade.setDescricao(cursor.getString(1));
-        atividade.setIdEncontro(cursor.getInt(2));
+        encontro.setId(cursor.getInt(0));
+        encontro.setDataRealizao(cursor.getString(1));
+        encontro.setIdEvento(cursor.getInt(2));
 
-        return atividade;
+        return encontro;
     }
 
-    public List<Atividade> getAllAtividades(){
-        List<Atividade> atividades = new ArrayList<>();
+    public List<Encontro> getAllEncontros(){
+        List<Encontro> encontros = new ArrayList<>();
 
         Cursor cursor = database.query("encontros", new  String[] {"id", "data_realizacao", "id_evento"}, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Atividade atividade = cursorToAtividade(cursor);
-            atividades.add(atividade);
+            Encontro encontro = cursorToEncontro(cursor);
+            encontros.add(encontro);
             cursor.moveToNext();
         }
         cursor.close();
-        return atividades;
+        return encontros;
     }
 }

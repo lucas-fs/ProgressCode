@@ -74,9 +74,24 @@ public class SyncDatabaseApi {
                 TutorDAO tutorDAO = new TutorDAO(context);
                 tutorDAO.openConection();
 
+                List<Tutor> tutoresApp = tutorDAO.getAllTutores();
+
+                int taSize = tutoresApp.size();
+
                 for (Tutor t : tutores) {
-                    tutorDAO.insertTutor(t);
+                    int cont = 0;
+                    for (Tutor ta : tutoresApp) {
+                        if (t.getId() == ta.getId()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == taSize) {
+                        tutorDAO.insertTutor(t);
+                    }
                 }
+
                 tutorDAO.closeConection();
             }
         } else {
@@ -101,8 +116,22 @@ public class SyncDatabaseApi {
                 EquipeDAO equipeDAO = new EquipeDAO(context);
                 equipeDAO.openConection();
 
+                List<Equipe> equipesApp = equipeDAO.getAllEquipes();
+
+                int eaSize = equipesApp.size();
+
                 for (Equipe e : equipes) {
-                    equipeDAO.insertEquipe(e);
+                    int cont = 0;
+                    for (Equipe ea : equipesApp) {
+                        if (e.getId() == ea.getId()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == eaSize) {
+                        equipeDAO.insertEquipe(e);
+                    }
                 }
 
                 equipeDAO.closeConection();
@@ -129,8 +158,22 @@ public class SyncDatabaseApi {
                 EquipeTutorDAO equipeTutorDAO = new EquipeTutorDAO(context);
                 equipeTutorDAO.openConection();
 
+                List<EquipeTutor> equipeTutoresApp = equipeTutorDAO.getAllEquipeTutor();
+
+                int etaSize = equipeTutoresApp.size();
+
                 for (EquipeTutor et : equipeTutores) {
-                    equipeTutorDAO.insertEquipeTutor(et);
+                    int cont = 0;
+                    for (EquipeTutor eta : equipeTutoresApp) {
+                        if (et.getIdEquipe() == eta.getIdEquipe() && et.getIdTutor() == eta.getIdTutor()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == etaSize) {
+                        equipeTutorDAO.insertEquipeTutor(et);
+                    }
                 }
 
                 equipeTutorDAO.closeConection();
@@ -157,8 +200,22 @@ public class SyncDatabaseApi {
                 EventoDAO eventoDAO = new EventoDAO(context);
                 eventoDAO.openConection();
 
+                List<Evento> eventoApp = eventoDAO.getAllEventos();
+
+                int eaSize = eventoApp.size();
+
                 for (Evento e : eventos) {
-                    eventoDAO.insertEvento(e);
+                    int cont = 0;
+                    for (Evento ea : eventoApp) {
+                        if (e.getId() == ea.getId()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == eaSize) {
+                        eventoDAO.insertEvento(e);
+                    }
                 }
 
                 eventoDAO.closeConection();
@@ -185,8 +242,22 @@ public class SyncDatabaseApi {
                 EventoEquipeDAO eventoEquipeDAO = new EventoEquipeDAO(context);
                 eventoEquipeDAO.openConection();
 
+                List<EventoEquipe> eventoEquipesApp = eventoEquipeDAO.getAllEventoEquipes();
+
+                int eeaSize = eventoEquipesApp.size();
+
                 for (EventoEquipe ee : eventoEquipes) {
-                    eventoEquipeDAO.insertEventoEquipe(ee);
+                    int cont = 0;
+                    for (EventoEquipe eea : eventoEquipesApp) {
+                        if (ee.getIdEquipe() == eea.getIdEquipe() && ee.getIdEvento() == eea.getIdEvento()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == eeaSize) {
+                        eventoEquipeDAO.insertEventoEquipe(ee);
+                    }
                 }
 
                 eventoEquipeDAO.closeConection();
@@ -213,8 +284,22 @@ public class SyncDatabaseApi {
                 InscritoDAO inscritoDAO = new InscritoDAO(context);
                 inscritoDAO.openConection();
 
+                List<Inscrito> inscritosApp = inscritoDAO.getAllInscritos();
+
+                int iaSize = inscritosApp.size();
+
                 for (Inscrito i : inscritos) {
-                    inscritoDAO.insertInscrito(i);
+                    int cont = 0;
+                    for (Inscrito ia : inscritosApp) {
+                        if (i.getId() == ia.getId()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == iaSize) {
+                        inscritoDAO.insertInscrito(i);
+                    }
                 }
 
                 inscritoDAO.closeConection();
@@ -241,8 +326,23 @@ public class SyncDatabaseApi {
                 EventoInscritoDAO eventoInscritoDAO = new EventoInscritoDAO(context);
                 eventoInscritoDAO.openConection();
 
+                List<EventoInscrito> eventoInscritosApp = eventoInscritoDAO.getAllEventoInscritos();
+
+                int eiaSize = eventoInscritosApp.size();
+
                 for (EventoInscrito ei : eventoInscritos) {
-                    eventoInscritoDAO.insertEventoInscrito(ei);
+                    int cont = 0;
+                    for (EventoInscrito eia : eventoInscritosApp) {
+                        if (ei.getIdEvento() == eia.getIdEvento() && ei.getIdInscrito() == eia.getIdInscrito()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == eiaSize && eiaSize != 0) {
+                        eventoInscritoDAO.insertEventoInscrito(ei);
+                        Log.e(TAG, "Inserindo evento_inscrito: "+ei.getResourceUri());
+                    }
                 }
 
                 eventoInscritoDAO.closeConection();
@@ -269,8 +369,23 @@ public class SyncDatabaseApi {
                 EncontroDAO encontroDAO = new EncontroDAO(context);
                 encontroDAO.openConection();
 
+                List<Encontro> encontrosApp = encontroDAO.getAllEncontros();
+
+                int eaSize = encontrosApp.size();
+
                 for (Encontro e : encontros) {
-                    encontroDAO.insertEncontro(e);
+                    int cont = 0;
+                    for (Encontro ea : encontrosApp) {
+                        if (e.getId() == ea.getId()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == eaSize) {
+                        encontroDAO.insertEncontro(e);
+                        Log.e(TAG, "Inserindo encontro: "+e.getId());
+                    }
                 }
 
                 encontroDAO.closeConection();
@@ -288,7 +403,7 @@ public class SyncDatabaseApi {
         try {
             response = call.execute();
         } catch (IOException e) {
-            Log.e(TAG, "falaha sync atividade");
+            Log.e(TAG, "falha sync atividade");
             e.printStackTrace();
         }
 
@@ -298,8 +413,23 @@ public class SyncDatabaseApi {
                 AtividadeDAO atividadeDAO = new AtividadeDAO(context);
                 atividadeDAO.openConection();
 
+                List<Atividade> atividadesApp = atividadeDAO.getAllAtividades();
+
+                int aaSize = atividadesApp.size();
+
                 for (Atividade a : atividades) {
-                    atividadeDAO.insertAtividade(a);
+                    int cont = 0;
+                    for (Atividade aa : atividadesApp) {
+                        if (a.getId() == aa.getId()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == aaSize) {
+                        atividadeDAO.insertAtividade(a);
+                        Log.e(TAG, "Inserindo atividade: "+a.getDescricao());
+                    }
                 }
 
                 atividadeDAO.closeConection();
@@ -326,8 +456,23 @@ public class SyncDatabaseApi {
                 FeedbackDAO feedbackDAO = new FeedbackDAO(context);
                 feedbackDAO.openConection();
 
+                List<Feedback> feedbacksApp = feedbackDAO.getAllFeedbacks();
+
+                int faSize = feedbacksApp.size();
+
                 for (Feedback f : feedbacks) {
-                    feedbackDAO.insertFeedback(f);
+                    int cont = 0;
+                    for (Feedback fa : feedbacksApp) {
+                        if (f.getIdInscrito() == fa.getIdInscrito() && f.getIdTutor() == fa.getIdTutor() && f.getIdAtividade() == fa.getIdAtividade()) {
+                            break;
+                        } else {
+                            cont++;
+                        }
+                    }
+                    if (cont == faSize) {
+                        feedbackDAO.insertFeedback(f);
+                        Log.e(TAG, "Inserindo Feedback: "+f.getResourceUri());
+                    }
                 }
 
                 feedbackDAO.closeConection();

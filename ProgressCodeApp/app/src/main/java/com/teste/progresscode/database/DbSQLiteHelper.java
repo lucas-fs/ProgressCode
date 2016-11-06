@@ -18,7 +18,7 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
 
     // Informacoes do banco de dados
     private static final String DATABASE_NAME = "progresscode.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // SQL de criacao das tabelas
     public static final String CREATE_TABLE_TUTOR = "CREATE TABLE IF NOT EXISTS " +

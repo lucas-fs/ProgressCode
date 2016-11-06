@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.teste.progresscode.R;
-import com.teste.progresscode.database.SyncDatabaseApi;
 import com.teste.progresscode.fragment.EncontrosFragment;
 import com.teste.progresscode.fragment.HomeFragment;
 import com.teste.progresscode.fragment.IncritosFragment;
@@ -78,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+
+        Bundle bundle = intent.getExtras();
+
+        int syncStatus = bundle.getInt("sync_status");
+
+        Log.v(TAG, "Sync status: "+syncStatus);
+
+        /*
         final SyncDatabaseApi syncDatabaseApi = new SyncDatabaseApi(getApplicationContext());
 
         // Thread necessária, pois não é possível realizar as requisições http na thread principal
@@ -93,12 +101,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         thread.start();
-
+        */
         // ========== bloco de teste ==========
 
         Log.v(TAG, "Path database: "+getApplicationContext().getDatabasePath("progresscode.db"));
 
-        while (thread.isAlive()); // Gambiarra braba, justificativa: realizacao de testes...
+        //while (thread.isAlive()); // Gambiarra braba, justificativa: realizacao de testes...
 
         AtividadeDAO atividadeDAO = new AtividadeDAO(getApplicationContext());
         atividadeDAO.openConection();
