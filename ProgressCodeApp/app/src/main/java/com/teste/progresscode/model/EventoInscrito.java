@@ -8,10 +8,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class EventoInscrito {
 
-    @SerializedName("evento_id")
+    @SerializedName("inscrito_id")
     private int idInscrito;
 
-    @SerializedName("inscrito_id")
+    @SerializedName("evento_id")
     private int idEvento;
 
     @SerializedName("resource_uri")

@@ -58,6 +58,29 @@ public class InscritoDAO {
         return inscrito;
     }
 
+    public List<Inscrito> getInscritosByEncontro(int idEncontro) {
+        List<Inscrito> inscritos = new ArrayList<Inscrito>();
+
+        Cursor cursor = database.rawQuery("" +
+                "SELECT i.id, i.nome, i.escola, i.data_nasc " +
+                "FROM inscritos i " +
+                "JOIN evento_inscrito ei on ei.id_inscrito = i.id " +
+                "JOIN eventos e on e.id = ei.id_evento " +
+                "JOIN encontros en on en.id_evento = e.id " +
+                "WHERE en.id = ?" +
+                ";", new String[]{String.valueOf(idEncontro)});
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Inscrito inscrito = cursorToInscrito(cursor);
+            inscritos.add(inscrito);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return inscritos;
+    }
+
     public List<Inscrito> getAllInscritos() {
         List<Inscrito> inscritos = new ArrayList<Inscrito>();
 

@@ -1,33 +1,26 @@
 package com.teste.progresscode.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.teste.progresscode.R;
-import com.teste.progresscode.activity.AboutUsActivity;
 import com.teste.progresscode.adapter.EncontroAdapter;
 import com.teste.progresscode.model.Encontro;
-import com.teste.progresscode.model.response.EncontroResponse;
+import com.teste.progresscode.model.dao.EncontroDAO;
 import com.teste.progresscode.other.DividerItemDecoration;
 import com.teste.progresscode.other.RecyclerItemClickListener;
-import com.teste.progresscode.rest.ApiClient;
-import com.teste.progresscode.rest.ApiInterface;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class EncontrosFragment extends Fragment {
 
@@ -80,6 +73,14 @@ public class EncontrosFragment extends Fragment {
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
 
+        EncontroDAO encontroDAO = new EncontroDAO(getActivity());
+        encontroDAO.openConection();
+        encontros = encontroDAO.getAllEncontros();
+        encontroDAO.closeConection();
+
+        recyclerView.setAdapter(new EncontroAdapter(encontros, R.layout.row_encontro, getActivity()));
+
+        /*
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         Call<EncontroResponse> call = apiService.getAllEncontros();
@@ -98,6 +99,7 @@ public class EncontrosFragment extends Fragment {
             }
         });
 
+        */
         // Listener do click em item da lista
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -106,9 +108,19 @@ public class EncontrosFragment extends Fragment {
 
                         Bundle bundle = new Bundle();
                         bundle.putInt("idEncontro",encontros.get(position).getId());
+
+                        Fragment incritosFragment = new IncritosFragment();
+                        incritosFragment.setArguments(bundle);
+
+                        FragmentManager fm = getFragmentManager();
+                        FragmentTransaction transaction = fm.beginTransaction();
+                        transaction.replace(R.id.frame, incritosFragment);
+                        transaction.commit();
+                        /*
                         Intent intent = new Intent(getActivity(), AboutUsActivity.class);
                         intent.putExtras(bundle);
                         startActivity(intent);
+                        */
 
                     }
                 })

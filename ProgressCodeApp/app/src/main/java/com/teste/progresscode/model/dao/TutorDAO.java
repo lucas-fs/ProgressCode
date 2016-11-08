@@ -32,18 +32,6 @@ public class TutorDAO {
         dbHelper.close();
     }
 
-    public void insertTutor(Tutor tutor){
-
-        ContentValues values = new ContentValues();
-
-        values.put("id", tutor.getId());
-        values.put("nome", tutor.getNome());
-        values.put("email", tutor.getEmail());
-        values.put("senha", tutor.getSenha());
-
-        database.insert("tutores", null, values);
-    }
-
     private Tutor cursorToTutor(Cursor cursor) {
         Tutor tutor = new Tutor();
 
@@ -55,10 +43,32 @@ public class TutorDAO {
         return tutor;
     }
 
+    public void insertTutor(Tutor tutor) {
+
+        ContentValues values = new ContentValues();
+
+        values.put("id", tutor.getId());
+        values.put("nome", tutor.getNome());
+        values.put("email", tutor.getEmail());
+        values.put("senha", tutor.getSenha());
+
+        database.insert("tutores", null, values);
+    }
+
+    public Tutor getTutorByEmail(String email) {
+        Cursor cursor = database.query("tutores", new String[]{"id", "nome", "email", "senha"}, "email=?", new String[]{email}, null, null, "1");
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            return cursorToTutor(cursor);
+        } else {
+            return null;
+        }
+    }
+
     public List<Tutor> getAllTutores() {
         List<Tutor> tutores = new ArrayList<Tutor>();
 
-        Cursor cursor = database.query("tutores", new  String[] {"id", "nome", "email", "senha"}, null, null, null, null, null);
+        Cursor cursor = database.query("tutores", new String[]{"id", "nome", "email", "senha"}, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

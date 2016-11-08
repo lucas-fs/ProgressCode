@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +14,11 @@ import android.widget.Toast;
 import com.teste.progresscode.R;
 import com.teste.progresscode.adapter.InscritoAdapter;
 import com.teste.progresscode.model.Inscrito;
-import com.teste.progresscode.model.response.InscritoResponse;
+import com.teste.progresscode.model.dao.InscritoDAO;
 import com.teste.progresscode.other.DividerItemDecoration;
 import com.teste.progresscode.other.RecyclerItemClickListener;
-import com.teste.progresscode.rest.ApiClient;
-import com.teste.progresscode.rest.ApiInterface;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class IncritosFragment extends Fragment {
 
@@ -72,12 +65,27 @@ public class IncritosFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_incritos, container, false);
         rootView.setTag(TAG);
 
+        InscritoDAO inscritoDAO = new InscritoDAO(getActivity());
+        inscritoDAO.openConection();
+
+        if (this.getArguments() != null) {
+            int idEncontro = this.getArguments().getInt("idEncontro");
+            inscritos = inscritoDAO.getInscritosByEncontro(idEncontro);
+        } else {
+            inscritos = inscritoDAO.getAllInscritos();
+        }
+
+        inscritoDAO.closeConection();
+
         recyclerView = (RecyclerView) rootView.findViewById(R.id.inscritos_rv);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
 
+        recyclerView.setAdapter(new InscritoAdapter(inscritos, R.layout.row_inscrito, getActivity()));
+
+        /*
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         Call<InscritoResponse> call = apiService.getAllInscritos();
@@ -94,6 +102,8 @@ public class IncritosFragment extends Fragment {
                 Log.e(TAG, t.toString());
             }
         });
+
+        */
 
         // Listener do click em item da lista
         recyclerView.addOnItemTouchListener(

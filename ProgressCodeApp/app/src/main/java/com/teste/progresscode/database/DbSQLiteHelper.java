@@ -107,21 +107,6 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
             "PRIMARY KEY (id_evento, id_inscrito) " +
             ");";
 
-    /*
-    // SQL de criacao do banco de dados
-    public static final String CREATE_DATABASE = "" +
-            " " + CREATE_TABLE_TUTOR +
-            " " + CREATE_TABLE_EQUIPE +
-            " " + CREATE_TABLE_EVENTO +
-            " " + CREATE_TABLE_INSCRITOS +
-            " " + CREATE_TABLE_ENCONTRO +
-            " " + CREATE_TABLE_ATIVIDADES +
-            " " + CREATE_TABLE_FEEDBACK +
-            " " + CREATE_TABLE_EQUI_TUTOR +
-            " " + CREATE_TABLE_EVEN_EQUI +
-            " " + CREATE_TABLE_EVEN_INSC;
-
-    */
     public DbSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;

@@ -578,7 +578,7 @@ public class SyncDatabaseApi {
                 }
             }
         });
-        
+
         thread1.start();
     }
 }

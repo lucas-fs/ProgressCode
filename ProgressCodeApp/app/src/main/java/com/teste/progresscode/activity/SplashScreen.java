@@ -17,7 +17,7 @@ public class SplashScreen extends AppCompatActivity {
         final SyncDatabaseApi syncDatabaseApi = new SyncDatabaseApi(getApplicationContext());
 
 
-        Thread thread = new Thread(new Runnable() {
+        final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 int status = 0;
@@ -30,7 +30,7 @@ public class SplashScreen extends AppCompatActivity {
                 } finally {
                     Bundle bundle = new Bundle();
                     bundle.putInt("sync_status",status);
-                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                    Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
