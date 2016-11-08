@@ -3,7 +3,18 @@
 	<div class="container">
 		<h1>Nova Atividade</h1>
 	    <form action="" method="POST" class="post-form">{% csrf_token %}
-	        {{ form.as_p }}
+	        <div class="row">
+				<div class="fieldWrapper">
+					<table>
+						<tbody>
+							<tr>
+								<td>{{ form }}</td>
+								<td>{{ field }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div><br>
 	        <button type="submit" class="btn btn-success">Guardar</button>
 		</form>
 		<br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>

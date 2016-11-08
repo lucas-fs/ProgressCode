@@ -1,14 +1,24 @@
 {% extends "web_page/base.html" %}
 {% block content %}
 	<div class="container">
+		{% csrf_token %}
 		<div class="row">
-			<div class="col-xs-5">
-				<h1>Cadastro inscrito:</h1>
-			    <form method="POST" class="post-form">{% csrf_token %}
-			        {{ form.as_p }}
-			        <button type="submit" class="btn btn-default">Guardar</button>
-				</form>
-			</div>
+			<div class="container">
+				<h3>Inserir Inscrito</h3>
+				<div class="row">
+					<div class="fieldWrapper">
+						<table>
+							<tbody>
+								<tr>
+									<td>{{ form }}</td>
+									<td>{{ field }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div><br>
+			<button type="submit" class="btn btn-success">Guardar</button>
 		</div>
 
 		<div class="container">

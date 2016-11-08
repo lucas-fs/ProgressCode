@@ -1,11 +1,27 @@
 {% extends "web_page/base.html" %}
 {% block content %}
+	{% csrf_token %}
 	<div class="container">
-		<h1>Cadastro tutor:</h1>
-	    <form method="POST" class="post-form">{% csrf_token %}
-	        {{ form.as_p }}
-	        <button type="submit" class="save btn btn-success">Guardar</button>
-		</form>
+		<div class="row">
+			<h3>Cadastrar Tutor</h3>
+			<div class="container">
+				<div class="row">
+					<div class="fieldWrapper">
+						<table>
+							<tbody>
+								<tr>
+									<td>{{ form }}</td>
+									<td>{{ field }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div><br>
+			<button type="submit" class="btn btn-success">Guardar</button>
+		</div>
+	</div>
+	<div class="container">
 		<br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
 	</div>
 {% endblock %}
