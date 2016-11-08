@@ -21,22 +21,46 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    ProgressCode	
+                    <h2>ProgressCode</h2>
                 </li>
                <li>
-                    <a href="#">About</a>
+                    <a href="#">Sobre</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="#">Contato</a>
                 </li>
+
+                <li class="sidebar-brand">
+                    <h2>Inscrições</h2>
+                </li>
+                <li><a href="/form/choiceInsc/">Inserir Inscritos</a></li>
+                <li><a href="/form/evento/">Cadastrar Evento</a></li>
+                <li><a href="/form/tutor/">Cadastrar novo Tutor</a></li>
+                <li><a href="/form/encontro/">Cadastrar Encontros</a></li>
+                <li><a href="/form/atividade/">Cadastro de Atividade</a></li>
+                <li><a href="/form/feedback/">Feedbacks</a></li>
+                <li><a href="/form/equipe/">Cadastro de Equipe</a></li>
+
+                <li class="sidebar-brand">Listas</li>
+                <li><a href="/list/eventos">Lista de Eventos</a></li>
+                <li><a href="/list/inscritos">Lista de Inscritos</a></li>
+                <li><a href="/list/feedbacks">Lista de Feedbacks</a></li>
+                <li><a href="/list/tutores">Lista de Tutores</a></li>
             </ul>
         </div>
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
+                        <img src="{% static "images/teste.jpg" %}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
                     	<h1>Olá {{ request.user }}</h1>
-                    	<a href="/logout"><input class="btn btn-default" type="button" name="logout btn" value="Deslogar"></a><br>
+                    </div>
+                    <div class="col-lg-12">
+                        <a href="/logout"><input class="btn btn-default" type="button" name="logout btn" value="Deslogar"></a><br>
                     </div>
                 </div>
                 <div class="row">
