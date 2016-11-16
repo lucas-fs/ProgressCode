@@ -7,7 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.teste.progresscode.database.DbSQLiteHelper;
-import com.teste.progresscode.model.Encontro;
+import com.teste.progresscode.model.object.Encontro;
 
 import java.util.ArrayList;
 import java.util.List;

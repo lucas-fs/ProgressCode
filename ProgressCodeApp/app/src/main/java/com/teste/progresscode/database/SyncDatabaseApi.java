@@ -3,16 +3,16 @@ package com.teste.progresscode.database;
 import android.content.Context;
 import android.util.Log;
 
-import com.teste.progresscode.model.Atividade;
-import com.teste.progresscode.model.Encontro;
-import com.teste.progresscode.model.Equipe;
-import com.teste.progresscode.model.EquipeTutor;
-import com.teste.progresscode.model.Evento;
-import com.teste.progresscode.model.EventoEquipe;
-import com.teste.progresscode.model.EventoInscrito;
-import com.teste.progresscode.model.Feedback;
-import com.teste.progresscode.model.Inscrito;
-import com.teste.progresscode.model.Tutor;
+import com.teste.progresscode.model.object.Atividade;
+import com.teste.progresscode.model.object.Encontro;
+import com.teste.progresscode.model.object.Equipe;
+import com.teste.progresscode.model.object.EquipeTutor;
+import com.teste.progresscode.model.object.Evento;
+import com.teste.progresscode.model.object.EventoEquipe;
+import com.teste.progresscode.model.object.EventoInscrito;
+import com.teste.progresscode.model.object.Feedback;
+import com.teste.progresscode.model.object.Inscrito;
+import com.teste.progresscode.model.object.Tutor;
 import com.teste.progresscode.model.dao.AtividadeDAO;
 import com.teste.progresscode.model.dao.EncontroDAO;
 import com.teste.progresscode.model.dao.EquipeDAO;
@@ -37,6 +37,7 @@ import com.teste.progresscode.rest.ApiClient;
 import com.teste.progresscode.rest.ApiInterface;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -57,13 +58,15 @@ public class SyncDatabaseApi {
         this.apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    public void syncTutor() {
+    public int syncTutor() {
 
         Response<TutorResponse> response = null;
         Call<TutorResponse> call = apiService.getAllTutores();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,18 +100,22 @@ public class SyncDatabaseApi {
 
                 tutorDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
     }
 
-    public void syncEquipe() {
+    public int syncEquipe() {
 
         Response<EquipeResponse> response = null;
         Call<EquipeResponse> call = apiService.getAllEquipes();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -142,18 +149,22 @@ public class SyncDatabaseApi {
 
                 equipeDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
     }
 
-    public void syncEquipeTutor() {
+    public int syncEquipeTutor() {
 
         Response<EquipeTutorResponse> response = null;
         Call<EquipeTutorResponse> call = apiService.getAllEquipeTutor();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -187,18 +198,22 @@ public class SyncDatabaseApi {
 
                 equipeTutorDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
     }
 
-    public void syncEvento() {
+    public int syncEvento() {
 
         Response<EventoResponse> response = null;
         Call<EventoResponse> call = apiService.getAllEventos();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -232,18 +247,22 @@ public class SyncDatabaseApi {
 
                 eventoDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
     }
 
-    public void syncEventoEquipe() {
+    public int syncEventoEquipe() {
 
         Response<EventoEquipeResponse> response = null;
         Call<EventoEquipeResponse> call = apiService.getAllEventoEquipe();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -277,18 +296,22 @@ public class SyncDatabaseApi {
 
                 eventoEquipeDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
     }
 
-    public void syncInscrito() {
+    public int syncInscrito() {
 
         Response<InscritoResponse> response = null;
         Call<InscritoResponse> call = apiService.getAllInscritos();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -322,18 +345,22 @@ public class SyncDatabaseApi {
 
                 inscritoDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
     }
 
-    public void syncEventoInscrito() {
+    public int syncEventoInscrito() {
 
         Response<EventoInscritoResponse> response = null;
         Call<EventoInscritoResponse> call = apiService.getAllEventoInscrito();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -367,18 +394,22 @@ public class SyncDatabaseApi {
 
                 eventoInscritoDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
     }
 
-    public void syncEncontro() {
+    public int syncEncontro() {
 
         Response<EncontroResponse> response = null;
         Call<EncontroResponse> call = apiService.getAllEncontros();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -412,18 +443,22 @@ public class SyncDatabaseApi {
 
                 encontroDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
     }
 
-    public void syncAtividades() {
+    public int syncAtividades() {
 
         Response<AtividadeResponse> response = null;
         Call<AtividadeResponse> call = apiService.getAllAtividades();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             Log.e(TAG, "falha sync atividade");
             e.printStackTrace();
@@ -458,18 +493,22 @@ public class SyncDatabaseApi {
 
                 atividadeDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
     }
 
-    public void syncFeedback() {
+    public int syncFeedback() {
 
         Response<FeedbackResponse> response = null;
         Call<FeedbackResponse> call = apiService.getAllFeedbacks();
 
         try {
             response = call.execute();
+        } catch (SocketTimeoutException e) {
+            return -1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -483,9 +522,36 @@ public class SyncDatabaseApi {
                 List<Feedback> feedbacksApp = feedbackDAO.getAllFeedbacks();
 
                 int faSize = feedbacksApp.size();
+                int fsSize = feedbacks.size();
+
+                int cont;
+
+                for (Feedback fa : feedbacksApp) {
+                    cont = 0;
+                    if (fsSize != 0) {
+                        for (Feedback fs : feedbacks) {
+                            if (fs.getIdInscrito() == fa.getIdInscrito() && fs.getIdTutor() == fa.getIdTutor() && fs.getIdAtividade() == fa.getIdAtividade()) {
+                                break;
+                            } else {
+                                cont++;
+                            }
+                        }
+                    }
+                    if (cont == fsSize) {
+                        Call<Feedback> callPost = apiService.postFeedback(fa);
+                        try {
+                            Response resp;
+                            resp = callPost.execute();
+                           // Log.i(TAG, "code post: " +resp.code());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Log.v(TAG, "POST Feedback para o servidor: " + fa.getTimeStamp());
+                    }
+                }
 
                 for (Feedback f : feedbacks) {
-                    int cont = 0;
+                    cont = 0;
                     if (faSize != 0) {
                         for (Feedback fa : feedbacksApp) {
                             if (f.getIdInscrito() == fa.getIdInscrito() && f.getIdTutor() == fa.getIdTutor() && f.getIdAtividade() == fa.getIdAtividade()) {
@@ -497,26 +563,29 @@ public class SyncDatabaseApi {
                     }
                     if (cont == faSize) {
                         feedbackDAO.insertFeedback(f);
-                        Log.v(TAG, "Inserindo Feedback: " + f.getResourceUri());
+                        Log.v(TAG, "Inserindo Feedback: " + f.getTimeStamp());
                     }
                 }
 
                 feedbackDAO.closeConection();
             }
+            return 1;
         } else {
             Log.e(TAG, "Response = null");
+            return 0;
         }
+
     }
 
+    public int syncAllDatabase() {
 
-    public void syncAllDatabase() {
-
+        final int errors[] = new int[10];
         final Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    syncInscrito();
-                    syncEventoInscrito();
+                    errors[0] = syncInscrito();
+                    errors[1] = syncEventoInscrito();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -527,8 +596,8 @@ public class SyncDatabaseApi {
             @Override
             public void run() {
                 try {
-                    syncEncontro();
-                    syncAtividades();
+                    errors[2] = syncEncontro();
+                    errors[3] = syncAtividades();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -539,7 +608,7 @@ public class SyncDatabaseApi {
             @Override
             public void run() {
                 try {
-                    syncEventoEquipe();
+                    errors[4] = syncEventoEquipe();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -550,7 +619,7 @@ public class SyncDatabaseApi {
             @Override
             public void run() {
                 try {
-                    syncEquipeTutor();
+                    errors[5] = syncEquipeTutor();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -561,16 +630,16 @@ public class SyncDatabaseApi {
             @Override
             public void run() {
                 try {
-                    syncEvento();
+                    errors[6] = syncEvento();
                     thread2.start();
                     thread3.start();
-                    syncEquipe();
+                    errors[7] = syncEquipe();
                     thread4.start();
-                    syncTutor();
+                    errors[8] = syncTutor();
                     thread5.start();
                     thread2.join();
                     thread3.join();
-                    syncFeedback();
+                    errors[9] = syncFeedback();
                     thread4.join();
                     thread5.join();
                 } catch (Exception e) {
@@ -580,5 +649,29 @@ public class SyncDatabaseApi {
         });
 
         thread1.start();
+        try {
+            thread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return countErrors(errors);
     }
+
+    private int countErrors(int[] errors) {
+        int sum = 0;
+        for (int i = 0; i < 10; i++) {
+            sum += errors[i];
+        }
+        if (sum == 10) {
+            return 0;
+        } else if (sum < 0) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+
 }
+

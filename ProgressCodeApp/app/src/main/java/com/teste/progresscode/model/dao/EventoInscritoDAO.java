@@ -7,7 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.teste.progresscode.database.DbSQLiteHelper;
-import com.teste.progresscode.model.EventoInscrito;
+import com.teste.progresscode.model.object.EventoInscrito;
 
 import java.util.ArrayList;
 import java.util.List;

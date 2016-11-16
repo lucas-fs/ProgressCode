@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.teste.progresscode.R;
-import com.teste.progresscode.model.Encontro;
+import com.teste.progresscode.model.object.Encontro;
 
 import java.util.List;
 

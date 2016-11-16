@@ -15,7 +15,8 @@ import android.widget.Toast;
 
 import com.teste.progresscode.R;
 import com.teste.progresscode.adapter.EncontroAdapter;
-import com.teste.progresscode.model.Encontro;
+import com.teste.progresscode.model.object.Encontro;
+import com.teste.progresscode.model.object.Tutor;
 import com.teste.progresscode.model.dao.EncontroDAO;
 import com.teste.progresscode.other.DividerItemDecoration;
 import com.teste.progresscode.other.RecyclerItemClickListener;
@@ -32,9 +33,7 @@ public class EncontrosFragment extends Fragment {
     protected RecyclerView recyclerView;
 
     List<Encontro> encontros;
-
-    private String mParam1;
-    private String mParam2;
+    private Tutor tutor;
 
     private OnFragmentInteractionListener mListener;
 
@@ -56,8 +55,7 @@ public class EncontrosFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            tutor = bundleToTutor();
         }
     }
 
@@ -68,9 +66,7 @@ public class EncontrosFragment extends Fragment {
         rootView.setTag(TAG);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.encontros_rv);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
 
         EncontroDAO encontroDAO = new EncontroDAO(getActivity());
@@ -80,34 +76,19 @@ public class EncontrosFragment extends Fragment {
 
         recyclerView.setAdapter(new EncontroAdapter(encontros, R.layout.row_encontro, getActivity()));
 
-        /*
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<EncontroResponse> call = apiService.getAllEncontros();
-        call.enqueue(new Callback<EncontroResponse>() {
-            @Override
-            public void onResponse(Call<EncontroResponse> call, Response<EncontroResponse> response) {
-                int statusCode = response.code();
-                encontros = response.body().getEncontros();
-                recyclerView.setAdapter(new EncontroAdapter(encontros, R.layout.row_encontro, getActivity()));
-            }
-
-            @Override
-            public void onFailure(Call<EncontroResponse> call, Throwable t) {
-                // Log error here since request failed
-                Log.e(TAG, t.toString());
-            }
-        });
-
-        */
         // Listener do click em item da lista
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        Toast.makeText(getActivity(), "Encontro: "+encontros.get(position).getDataRealizao(), Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Toast.makeText(getActivity(), "Encontro: " + encontros.get(position).getDataRealizao(), Toast.LENGTH_SHORT).show();
 
                         Bundle bundle = new Bundle();
-                        bundle.putInt("idEncontro",encontros.get(position).getId());
+
+                        bundle.putInt("id_encontro", encontros.get(position).getId());
+                        bundle.putInt("id_tutor", tutor.getId());
+                        bundle.putString("nome_tutor", tutor.getNome());
+                        bundle.putString("email_tutor", tutor.getEmail());
 
                         Fragment incritosFragment = new IncritosFragment();
                         incritosFragment.setArguments(bundle);
@@ -116,11 +97,6 @@ public class EncontrosFragment extends Fragment {
                         FragmentTransaction transaction = fm.beginTransaction();
                         transaction.replace(R.id.frame, incritosFragment);
                         transaction.commit();
-                        /*
-                        Intent intent = new Intent(getActivity(), AboutUsActivity.class);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        */
 
                     }
                 })
@@ -146,8 +122,16 @@ public class EncontrosFragment extends Fragment {
         mListener = null;
     }
 
-
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    private Tutor bundleToTutor() {
+        Tutor tutor = new Tutor();
+        tutor.setId(this.getArguments().getInt("id_tutor"));
+        tutor.setNome(this.getArguments().getString("nome_tutor"));
+        tutor.setEmail(this.getArguments().getString("email_tutor"));
+
+        return tutor;
     }
 }

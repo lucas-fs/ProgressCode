@@ -1,5 +1,6 @@
 package com.teste.progresscode.rest;
 
+import com.teste.progresscode.model.object.Feedback;
 import com.teste.progresscode.model.response.AtividadeResponse;
 import com.teste.progresscode.model.response.EncontroResponse;
 import com.teste.progresscode.model.response.EquipeResponse;
@@ -12,7 +13,9 @@ import com.teste.progresscode.model.response.InscritoResponse;
 import com.teste.progresscode.model.response.TutorResponse;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -20,10 +23,6 @@ import retrofit2.http.Query;
  */
 
 public interface ApiInterface {
-
-    // Retorna inscrito com id informado na consulta
-   // @GET("inscrito/{id}")
-    //Call<InscritoResponse> getInscritoId(@Query("id") int id);
 
     // Retorna todos inscritos cadastrados
     @GET("inscrito/")
@@ -65,10 +64,12 @@ public interface ApiInterface {
     @GET("evento_equipe/")
     Call<EventoEquipeResponse> getAllEventoEquipe();
 
-
     // Retorna todos feedbacks cadastrados
     @GET("feedbacks/")
     Call<FeedbackResponse> getAllFeedbacks();
 
+    // Envia um novo feedback para o servidor
+    @POST("feedbacks/")
+    Call<Feedback> postFeedback(@Body Feedback feedback);
 }
 

@@ -72,12 +72,12 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
             "id_inscrito INTEGER NOT NULL, " +
             "id_atividade INTEGER NOT NULL, " +
             "status INTEGER NOT NULL, " +
-            "timestamp TEXT NOT NULL, " +
+            "timestamp TEXT NOT NULL UNIQUE, " +
             "dir_audio TEXT , " +
             "FOREIGN KEY (id_tutor) REFERENCES tutor(id), " +
             "FOREIGN KEY (id_inscrito) REFERENCES inscrito(id), " +
             "FOREIGN KEY (id_atividade) REFERENCES atividade(id), " +
-            "PRIMARY KEY (id_tutor, id_inscrito, id_atividade) " +
+            "PRIMARY KEY (timestamp, id_tutor, id_inscrito, id_atividade) " +
             ");";
 
     public static final String CREATE_TABLE_EQUI_TUTOR = "CREATE TABLE IF NOT EXISTS " +
@@ -112,22 +112,8 @@ public class DbSQLiteHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
-    /*
-    public void recreateDatabase(Context context, SQLiteDatabase sqLiteDatabase){
-        context.deleteDatabase(DATABASE_NAME);
-        onCreate(sqLiteDatabase);
-    }
-
-
-    @Override
-    public void onOpen(SQLiteDatabase sqLiteDatabase) {
-        super.onOpen(sqLiteDatabase);
-        sqLiteDatabase.execSQL("PRAGMA foreign_keys=ON;");
-    }
-    */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        //sqLiteDatabase.execSQL(CREATE_DATABASE);
         sqLiteDatabase.execSQL(CREATE_TABLE_TUTOR);
         sqLiteDatabase.execSQL(CREATE_TABLE_EQUIPE);
         sqLiteDatabase.execSQL(CREATE_TABLE_EQUI_TUTOR);

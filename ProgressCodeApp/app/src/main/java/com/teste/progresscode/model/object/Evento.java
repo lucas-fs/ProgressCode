@@ -1,4 +1,4 @@
-package com.teste.progresscode.model;
+package com.teste.progresscode.model.object;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,10 +6,13 @@ import com.google.gson.annotations.SerializedName;
  * Created by icorrea on 22/10/16.
  */
 
-public class Equipe {
+public class Evento {
 
     @SerializedName("id")
     private int id;
+
+    @SerializedName("nome_evento")
+    private String nomeEvento;
 
     @SerializedName("descricao")
     private String descricao;
@@ -17,28 +20,39 @@ public class Equipe {
     @SerializedName("resource_uri")
     private String resourceUri;
 
-    public Equipe(int id, String descricao, String resourceUri) {
+
+    public Evento(Integer id, String nomeEvento, String descricao, String resourceUri){
         this.id = id;
+        this.nomeEvento = nomeEvento;
         this.descricao = descricao;
         this.resourceUri = resourceUri;
+
     }
 
-    public Equipe(){}
+    public Evento(){}
 
-    public int getId() {
-        return id;
-    }
-
-    public String getDescricao() {
-        return descricao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setNomeEvento(String nomeEvento) {
+        this.nomeEvento = nomeEvento;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNomeEvento() {
+        return nomeEvento;
     }
 
     public String getResourceUri() {

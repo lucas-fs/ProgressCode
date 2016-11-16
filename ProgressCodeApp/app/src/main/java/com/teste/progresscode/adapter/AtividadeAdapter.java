@@ -10,8 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teste.progresscode.R;
-import com.teste.progresscode.model.Atividade;
+import com.teste.progresscode.database.SyncDatabaseApi;
+import com.teste.progresscode.model.dao.FeedbackDAO;
+import com.teste.progresscode.model.object.Atividade;
+import com.teste.progresscode.model.object.Feedback;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +27,9 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
     private List<Atividade> atividades; // List com os dados que preencherao a lista
     private int rowLayout; // XML do item
     private Context context; // Contexto da aplicacao
-
+    private int id_inscrito;
+    private int id_tutor;
+    private SyncDatabaseApi syncDatabaseApi;
 
     public static class AtividadeViewHolder extends RecyclerView.ViewHolder {
         //LinearLayout inscritosLayout;
@@ -45,10 +52,13 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
         }
     }
 
-    public AtividadeAdapter(List<Atividade> atividades, int rowLayout, Context context) {
+    public AtividadeAdapter(List<Atividade> atividades, int id_inscrito, int id_tutor, int rowLayout, Context context) {
         this.atividades = atividades;
+        this.id_inscrito = id_inscrito;
+        this.id_tutor = id_tutor;
         this.rowLayout = rowLayout;
         this.context = context;
+        this.syncDatabaseApi = new SyncDatabaseApi(context);
     }
 
     public AtividadeAdapter(int rowLayout, Context context) {
@@ -67,13 +77,32 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
     @Override
     public void onBindViewHolder(final AtividadeViewHolder holder, final int position) {
         holder.descricao.setText(atividades.get(position).getDescricao());
+        holder.smileFeliz.setImageResource(R.drawable.ic_feliz_off);
+        holder.smileNeutro.setImageResource(R.drawable.ic_neutro_off);
+        holder.smileTriste.setImageResource(R.drawable.ic_triste_off);
+
         holder.smileFeliz.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 holder.smileFeliz.setImageResource(R.drawable.ic_feliz_on);
                 holder.smileNeutro.setImageResource(R.drawable.ic_neutro_off);
                 holder.smileTriste.setImageResource(R.drawable.ic_triste_off);
+
+                FeedbackDAO feedbackDAO = new FeedbackDAO(context);
+                Feedback feedback = new Feedback(id_tutor, id_inscrito, atividades.get(position).getId(), 3, getCurrentTimeStamp(), "");
+                feedbackDAO.openConection();
+                feedbackDAO.insertFeedback(feedback);
+                feedbackDAO.closeConection();
                 Toast.makeText(context, "Smile Feliz", Toast.LENGTH_SHORT).show();
+
+                final Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        syncDatabaseApi.syncFeedback();
+                    }
+                });
+                thread.start();
+
             }
         });
 
@@ -83,6 +112,12 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
                 holder.smileTriste.setImageResource(R.drawable.ic_triste_on);
                 holder.smileNeutro.setImageResource(R.drawable.ic_neutro_off);
                 holder.smileFeliz.setImageResource(R.drawable.ic_feliz_off);
+
+                FeedbackDAO feedbackDAO = new FeedbackDAO(context);
+                Feedback feedback = new Feedback(id_tutor, id_inscrito, atividades.get(position).getId(), 1, getCurrentTimeStamp(), "");
+                feedbackDAO.openConection();
+                feedbackDAO.insertFeedback(feedback);
+                feedbackDAO.closeConection();
                 Toast.makeText(context, "Smile Triste", Toast.LENGTH_SHORT).show();
             }
         });
@@ -93,6 +128,12 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
                 holder.smileNeutro.setImageResource(R.drawable.ic_neutro_on);
                 holder.smileFeliz.setImageResource(R.drawable.ic_feliz_off);
                 holder.smileTriste.setImageResource(R.drawable.ic_triste_off);
+
+                FeedbackDAO feedbackDAO = new FeedbackDAO(context);
+                Feedback feedback = new Feedback(id_tutor, id_inscrito, atividades.get(position).getId(), 2, getCurrentTimeStamp(), "");
+                feedbackDAO.openConection();
+                feedbackDAO.insertFeedback(feedback);
+                feedbackDAO.closeConection();
                 Toast.makeText(context, "Smile Neutro", Toast.LENGTH_SHORT).show();
             }
         });
@@ -103,5 +144,20 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
     @Override
     public int getItemCount() {
         return atividades.size();
+    }
+
+    public static String getCurrentTimeStamp(){
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentDateTime = dateFormat.format(new Date()); // Find todays date
+
+            return currentDateTime;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+
+        }
     }
 }

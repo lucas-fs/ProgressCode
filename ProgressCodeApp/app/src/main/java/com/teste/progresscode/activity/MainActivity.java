@@ -27,15 +27,12 @@ import com.teste.progresscode.R;
 import com.teste.progresscode.fragment.EncontrosFragment;
 import com.teste.progresscode.fragment.HomeFragment;
 import com.teste.progresscode.fragment.IncritosFragment;
-import com.teste.progresscode.model.EventoInscrito;
-import com.teste.progresscode.model.dao.EventoInscritoDAO;
+import com.teste.progresscode.model.object.Tutor;
 import com.teste.progresscode.other.CircleTransform;
-
-import java.util.List;
 
 /**
  * Create by Lucas Ferreira da Silva
- * */
+ */
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
+    private Tutor tutor;
 
     // Urls para download das imagens do header do menu drawer
     private static final String urlNavHeaderBg = "http://wallup.net/wp-content/uploads/2016/01/161688-minimalism-pattern-abstract-lines-geometry-300x200.jpg";
@@ -79,32 +77,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-
         Bundle bundle = intent.getExtras();
 
-        int syncStatus = bundle.getInt("sync_status");
+        tutor = bundleToTutor(bundle);
 
-        Log.v(TAG, "Sync status: "+syncStatus);
-
-        // ========== bloco de teste ==========
-
-        Log.v(TAG, "Path database: "+getApplicationContext().getDatabasePath("progresscode.db"));
-        /*
-        AtividadeDAO atividadeDAO = new AtividadeDAO(getApplicationContext());
-        atividadeDAO.openConection();
-        List<Atividade> atividades = atividadeDAO.getAllAtividades();
-        atividadeDAO.closeConection();
-        */
-        EventoInscritoDAO eventoInscritoDAO = new EventoInscritoDAO(getApplicationContext());
-        eventoInscritoDAO.openConection();
-        List<EventoInscrito> eventoInscritos = eventoInscritoDAO.getAllEventoInscritos();
-        eventoInscritoDAO.closeConection();
-
-        // ====================================
-
-        for (EventoInscrito ei : eventoInscritos) {
-            Log.v(TAG, "Id_incrito: "+ei.getIdInscrito()+" Evento: "+ei.getIdEvento());
-        }
+        Log.v(TAG, "Path database: " + getApplicationContext().getDatabasePath("progresscode.db"));
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -147,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*** Carrega informacoes do menu drawer como:
+    /***
+     * Carrega informacoes do menu drawer como:
      * background, imagem de perfil, nome, website(email),
      * notifications action view (ponto)
      */
@@ -155,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
     private void loadNavHeader() {
 
         // nome, website
-        txtName.setText("Lucas Ferreira da Silva");
-        txtWebsite.setText("lferreira@inf.ufsm.br");
+        txtName.setText(tutor.getNome());
+        txtWebsite.setText(tutor.getEmail());
 
         // Carrega a imagem de background do header
         Glide.with(this).load(urlNavHeaderBg)
@@ -235,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Retorna o fragment correspondente ao item selecionado
     private Fragment getHomeFragment() {
+
+        Bundle bundle = new Bundle();
+
         switch (navItemIndex) {
             case 0:
                 // home
@@ -242,11 +223,26 @@ public class MainActivity extends AppCompatActivity {
                 return homeFragment;
             case 1:
                 // encontros
+                bundle.putInt("id_tutor", tutor.getId());
+                bundle.putString("nome_tutor", tutor.getNome());
+                bundle.putString("email_tutor", tutor.getEmail());
+
                 EncontrosFragment encontrosFragment = new EncontrosFragment();
+                encontrosFragment.setArguments(bundle);
                 return encontrosFragment;
+
             case 2:
                 // incritos
+                bundle.putInt("id_encontro", -1);
+                bundle.putInt("id_tutor", tutor.getId());
+                bundle.putString("nome_tutor", tutor.getNome());
+                bundle.putString("email_tutor", tutor.getEmail());
+
+                Log.i(TAG, "Main id tutor: " + tutor.getId());
+                Log.i(TAG, "Main nome tutor: " + tutor.getNome());
+
                 IncritosFragment incritosFragment = new IncritosFragment();
+                incritosFragment.setArguments(bundle);
                 return incritosFragment;
             default:
                 return new HomeFragment();
@@ -289,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_about_us:
                         // Inicia uma nova activity ao inves de um fragment
-                        startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+                        startActivity(new Intent(MainActivity.this, AtividadesActivity.class));
                         drawer.closeDrawers();
                         return true;
 
@@ -404,5 +400,14 @@ public class MainActivity extends AppCompatActivity {
             fab.show();
         else
             fab.hide();
+    }
+
+    private Tutor bundleToTutor(Bundle bundle) {
+        Tutor tutor = new Tutor();
+        tutor.setId(bundle.getInt("id_tutor"));
+        tutor.setNome(bundle.getString("nome_tutor"));
+        tutor.setEmail(bundle.getString("email_tutor"));
+
+        return tutor;
     }
 }

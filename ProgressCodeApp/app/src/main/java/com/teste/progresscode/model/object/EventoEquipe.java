@@ -1,4 +1,4 @@
-package com.teste.progresscode.model;
+package com.teste.progresscode.model.object;
 
 import com.google.gson.annotations.SerializedName;
 

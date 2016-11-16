@@ -1,4 +1,4 @@
-package com.teste.progresscode.model;
+package com.teste.progresscode.model.object;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -26,22 +26,18 @@ public class Feedback {
     @SerializedName("dir_audio")
     private String dirAudio;
 
-    @SerializedName("resource_uri")
-    private String resourceUri;
 
 
-    public Feedback(Integer idTutor, Integer idInscrito, Integer idAtividade, Integer status, String timeStamp, String dirAudio, String resourceUri){
+    public Feedback(Integer idTutor, Integer idInscrito, Integer idAtividade, Integer status, String timeStamp, String dirAudio){
         this.idTutor = idTutor;
         this.idInscrito = idInscrito;
         this.idAtividade = idAtividade;
         this.status = status;
         this.timeStamp = timeStamp;
         this.dirAudio = dirAudio;
-        this.resourceUri = resourceUri;
     }
 
     public Feedback(){}
-
 
     public int getIdTutor() {
         return idTutor;
@@ -91,11 +87,4 @@ public class Feedback {
         this.dirAudio = dirAudio;
     }
 
-    public String getResourceUri() {
-        return resourceUri;
-    }
-
-    public void setResourceUri(String resourceUri) {
-        this.resourceUri = resourceUri;
-    }
 }

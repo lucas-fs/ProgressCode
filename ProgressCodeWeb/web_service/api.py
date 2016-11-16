@@ -138,13 +138,22 @@ class EquipeTutorResource(ModelResource):
         }
 
 class FeedbackResource(ModelResource):
-    #tutor = fields.ToOneField('web_service.api.TutorResource', 'tutor', full=True, use_in = 'list')
-    #inscrito = fields.ToOneField('web_service.api.InscritoResource', 'inscrito', full=True, use_in = 'list')
-    #atividade = fields.ToOneField('web_service.api.AtividadeResource', 'atividade', full=True, use_in = 'list')
-    tutor_id = fields.IntegerField(attribute="tutor__id")
-    inscrito_id = fields.IntegerField(attribute="inscrito__id")
-    atividade_id = fields.IntegerField(attribute="atividade__id")
 
+    '''
+    tutor_id = fields.ToOneField('web_service.api.TutorResource', 'tutor', use_in = 'list')
+    inscrito_id = fields.ToOneField('web_service.api.InscritoResource', 'inscrito', use_in = 'list')
+    atividade_id = fields.ToOneField('web_service.api.AtividadeResource', 'atividade', use_in = 'list')
+    '''
+    tutor_id = fields.IntegerField(attribute="tutor_id")
+    inscrito_id = fields.IntegerField(attribute="inscrito_id")
+    atividade_id = fields.IntegerField(attribute="atividade_id")
+    '''
+    def dehydrate(self, bundle):
+        bundle.data['tutor_id'] = bundle.obj.tutor_id
+        bundle.data['inscrito_id'] = bundle.obj.inscrito_id
+        bundle.data['atividade_id'] = bundle.obj.atividade_id
+        return bundle
+    '''
     class Meta:
         resource_name = "feedbacks"
         queryset = Feedback.objects.all()

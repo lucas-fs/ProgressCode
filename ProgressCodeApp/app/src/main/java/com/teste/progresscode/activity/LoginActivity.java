@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.teste.progresscode.R;
-import com.teste.progresscode.model.Tutor;
+import com.teste.progresscode.model.object.Tutor;
 import com.teste.progresscode.model.dao.TutorDAO;
 
 public class LoginActivity extends AppCompatActivity {
@@ -36,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent i = getIntent();
-
                 Bundle b = i.getExtras();
 
                 int syncStatus = b.getInt("sync_status");
