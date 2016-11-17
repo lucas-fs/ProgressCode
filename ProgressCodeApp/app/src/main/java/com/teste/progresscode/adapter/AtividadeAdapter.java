@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teste.progresscode.R;
-import com.teste.progresscode.database.SyncDatabaseApi;
 import com.teste.progresscode.model.dao.FeedbackDAO;
 import com.teste.progresscode.model.object.Atividade;
 import com.teste.progresscode.model.object.Feedback;
@@ -29,7 +28,7 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
     private Context context; // Contexto da aplicacao
     private int id_inscrito;
     private int id_tutor;
-    private SyncDatabaseApi syncDatabaseApi;
+
 
     public static class AtividadeViewHolder extends RecyclerView.ViewHolder {
         //LinearLayout inscritosLayout;
@@ -58,7 +57,6 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
         this.id_tutor = id_tutor;
         this.rowLayout = rowLayout;
         this.context = context;
-        this.syncDatabaseApi = new SyncDatabaseApi(context);
     }
 
     public AtividadeAdapter(int rowLayout, Context context) {
@@ -94,14 +92,6 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
                 feedbackDAO.insertFeedback(feedback);
                 feedbackDAO.closeConection();
                 Toast.makeText(context, "Smile Feliz", Toast.LENGTH_SHORT).show();
-
-                final Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        syncDatabaseApi.syncFeedback();
-                    }
-                });
-                thread.start();
 
             }
         });

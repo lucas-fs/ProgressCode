@@ -6,12 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.teste.progresscode.R;
 import com.teste.progresscode.adapter.AtividadeAdapter;
+import com.teste.progresscode.database.SyncDatabaseApi;
+import com.teste.progresscode.model.dao.AtividadeDAO;
 import com.teste.progresscode.model.object.Atividade;
 import com.teste.progresscode.model.object.Tutor;
-import com.teste.progresscode.model.dao.AtividadeDAO;
 
 import java.util.List;
 
@@ -19,8 +23,8 @@ public class AtividadesActivity extends AppCompatActivity {
 
     private static final String TAG = AtividadesActivity.class.getSimpleName();
     private Tutor tutor;
-
-    List<Atividade> atividades;
+    private SyncDatabaseApi syncDatabaseApi;
+    private List<Atividade> atividades;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,27 @@ public class AtividadesActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(new AtividadeAdapter(atividades, id_inscrito, tutor.getId(), R.layout.list_item_inscrito, getApplicationContext()));
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.atividades, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_sync) {
+            syncDatabaseApi = new SyncDatabaseApi(getApplicationContext());
+            syncDatabaseApi.syncFeedbackThread();
+
+            Toast.makeText(getApplicationContext(), "Sincronizando feedbacks!", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private Tutor bundleToTutor(Bundle bundle) {

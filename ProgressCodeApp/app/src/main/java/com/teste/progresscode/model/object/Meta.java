@@ -12,7 +12,7 @@ public class Meta {
     private int limit;
 
     @SerializedName("next")
-    private int next;
+    private String next;
 
     @SerializedName("offset")
     private int offset;
@@ -23,7 +23,7 @@ public class Meta {
     @SerializedName("total_count")
     private int totalCount;
 
-    public Meta(int limit, int next, int offset, int previous, int totalCount) {
+    public Meta(int limit, String next, int offset, int previous, int totalCount) {
         this.limit = limit;
         this.next = next;
         this.offset = offset;
@@ -39,11 +39,11 @@ public class Meta {
         this.limit = limit;
     }
 
-    public int getNext() {
+    public String getNext() {
         return next;
     }
 
-    public void setNext(int next) {
+    public void setNext(String next) {
         this.next = next;
     }
 

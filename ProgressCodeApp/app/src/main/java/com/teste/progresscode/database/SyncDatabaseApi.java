@@ -530,7 +530,7 @@ public class SyncDatabaseApi {
                     cont = 0;
                     if (fsSize != 0) {
                         for (Feedback fs : feedbacks) {
-                            if (fs.getIdInscrito() == fa.getIdInscrito() && fs.getIdTutor() == fa.getIdTutor() && fs.getIdAtividade() == fa.getIdAtividade()) {
+                            if (fs.getIdInscrito() == fa.getIdInscrito() && fs.getIdTutor() == fa.getIdTutor() && fs.getIdAtividade() == fa.getIdAtividade() && fs.getTimeStamp().equals(fa.getTimeStamp())) {
                                 break;
                             } else {
                                 cont++;
@@ -540,9 +540,8 @@ public class SyncDatabaseApi {
                     if (cont == fsSize) {
                         Call<Feedback> callPost = apiService.postFeedback(fa);
                         try {
-                            Response resp;
-                            resp = callPost.execute();
-                           // Log.i(TAG, "code post: " +resp.code());
+                            callPost.execute();
+                            // Log.i(TAG, "code post: " +resp.code());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -554,7 +553,7 @@ public class SyncDatabaseApi {
                     cont = 0;
                     if (faSize != 0) {
                         for (Feedback fa : feedbacksApp) {
-                            if (f.getIdInscrito() == fa.getIdInscrito() && f.getIdTutor() == fa.getIdTutor() && f.getIdAtividade() == fa.getIdAtividade()) {
+                            if (f.getIdInscrito() == fa.getIdInscrito() && f.getIdTutor() == fa.getIdTutor() && f.getIdAtividade() == fa.getIdAtividade() && f.getTimeStamp().equals(fa.getTimeStamp())) {
                                 break;
                             } else {
                                 cont++;
@@ -575,6 +574,15 @@ public class SyncDatabaseApi {
             return 0;
         }
 
+    }
+
+    public void syncFeedbackThread() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                syncFeedback();
+            }
+        }).start();
     }
 
     public int syncAllDatabase() {
