@@ -3,16 +3,6 @@ package com.teste.progresscode.database;
 import android.content.Context;
 import android.util.Log;
 
-import com.teste.progresscode.model.object.Atividade;
-import com.teste.progresscode.model.object.Encontro;
-import com.teste.progresscode.model.object.Equipe;
-import com.teste.progresscode.model.object.EquipeTutor;
-import com.teste.progresscode.model.object.Evento;
-import com.teste.progresscode.model.object.EventoEquipe;
-import com.teste.progresscode.model.object.EventoInscrito;
-import com.teste.progresscode.model.object.Feedback;
-import com.teste.progresscode.model.object.Inscrito;
-import com.teste.progresscode.model.object.Tutor;
 import com.teste.progresscode.model.dao.AtividadeDAO;
 import com.teste.progresscode.model.dao.EncontroDAO;
 import com.teste.progresscode.model.dao.EquipeDAO;
@@ -23,6 +13,16 @@ import com.teste.progresscode.model.dao.EventoInscritoDAO;
 import com.teste.progresscode.model.dao.FeedbackDAO;
 import com.teste.progresscode.model.dao.InscritoDAO;
 import com.teste.progresscode.model.dao.TutorDAO;
+import com.teste.progresscode.model.object.Atividade;
+import com.teste.progresscode.model.object.Encontro;
+import com.teste.progresscode.model.object.Equipe;
+import com.teste.progresscode.model.object.EquipeTutor;
+import com.teste.progresscode.model.object.Evento;
+import com.teste.progresscode.model.object.EventoEquipe;
+import com.teste.progresscode.model.object.EventoInscrito;
+import com.teste.progresscode.model.object.Feedback;
+import com.teste.progresscode.model.object.Inscrito;
+import com.teste.progresscode.model.object.Tutor;
 import com.teste.progresscode.model.response.AtividadeResponse;
 import com.teste.progresscode.model.response.EncontroResponse;
 import com.teste.progresscode.model.response.EquipeResponse;
@@ -524,6 +524,8 @@ public class SyncDatabaseApi {
                 int faSize = feedbacksApp.size();
                 int fsSize = feedbacks.size();
 
+                Log.i(TAG,"APP: "+faSize+"   SERVIDOR: "+fsSize);
+
                 int cont;
 
                 for (Feedback fa : feedbacksApp) {
@@ -538,7 +540,22 @@ public class SyncDatabaseApi {
                         }
                     }
                     if (cont == fsSize) {
-                        Call<Feedback> callPost = apiService.postFeedback(fa);
+                        /*
+                        Call<Void> callPost = apiService.postFeedback(fa);
+                        callPost.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                Log.v(TAG, "POST Feedback para o servidor: " + fa.getTimeStamp());
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.v(TAG, "Falha no POST Feedback: " + t.getMessage());
+                            }
+                        });
+                        */
+
+                        Call<Void> callPost = apiService.postFeedback(fa);
                         try {
                             callPost.execute();
                             // Log.i(TAG, "code post: " +resp.code());
@@ -546,6 +563,7 @@ public class SyncDatabaseApi {
                             e.printStackTrace();
                         }
                         Log.v(TAG, "POST Feedback para o servidor: " + fa.getTimeStamp());
+
                     }
                 }
 
@@ -583,6 +601,7 @@ public class SyncDatabaseApi {
                 syncFeedback();
             }
         }).start();
+
     }
 
     public int syncAllDatabase() {

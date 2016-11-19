@@ -196,4 +196,4 @@ def atividades_list(request):
 	if request.method == "POST":
 		for ativ in request.POST.getlist("check_atividades"):
 			Atividade.objects.filter(id=ativ).delete()
-	return render(request, "web_page/atividades_list.html", locals())	
+	return render(request, "web_page/atividades_list.html", locals())

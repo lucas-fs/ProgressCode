@@ -70,6 +70,6 @@ public interface ApiInterface {
 
     // Envia um novo feedback para o servidor
     @POST("feedbacks/")
-    Call<Feedback> postFeedback(@Body Feedback feedback);
+    Call<Void> postFeedback(@Body Feedback feedback);
 }
 
