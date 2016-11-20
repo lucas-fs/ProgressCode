@@ -23,5 +23,6 @@ urlpatterns = [
 	url(r'^list/tutores/$', views.tutores_list),
 	url(r'^list/eventos/$', views.eventos_list),
 	url(r'^list/encontros/$', views.encontros_list),
-	url(r'^list/atividades/$', views.atividades_list)
+	url(r'^list/atividades/$', views.atividades_list),
+	url(r'^list/insc_feed/$', views.inscFeed_list)
 ]

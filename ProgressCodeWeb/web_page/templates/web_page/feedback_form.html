@@ -7,22 +7,23 @@
 			<div class="container">
 				<div class="row">
 					<div class="fieldWrapper">
-						<table>
-							<tbody>
-								<tr>
-									<td>{{ form }}</td>
-									<td>{{ field }}</td>
-								</tr>
-							</tbody>
-						</table>
+						<form method="POST" class="post-form">{% csrf_token %}
+							<table>
+								<tbody>
+									<tr>
+										<td>{{ form }}</td>
+										<td>{{ field }}</td>
+									</tr>
+								</tbody>
+							</table>
+							<br><button type="submit" class="btn btn-success">Guardar</button>
+						</form>
 					</div>
 				</div>
 			</div><br>
-			<button type="submit" class="btn btn-success">Guardar</button>
+			
 		</div>
 	</div>
-
-
 	<div class="container">
 		<br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
 	</div>

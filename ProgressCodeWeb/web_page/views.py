@@ -222,21 +222,29 @@ def eventos_list(request):
 @login_required
 def encontros_list(request):
 	id_recebido = request.POST.get("evento_id")
-	evento_atual = Evento.objects.filter(id=id_recebido)
-	aux_nome = evento_atual[0].nome_evento
+	#evento_atual = Evento.objects.filter(id=id_recebido)
+	#aux_nome = evento_atual[0].nome_evento
 	encontros = Encontro.objects.filter(evento_id=id_recebido)
 	if request.method == "POST":
 		for encont in request.POST.getlist("check_encontros"):
+			print("A DELETAR: ", encont)
 			Encontro.objects.filter(id=encont).delete()
 	return render(request, "web_page/encontro_list.html", locals())
 
 @login_required
 def atividades_list(request):
 	id_recebido = request.POST.get("encontro_id")
-	encontro_atual = Encontro.objects.filter(id=id_recebido)
-	aux_data = encontro_atual[0].data_realizao
+	#encontro_atual = Encontro.objects.filter(id=id_recebido)
+	#aux_data = encontro_atual[0].data_realizao
 	atividades = Atividade.objects.filter(encontro_id=id_recebido)
 	if request.method == "POST":
 		for ativ in request.POST.getlist("check_atividades"):
 			Atividade.objects.filter(id=ativ).delete()
 	return render(request, "web_page/atividades_list.html", locals())
+
+@login_required
+def inscFeed_list(request):
+	feed_id = request.POST.get("inscrito_id")
+	feedbacks = Feedback.objects.filter()
+	print(feed_id)
+	return render(request, "web_page/inscFeed_list.html", locals())

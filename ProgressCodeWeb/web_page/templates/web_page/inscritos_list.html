@@ -10,6 +10,7 @@
 					<th>Nome</th>
 					<th>Data do Nascimento</th>
 					<th>Escola</th>
+					<th>Feedbacks</th>
 				</tr><br>
 				{% for item in inscritos %}
 					<tr>
@@ -18,6 +19,7 @@
 						<td>{{ item.nome }}</td>
 						<td>{{ item.data_nasc }}</td>
 						<td>{{ item.escola }}</td>
+						<td><button class="btn btn-default btn-xs" type="submit" formaction="/list/insc_feed/" align="center" name="inscrito_id" value="{{ item.id }}">Ver Feedbacks</button></td>
 					</tr>
 				{% endfor %}
 			</table><br>
