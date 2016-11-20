@@ -1,6 +1,5 @@
 #!/bin/bash
 
-curtime=$(date)
 git add *
-git commit -m "Backup at ${curtime}"
+git commit -m $1
 git push origin master
