@@ -105,6 +105,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.UnsaltedSHA1PasswordHasher',
+]
+
+AUTH_USER_MODEL = 'web_service.Tutor'
+AUTHENTICATION_BACKENDS = ['web_page.backends.EmailAuthBackend', ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -122,14 +128,11 @@ USE_TZ = True
 DATE_INPUT_FORMATS = ('%d/%m/%Y','%d-%m-%Y','%Y-%m-%d')
 
 TASTYPIE_DEFAULT_FORMATS = ['json']
-API_LIMIT_PER_PAGE = 0
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 LOGIN_URL = "/"
-
-APPEND_SLASH=False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

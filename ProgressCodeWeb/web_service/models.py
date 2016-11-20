@@ -1,5 +1,26 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
 
+class Tutor(AbstractBaseUser):
+    nome = models.CharField(max_length=100)
+    email = models.EmailField(unique=True, max_length=254)
+    password = models.CharField(max_length=300, default="")
+    joined = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        db_table  =  'tutores'
+        verbose_name = "tutor"
+        verbose_name_plural = "tutores"
+
+
+'''
 class Tutor(models.Model):
     nome = models.CharField(max_length=100)
     email = models.EmailField(max_length=254)
@@ -12,7 +33,7 @@ class Tutor(models.Model):
         db_table  =  'tutores'
         verbose_name = "tutor"
         verbose_name_plural = "tutores"
-
+'''
 class Equipe(models.Model):
     descricao = models.CharField(max_length=100)
     membros = models.ManyToManyField(Tutor, through='EquipeTutor')
@@ -105,12 +126,11 @@ class Atividade(models.Model):
 
 class Feedback(models.Model):
     status = models.IntegerField()
-    timestamp = models.DateTimeField(auto_now=False)
+    timestamp = models. DateTimeField(auto_now=False)
     dir_audio = models.FileField(upload_to='sounds/')
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     inscrito = models.ForeignKey(Inscrito, on_delete=models.CASCADE)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE)
-    observacao = models.TextField(max_length=500)
 
     class Meta:
         db_table  =  'feedback'

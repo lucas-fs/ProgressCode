@@ -1,14 +1,55 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, render_to_response, redirect
+from django.contrib.auth import login as django_login, authenticate, logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.conf import settings
+
+from django.template import RequestContext
 
 from web_service.models import *
 from .forms import *
 
 import csv, os
 
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request.POST)
+        print(form)
+        if form.is_valid():
+            user = authenticate(email=request.POST['email'], password=request.POST['password'])
+            print(user)
+            if user is not None:
+                if user.is_active:
+                    django_login(request, user)
+                    print("teste")
+                    return render(request, 'web_page/forms.html', locals())
+    else:
+        form = AuthenticationForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'web_page/login.html', context)
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect('/')
+    else:
+        form = RegistrationForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'web_page/register.html', context)
+
+@login_required
+def logout(request):
+    django_logout(request)
+    return render(request, 'web_page/logout.html', locals())
+
+'''
 def index(request):
 	username = passwd = ''
 	if request.POST:
@@ -20,10 +61,12 @@ def index(request):
 				return render(request, 'web_page/forms.html', locals())
 	return render(request, 'web_page/index.html', locals())
 
+
 @login_required
 def logout(request):
 	auth.logout(request)
 	return render(request, 'web_page/logout.html', locals())
+'''
 
 @login_required
 def forms(request):
