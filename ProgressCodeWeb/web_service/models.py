@@ -126,7 +126,7 @@ class Atividade(models.Model):
 
 class Feedback(models.Model):
     status = models.IntegerField()
-    timestamp = models. DateTimeField(auto_now=False)
+    timestamp = models. DateTimeField(auto_now=True)
     dir_audio = models.FileField(upload_to='sounds/')
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     inscrito = models.ForeignKey(Inscrito, on_delete=models.CASCADE)

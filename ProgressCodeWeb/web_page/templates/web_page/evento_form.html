@@ -4,51 +4,51 @@
         <div class="row">
             <div class="col-xs-5">
                 <h3>Cadastrar evento</h3>
-                {% csrf_token %}
-                <div class="container">
-                    <div class="row">
-                        <div class="fieldWrapper">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ form }}</td>
-                                        <td>{{ field }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <form action="/form/evento/" method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="fieldWrapper">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ form }}</td>
+                                            <td>{{ field }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <table>
-                    <tr>
-                        <th>Equipes</th>
-                    </tr>
-                    {% for equipe in equipes %}
+                    <table>
                         <tr>
-                            <td>
-                                <input type="checkbox" name="check_equipes" value="{{ equipe.id }}"><label> {{ equipe.descricao }}</label>
-                                <br>
-                            </td>
+                            <th>Equipes</th>
                         </tr>
-                    {% endfor %}
-                </table>
-                <br>
-                <br>
-                <table>
-                    <tr>
-                        <th>Inscritos</th>
-                    </tr>
-                    {% for inscrito in inscritos %}
+                        {% for equipe in equipes %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="check_equipes" value="{{ equipe.id }}"><label> {{ equipe.descricao }}</label>
+                                    <br>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                    <br>
+                    <table>
                         <tr>
-                            <td>
-                                <input type="checkbox" name="check_inscritos" value="{{ inscrito.id }}"><label> {{ inscrito.nome }}</label>
-                                <br>
-                            </td>
+                            <th>Inscritos</th>
                         </tr>
-                    {% endfor %}
-                </table><br>
-                <button type="submit" class="btn btn-success">Guardar</button>
-            </form>
+                        {% for inscrito in inscritos %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="check_inscritos" value="{{ inscrito.id }}"><label> {{ inscrito.nome }}</label>
+                                    <br>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table><br>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
             </div>
             
         </div>    

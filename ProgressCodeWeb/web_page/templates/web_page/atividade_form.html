@@ -5,17 +5,19 @@
 	    <form action="" method="POST" class="post-form">{% csrf_token %}
 	        <div class="row">
 				<div class="fieldWrapper">
-					<table>
-						<tbody>
-							<tr>
-								<td>{{ form }}</td>
-								<td>{{ field }}</td>
-							</tr>
-						</tbody>
-					</table>
+					<form action="/form/atividade" method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+						<table>
+							<tbody>
+								<tr>
+									<td>{{ form.as_table }}</td>
+									<td>{{ field }}</td>
+								</tr>
+							</tbody>
+						</table>
+						<input type="submit" class="btn btn-success" name="insere-inscrito"/>
+					</form>
 				</div>
 			</div><br>
-	        <button type="submit" class="btn btn-success">Guardar</button>
 		</form>
 		<br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
 	</div>
