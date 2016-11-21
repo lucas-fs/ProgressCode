@@ -24,5 +24,8 @@ urlpatterns = [
 	url(r'^list/eventos/$', views.eventos_list),
 	url(r'^list/encontros/$', views.encontros_list),
 	url(r'^list/atividades/$', views.atividades_list),
-	url(r'^list/insc_feed/$', views.inscFeed_list)
+	url(r'^list/insc_feed/$', views.inscFeed_list),
+	url(r'^list/ativ_feed/$', views.ativFeed_list),
+
+	url(r'^analise/encontro/$', views.statistic_enc)
 ]

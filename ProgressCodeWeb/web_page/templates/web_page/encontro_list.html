@@ -9,6 +9,7 @@
 					<th>N⁰ Encontro</th>
 					<th>Data</th>
 					<th>Atividades</th>
+					<th>Infos</th>
 				</tr><br>
 				{% for item in encontros %}
 				<tr>
@@ -16,6 +17,7 @@
 					<td>{{ item.id }}</td>
 					<td>{{ item.data_realizao }}</td>
 					<td><button class="btn btn-default btn-xs" type="submit" formaction="/list/atividades/" aling="center" name="encontro_id" value="{{ item.id }}">Ver Atividades</button></td>
+					<td><button class="btn btn-default btn-xs" type="submit" formaction="/analise/encontro/" aling="center" name="encontro_id" value="{{ item.id }}">Estatísticas</button></td>
 				</tr>
 				{% endfor %}
 			</table><br>

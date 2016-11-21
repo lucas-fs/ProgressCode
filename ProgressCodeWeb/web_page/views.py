@@ -222,8 +222,6 @@ def eventos_list(request):
 @login_required
 def encontros_list(request):
 	id_recebido = request.POST.get("evento_id")
-	#evento_atual = Evento.objects.filter(id=id_recebido)
-	#aux_nome = evento_atual[0].nome_evento
 	encontros = Encontro.objects.filter(evento_id=id_recebido)
 	if request.method == "POST":
 		for encont in request.POST.getlist("check_encontros"):
@@ -234,8 +232,6 @@ def encontros_list(request):
 @login_required
 def atividades_list(request):
 	id_recebido = request.POST.get("encontro_id")
-	#encontro_atual = Encontro.objects.filter(id=id_recebido)
-	#aux_data = encontro_atual[0].data_realizao
 	atividades = Atividade.objects.filter(encontro_id=id_recebido)
 	if request.method == "POST":
 		for ativ in request.POST.getlist("check_atividades"):
@@ -245,6 +241,37 @@ def atividades_list(request):
 @login_required
 def inscFeed_list(request):
 	feed_id = request.POST.get("inscrito_id")
-	feedbacks = Feedback.objects.filter()
-	print(feed_id)
+	insc = Inscrito.objects.filter(id=feed_id)
+	insc_feedbacks1 = Feedback.objects.raw("select f.id, f.status, f.timestamp, f.dir_audio, a.descricao, i.nome as nome_i, t.nome as nome_t from feedback f inner join inscritos i on f.inscrito_id = i.id inner join tutores t on f.tutor_id = t.id inner join atividades a on f.atividade_id = a.id where f.id = " + feed_id)
+	for item in insc:
+		nome_insc = item
 	return render(request, "web_page/inscFeed_list.html", locals())
+
+@login_required
+def ativFeed_list(request):
+	ativ_id = request.POST.get("atividade_id")
+	ativ = Atividade.objects.filter(id=ativ_id)
+	ativ_feedbacks = Feedback.objects.raw("select f.id, f.status, f.timestamp, f.dir_audio, a.descricao, i.nome as nome_i, t.nome as nome_t from feedback f inner join inscritos i on f.inscrito_id = i.id inner join tutores t on f.tutor_id = t.id inner join atividades a on f.atividade_id = a.id where a.id = " + ativ_id)
+	for item in ativ:
+		nome_ativ = item
+	return render(request, "web_page/ativFeed_list.html", locals())
+
+@login_required
+def statistic_enc(request):
+	enc_id = request.POST.get("encontro_id")
+	encontro_data = Encontro.objects.filter(id=enc_id).values("evento_id")
+	qnt_ativ = Atividade.objects.filter(encontro_id=enc_id).count()
+	eve_id = encontro_data[0]["evento_id"]
+	qnt_insc = EventoInscrito.objects.filter(evento_id=eve_id).count()
+
+	ativ_forEnc = Atividade.objects.filter(encontro_id=enc_id).values("id")
+	count = 0
+	for id in ativ_forEnc:
+		count = count + Feedback.objects.filter(atividade_id=id["id"]).count()
+	# total de atividades no encontro
+	total = qnt_insc * qnt_ativ
+	# porcentagem de exercicios prontos pelo encontro
+	perc = 0
+	if total != 0:
+		perc = int((count / total) * 100)
+	return render(request, "web_page/statistic_enc.html", locals())

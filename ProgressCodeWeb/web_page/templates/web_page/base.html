@@ -13,6 +13,13 @@
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+        tr{
+            bgcolor: #E5E4E2;
+        }
+        .page-header{
+            margin-top: 0;
+            padding: 0px 0px 10px 0px;
+        }
     </style>
 	<title>ProgressCode</title>
 </head>
@@ -20,19 +27,10 @@
 	<div id="wrapper">
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <h2>ProgressCode</h2>
-                </li>
-               <li>
-                    <a href="#">Sobre</a>
-                </li>
-                <li>
-                    <a href="#">Contato</a>
-                </li>
-
-                <li class="sidebar-brand">
-                    <h2>Inscrições</h2>
-                </li>
+                <li class="sidebar-brand"><h2>ProgressCode</h2></li>
+               <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+                <li class="sidebar-brand">Inscrições</li>
                 <li><a href="/form/choiceInsc/">Inserir Inscritos</a></li>
                 <li><a href="/form/evento/">Cadastrar Evento</a></li>
                 <li><a href="/form/encontro/">Cadastrar Encontros</a></li>
@@ -50,8 +48,8 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <img src="{% static "images/teste.jpg" %}">
+                    <div class="page-header" align="center">
+                        <img width="1000" height="200" src="{% static "images/teste.jpg" %}">
                     </div>
                 </div>
                 <div class="row">

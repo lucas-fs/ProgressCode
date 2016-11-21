@@ -8,12 +8,14 @@
 					<th></th>
 					<th>N⁰ Atividade</th>
 					<th>Descrição</th>
+					<th>Feedbacks</th>
 				</tr><br>
 				{% for item in atividades %}
 				<tr>
 					<td><input type="checkbox" name="check_atividades" value="{{ item.id }}"></td>
 					<td>{{ item.id }}</td>
 					<td>{{ item.descricao }}</td>
+					<td><button class="btn btn-default btn-xs" type="submit" formaction="/list/ativ_feed/" align="center" name="atividade_id" value="{{ item.id }}">Ver Feedbacks</button></td>
 				</tr>
 				{% endfor %}
 			</table><br>
