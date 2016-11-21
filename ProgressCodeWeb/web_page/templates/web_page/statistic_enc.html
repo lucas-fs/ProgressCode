@@ -1,0 +1,12 @@
+{% extends "web_page/base.html" %}
+{% block content %}
+	<div class="col-xs-5" align="left">
+		<h3>Progresso:</h3>
+		<div class="progress">
+			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ perc }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ perc }}%">
+	    		{{ perc }}% Complete (success)
+	  		</div>
+		</div>
+		<br><a href="/list/eventos/"><input class="btn btn-success" type="button" value="Voltar para a lista de Eventos"/></a><br>
+	</div>
+{% endblock %}
