@@ -1,4 +1,4 @@
-package com.teste.progresscode.other;
+package com.teste.progresscode.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
