@@ -17,6 +17,8 @@ import com.teste.progresscode.other.HashString;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -66,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Log.i(TAG, "passCript: " + passCript);
                     Log.i(TAG, "passWS: " + passWS);
+                    Log.i(TAG, "timestamp: " + getCurrentTimeStamp());
 
                     if (passWS.equals(passCript)) {
                         Bundle bundle = new Bundle();
@@ -104,5 +107,20 @@ public class LoginActivity extends AppCompatActivity {
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public static String getCurrentTimeStamp(){
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            String currentDateTime = dateFormat.format(new Date()); // Find todays date
+
+            return currentDateTime;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+
+        }
     }
 }

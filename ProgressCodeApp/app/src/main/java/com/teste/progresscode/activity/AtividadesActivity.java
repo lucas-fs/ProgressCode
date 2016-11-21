@@ -21,7 +21,7 @@ import com.teste.progresscode.database.SyncDatabaseApi;
 import com.teste.progresscode.model.dao.AtividadeDAO;
 import com.teste.progresscode.model.object.Atividade;
 import com.teste.progresscode.model.object.Tutor;
-import com.teste.progresscode.other.UpdateFeedbackTask;
+import com.teste.progresscode.task.UpdateFeedbackTask;
 
 import java.util.List;
 
