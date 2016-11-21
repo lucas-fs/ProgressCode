@@ -13,6 +13,10 @@ import android.widget.EditText;
 import com.teste.progresscode.R;
 import com.teste.progresscode.model.object.Tutor;
 import com.teste.progresscode.model.dao.TutorDAO;
+import com.teste.progresscode.other.HashString;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
         senha = (EditText) findViewById(R.id.senha);
         email = (EditText) findViewById(R.id.email);
 
+        //final HashString hash = new HashString();
+
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 int syncStatus = b.getInt("sync_status");
 
-                Log.v(TAG, "Sync status: "+syncStatus);
+                Log.v(TAG, "Sync status: " + syncStatus);
 
                 TutorDAO tutorDAO = new TutorDAO(getApplicationContext());
                 tutorDAO.openConection();
@@ -48,7 +54,20 @@ public class LoginActivity extends AppCompatActivity {
                 tutorDAO.closeConection();
 
                 if (tutor != null) {
-                    if (tutor.getSenha().equals(senha.getText().toString())) {
+                    String passCript = null;
+                    try {
+                        passCript = HashString.SHA1(senha.getText().toString());
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    String passWS = tutor.getSenha().substring(6);
+
+                    Log.i(TAG, "passCript: " + passCript);
+                    Log.i(TAG, "passWS: " + passWS);
+
+                    if (passWS.equals(passCript)) {
                         Bundle bundle = new Bundle();
 
                         bundle.putInt("id_tutor", tutor.getId());

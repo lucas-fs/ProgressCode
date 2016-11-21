@@ -13,7 +13,7 @@ public class Tutor {
     @SerializedName("email")
     private String email;
 
-    @SerializedName("senha")
+    @SerializedName("password")
     private String senha;
 
     @SerializedName("id")
