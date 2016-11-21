@@ -268,12 +268,10 @@ def statistic_enc(request):
 	count = 0
 	for id in ativ_forEnc:
 		count = count + Feedback.objects.filter(atividade_id=id["id"]).count()
-	print("Count deu: ", count)
 	# total de atividades no encontro
 	total = qnt_insc * qnt_ativ
 	# porcentagem de exercicios prontos pelo encontro
 	perc = 0
 	if total != 0:
 		perc = int((count / total) * 100)
-	print(perc)
 	return render(request, "web_page/statistic_enc.html", locals())
