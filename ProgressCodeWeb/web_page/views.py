@@ -267,7 +267,7 @@ def statistic_enc(request):
 	ativ_forEnc = Atividade.objects.filter(encontro_id=enc_id).values("id")
 	count = 0
 	for id in ativ_forEnc:
-		count = count + Feedback.objects.filter(atividade_id=id["id"]).count()
+		count = count + Feedback.objects.filter(atividade_id=id["id"], status=1).count()
 	# total de atividades no encontro
 	total = qnt_insc * qnt_ativ
 	# porcentagem de exercicios prontos pelo encontro
