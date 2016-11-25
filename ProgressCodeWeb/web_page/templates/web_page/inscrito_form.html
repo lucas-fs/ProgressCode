@@ -1,6 +1,17 @@
 {% extends "web_page/base.html" %}
 {% block content %}
-	<div class="container">
+		<div class="row extra-padding">
+					<div class="col-sm-6 col-sm-offset-3">
+						{% if messages %}
+							<ul class="messages">
+								{% for message in messages %}
+									<p{% if message.tags %} class="alert alert-success"{% endif %}><strong>{{ message }}</strong></p>
+								{% endfor %}
+							</ul>
+						{% endif %}
+					</div>
+				</div>
+		<div class="container">
 		{% csrf_token %}
 		<div class="row">
 			<div class="container">
@@ -22,18 +33,7 @@
 				</div>
 			</div><br>
 		</div>
-
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-5">
-					<br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a><br>
-				</div>
-				<div class="col-xs-5">
-					<br><a href="/form/choiceInsc"><input class="btn btn-success" type="button" value="Voltar para modo de Inserção"/></a>
-				</div>
-			</div>
-		</div>
-	
-
 	</div>
+	<a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/>
+	<a href="/form/choiceInsc"><input class="btn btn-success" type="button" value="Voltar para modo de Inserção"/>
 {% endblock %}

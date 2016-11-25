@@ -1,5 +1,16 @@
 {% extends "web_page/base.html" %}
 {% block content %}
+            <div class="row extra-padding">
+                <div class="col-sm-6 col-sm-offset-3">
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <p{% if message.tags %} class="alert alert-success"{% endif %}><strong>{{ message }}</strong></p>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>              
+            </div>
     <div class="container">
         <div class="row">
             <div class="col-xs-5">
@@ -49,9 +60,8 @@
                     </table><br>
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
+                <br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
             </div>
-            
         </div>    
     </div>
-    <br><a href="/form"><input class="btn btn-success" type="button" value="Voltar para o Menu"/></a>
 {% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth import login as django_login, authenticate, logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
+from django.contrib import messages
 from django.conf import settings
 
 from django.template import RequestContext
@@ -49,25 +50,6 @@ def logout(request):
     django_logout(request)
     return render(request, 'web_page/logout.html', locals())
 
-'''
-def index(request):
-	username = passwd = ''
-	if request.POST:
-			username = request.POST.get('username')
-			passwd = request.POST.get('passwd')
-			user = authenticate(username=username, password=passwd)
-			if user is not None:
-				login(request, user)
-				return render(request, 'web_page/forms.html', locals())
-	return render(request, 'web_page/index.html', locals())
-
-
-@login_required
-def logout(request):
-	auth.logout(request)
-	return render(request, 'web_page/logout.html', locals())
-'''
-
 @login_required
 def forms(request):
 	return render(request, 'web_page/forms.html', locals())
@@ -93,6 +75,7 @@ def evento_form(request):
 
 		if form.is_valid():
 			evento = form.save()
+			messages.success(request, "Evento adicionado com sucesso")
 
 			for equipe in request.POST.getlist('check_equipes'):
 				evEq = EventoEquipe(evento_id=evento.id, equipe_id=equipe)
@@ -119,6 +102,7 @@ def equipe_form(request):
 			for membro in request.POST.getlist('check_tutores'):
 				eqTut = EquipeTutor(equipe_id=equipe.id, tutor_id=membro)
 				eqTut.save()
+				messages.success(request, "Equipe adicionada com sucesso")
 	else:
 		form = EquipeForm()
 	return render(request, 'web_page/equipe_form.html', locals())
@@ -129,6 +113,7 @@ def tutor_form(request):
 		form = TutorForm(request.POST)
 		if form.is_valid():
 			form.save()
+			messages.success(request, "Tutor cadastrado com sucesso")
 	else:
 		form = TutorForm()
 	return render(request, 'web_page/tutor_form.html', locals())
@@ -139,6 +124,7 @@ def encontro_form(request):
 		form = EncontroForm(request.POST)
 		if form.is_valid():
 			form.save()
+			messages.success(request, "Encontro cadastrado com sucesso")
 	else:
 		form = EncontroForm()
 	return render(request, 'web_page/encontro_form.html', locals())
@@ -149,6 +135,7 @@ def inscrito_form(request):
 		form = InscritoForm(request.POST)
 		if form.is_valid():
 			form.save()
+			messages.success(request, "Inscrito adicionado com sucesso")
 	else:
 		form = InscritoForm()
 	return render(request, 'web_page/inscrito_form.html', locals())
@@ -159,6 +146,7 @@ def feedback_form(request):
 		form = FeedbackForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
+			messages.success(request, "Feedback adicionado com sucesso")
 	else:
 		form = FeedbackForm()
 	return render(request, 'web_page/feedback_form.html', locals())
@@ -169,6 +157,7 @@ def atividade_form(request):
 		form = AtividadeForm(request.POST)
 		if form.is_valid():
 			form.save()
+			messages.success(request, "Atividade adicionada com sucesso")
 	else:
 		form = AtividadeForm()
 	return render(request, 'web_page/atividade_form.html', locals())
@@ -242,7 +231,7 @@ def atividades_list(request):
 def inscFeed_list(request):
 	feed_id = request.POST.get("inscrito_id")
 	insc = Inscrito.objects.filter(id=feed_id)
-	insc_feedbacks1 = Feedback.objects.raw("select f.id, f.status, f.timestamp, f.dir_audio, a.descricao, i.nome as nome_i, t.nome as nome_t from feedback f inner join inscritos i on f.inscrito_id = i.id inner join tutores t on f.tutor_id = t.id inner join atividades a on f.atividade_id = a.id where f.id = " + feed_id)
+	insc_feedbacks1 = Feedback.objects.raw("select f.id, f.status, f.timestamp, f.dir_audio, a.descricao, i.nome as nome_i, t.nome as nome_t from feedback f inner join inscritos i on f.inscrito_id = i.id inner join tutores t on f.tutor_id = t.id inner join atividades a on f.atividade_id = a.id where i.id = " + feed_id)
 	for item in insc:
 		nome_insc = item
 	return render(request, "web_page/inscFeed_list.html", locals())

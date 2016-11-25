@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-	   body{
-           font-family:Arial,Helvetica,sans-serif;
-	       font-size: 12px;
-       }
-	   table, th, td {
-    		border: 1px solid black;
-		}
-	</style>
 	<meta charset="utf-8">
+	{% csrf_token %}
+	{% load static %}
+	<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet"/>
+	<link href="{% static "css/bootstrap-theme.min.css" %}" rel="stylesheet"/>
+	<link href="{% static "css/side-bar.css" %}" rel="stylesheet">
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <style type="text/css">
+        .page-header{
+            margin-top: 0;
+            padding: 0px 0px 10px 0px;
+        }
+    </style>
 	<title>ProgressCode</title>
 </head>
 <body>
-	<h1>Seja bem vindo ao ProgressCode</h1>
-	<form action="/" method="post"> {% csrf_token %}
+	<div class="row">
+        <div class="page-header" align="center">
+            <img width="1000" height="200" src="{% static "images/teste.jpg" %}">
+        </div>
+    </div>
+	<h1 align="center">Seja bem vindo ao ProgressCode</h1>
+	<form action="/" method="post" align="center"> {% csrf_token %}
 		<h2>Email:</h2>
 		<input type="text" name="email">
 		<h2>Senha</h2>
 		<input type="password" name="password"></br></br>
-		<input type="submit" name="login">
+		<input class="btn btn-success" type="submit" name="login">
 	</form>
 	<br>
 	<a href="{% url 'register' %}"> Criar conta de tutor</a>

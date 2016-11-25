@@ -7,6 +7,8 @@
 	<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet"/>
 	<link href="{% static "css/bootstrap-theme.min.css" %}" rel="stylesheet"/>
 	<link href="{% static "css/side-bar.css" %}" rel="stylesheet">
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
     <style type="text/css">
         th, td{
             padding: 15px;
@@ -28,7 +30,7 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><h2>ProgressCode</h2></li>
-               <li><a href="#">Sobre</a></li>
+                <li><a href="#">Sobre</a></li>
                 <li><a href="#">Contato</a></li>
                 <li class="sidebar-brand">Inscrições</li>
                 <li><a href="/form/choiceInsc/">Inserir Inscritos</a></li>
@@ -56,8 +58,11 @@
                     <div class="col-lg-12">
                     	<h1>Olá {{ request.user }}</h1>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-2">
                         <a href="/logout"><input class="btn btn-default" type="button" name="logout btn" value="Deslogar"></a><br>
+                    </div>
+                    <div class="col-lg-2    ">
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Esconder Menu</a>
                     </div>
                 </div>
                 <div class="row">
@@ -67,8 +72,6 @@
             </div>
         </div>
     </div>
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
 	<script>
 	    $("#menu-toggle").click(function(e) {
 	        e.preventDefault();
