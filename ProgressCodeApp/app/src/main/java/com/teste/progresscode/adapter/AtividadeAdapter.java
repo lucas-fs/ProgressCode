@@ -87,7 +87,7 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
                 holder.smileTriste.setImageResource(R.drawable.ic_triste_off);
 
                 FeedbackDAO feedbackDAO = new FeedbackDAO(context);
-                Feedback feedback = new Feedback(id_tutor, id_inscrito, atividades.get(position).getId(), 3, getCurrentTimeStamp(), " ");
+                Feedback feedback = new Feedback(id_tutor, id_inscrito, atividades.get(position).getId(), 3, getCurrentTimeStamp(), null);
                 feedbackDAO.openConection();
                 feedbackDAO.insertFeedback(feedback);
                 feedbackDAO.closeConection();
@@ -104,7 +104,7 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
                 holder.smileFeliz.setImageResource(R.drawable.ic_feliz_off);
 
                 FeedbackDAO feedbackDAO = new FeedbackDAO(context);
-                Feedback feedback = new Feedback(id_tutor, id_inscrito, atividades.get(position).getId(), 1, getCurrentTimeStamp(), " ");
+                Feedback feedback = new Feedback(id_tutor, id_inscrito, atividades.get(position).getId(), 1, getCurrentTimeStamp(), null);
                 feedbackDAO.openConection();
                 feedbackDAO.insertFeedback(feedback);
                 feedbackDAO.closeConection();
@@ -120,7 +120,7 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
                 holder.smileTriste.setImageResource(R.drawable.ic_triste_off);
 
                 FeedbackDAO feedbackDAO = new FeedbackDAO(context);
-                Feedback feedback = new Feedback(id_tutor, id_inscrito, atividades.get(position).getId(), 2, getCurrentTimeStamp(), " ");
+                Feedback feedback = new Feedback(id_tutor, id_inscrito, atividades.get(position).getId(), 2, getCurrentTimeStamp(), null);
                 feedbackDAO.openConection();
                 feedbackDAO.insertFeedback(feedback);
                 feedbackDAO.closeConection();

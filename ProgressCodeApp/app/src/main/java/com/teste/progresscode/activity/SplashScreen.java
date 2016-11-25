@@ -114,7 +114,6 @@ public class SplashScreen extends AppCompatActivity {
                                     Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
-                                    finish();
                                     dialog.dismiss();
                                 }
                             });
@@ -133,20 +132,21 @@ public class SplashScreen extends AppCompatActivity {
                                     Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
-                                    finish();
                                     dialog.dismiss();
                                 }
                             });
                     dialog = builder.create();
                     dialog.show();
 
+                default:
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("sync_status", status);
+                    Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
             }
-            Bundle bundle = new Bundle();
-            bundle.putInt("sync_status", status);
-            Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
+
         }
     }
 
