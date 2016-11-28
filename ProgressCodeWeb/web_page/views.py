@@ -18,11 +18,9 @@ def login(request):
         print(form)
         if form.is_valid():
             user = authenticate(email=request.POST['email'], password=request.POST['password'])
-            print(user)
             if user is not None:
                 if user.is_active:
                     django_login(request, user)
-                    print("teste")
                     return render(request, 'web_page/forms.html', locals())
     else:
         form = AuthenticationForm()
