@@ -22,11 +22,10 @@
 						<td>{{ item.id }}</td>
 						<td>{{ item.status }}</td>
 						<td>{{ item.timestamp }}</td>
-						<!--
-						<td>
-							<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
+						<td>{% if item.dir_audio.url %}
+								<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
+							{% endif %}
 						</td>
-						-->
 						<td>{{ item.descricao }}</td>
 						<td>{{ item.nome_i }}</td>
 						<td>{{ item.nome_t }}</td>
