@@ -59,6 +59,29 @@ public class AtividadeDAO {
         return atividades;
     }
 
+    public List<Atividade> getAtividadesByInscrito(int idInscrito){
+        List<Atividade> atividades = new ArrayList<>();
+
+        Cursor cursor = database.rawQuery("" +
+                "SELECT a.id, a.descricao, a.id_encontro " +
+                "FROM atividades a " +
+                "JOIN encontros en ON a.id_encontro = en.id " +
+                "JOIN eventos e ON en.id_evento = e.id " +
+                "JOIN evento_inscrito ei ON e.id = ei.id_evento " +
+                "JOIN inscritos i ON ei.id_inscrito = i.id " +
+                "WHERE i.id = ?" +
+                ";", new String[]{String.valueOf(idInscrito)});
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            Atividade atividade = cursorToAtividade(cursor);
+            atividades.add(atividade);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return atividades;
+    }
+
     public Atividade cursorToAtividade(Cursor cursor){
         Atividade atividade = new Atividade();
 

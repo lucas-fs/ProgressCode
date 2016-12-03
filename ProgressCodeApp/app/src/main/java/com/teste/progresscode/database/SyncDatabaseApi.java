@@ -218,7 +218,7 @@ public class SyncDatabaseApi {
             e.printStackTrace();
         }
 
-        if (response != null) {
+        if (response != null) { // somente sera null quando nao consegue consultar o web service
             if (response.body().getMeta().getTotalCount() != 0) {
                 List<Evento> eventos = response.body().getEventos();
                 EventoDAO eventoDAO = new EventoDAO(context);
@@ -513,48 +513,79 @@ public class SyncDatabaseApi {
             e.printStackTrace();
         }
 
+        FeedbackDAO feedbackDAO = new FeedbackDAO(context);
+
+        feedbackDAO.openConection();
+        List<Feedback> feedbacksApp = feedbackDAO.getAllFeedbacks();
+        feedbackDAO.closeConection();
+
+        int faSize = feedbacksApp.size();
+
         if (response != null) {
-            if (response.body().getMeta().getTotalCount() != 0) {
+            if (response.body().getMeta().getTotalCount() != 0) { // request retornou dados
                 List<Feedback> feedbacks = response.body().getFeedbacks();
-                FeedbackDAO feedbackDAO = new FeedbackDAO(context);
-                feedbackDAO.openConection();
-
-                List<Feedback> feedbacksApp = feedbackDAO.getAllFeedbacks();
-
-                int faSize = feedbacksApp.size();
                 int fsSize = feedbacks.size();
-
-                Log.i(TAG,"APP: "+faSize+"   SERVIDOR: "+fsSize);
+                Log.i(TAG, "APP: " + faSize + "   SERVIDOR: " + fsSize);
 
                 int cont;
 
-                for (Feedback fa : feedbacksApp) {
-                    cont = 0;
-                    if (fsSize != 0) {
+                if (faSize > 0) { // se o app possui dados
+
+                    for (Feedback fa : feedbacksApp) {
+                        cont = 0;
                         for (Feedback fs : feedbacks) {
+                            Log.v(TAG, "Teste timestamp APP: " + fa.getTimeStamp()+ " Server: "+fs.getTimeStamp());
                             if (fs.getIdInscrito() == fa.getIdInscrito() && fs.getIdTutor() == fa.getIdTutor() && fs.getIdAtividade() == fa.getIdAtividade() && fs.getTimeStamp().equals(fa.getTimeStamp())) {
                                 break;
                             } else {
                                 cont++;
                             }
                         }
+
+                        if (cont == fsSize) {
+                            Call<Void> callPost = apiService.postFeedback(fa);
+                            try {
+                                callPost.execute();
+                                // Log.i(TAG, "code post: " +resp.code());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.v(TAG, "POST Feedback para o servidor: " + fa.getTimeStamp());
+                        }
                     }
-                    if (cont == fsSize) {
-                        /*
-                        Call<Void> callPost = apiService.postFeedback(fa);
-                        callPost.enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                Log.v(TAG, "POST Feedback para o servidor: " + fa.getTimeStamp());
-                            }
 
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                Log.v(TAG, "Falha no POST Feedback: " + t.getMessage());
-                            }
-                        });
-                        */
+                    /*
+                    feedbackDAO.openConection();
+                    for (Feedback f : feedbacks) {
+                        cont = 0;
 
+                        for (Feedback fa : feedbacksApp) {
+                            if (f.getIdInscrito() == fa.getIdInscrito() && f.getIdTutor() == fa.getIdTutor() && f.getIdAtividade() == fa.getIdAtividade() && f.getTimeStamp().equals(fa.getTimeStamp())) {
+                                break;
+                            } else {
+                                cont++;
+                            }
+                        }
+
+                        if (cont == faSize) {
+                            feedbackDAO.insertFeedback(f);
+                            Log.v(TAG, "Inserindo Feedback: " + f.getTimeStamp());
+                        }
+                    }
+                    feedbackDAO.closeConection();
+                    */
+                } /*else {
+                    for (Feedback f : feedbacks) {
+                        feedbackDAO.openConection();
+                        feedbackDAO.insertFeedback(f);
+                        Log.v(TAG, "Inserindo Feedback: " + f.getTimeStamp());
+                        feedbackDAO.closeConection();
+                    }
+
+                }*/
+            } else { // o servidor nao possui dados
+                if (faSize > 0) { // o app possui dados
+                    for (Feedback fa: feedbacksApp) {
                         Call<Void> callPost = apiService.postFeedback(fa);
                         try {
                             callPost.execute();
@@ -563,28 +594,8 @@ public class SyncDatabaseApi {
                             e.printStackTrace();
                         }
                         Log.v(TAG, "POST Feedback para o servidor: " + fa.getTimeStamp());
-
                     }
                 }
-
-                for (Feedback f : feedbacks) {
-                    cont = 0;
-                    if (faSize != 0) {
-                        for (Feedback fa : feedbacksApp) {
-                            if (f.getIdInscrito() == fa.getIdInscrito() && f.getIdTutor() == fa.getIdTutor() && f.getIdAtividade() == fa.getIdAtividade() && f.getTimeStamp().equals(fa.getTimeStamp())) {
-                                break;
-                            } else {
-                                cont++;
-                            }
-                        }
-                    }
-                    if (cont == faSize) {
-                        feedbackDAO.insertFeedback(f);
-                        Log.v(TAG, "Inserindo Feedback: " + f.getTimeStamp());
-                    }
-                }
-
-                feedbackDAO.closeConection();
             }
             return 1;
         } else {

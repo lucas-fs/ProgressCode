@@ -77,7 +77,7 @@ class EncontroResource(ModelResource):
 
 class AtividadeResource(ModelResource):
     #encontro = fields.ToOneField('web_service.api.EncontroResource', 'encontro', full=True, use_in = 'list')
-    encontro_id = fields.IntegerField(attribute="encontro__id")
+    encontro_id = fields.IntegerField(attribute="encontro_id")
 
     class Meta:
         queryset = Atividade.objects.all()

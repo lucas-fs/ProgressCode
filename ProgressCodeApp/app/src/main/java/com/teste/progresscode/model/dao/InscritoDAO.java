@@ -67,7 +67,8 @@ public class InscritoDAO {
                 "JOIN evento_inscrito ei on ei.id_inscrito = i.id " +
                 "JOIN eventos e on e.id = ei.id_evento " +
                 "JOIN encontros en on en.id_evento = e.id " +
-                "WHERE en.id = ?" +
+                "WHERE en.id = ? " +
+                "ORDER BY i.nome" +
                 ";", new String[]{String.valueOf(idEncontro)});
 
         cursor.moveToFirst();

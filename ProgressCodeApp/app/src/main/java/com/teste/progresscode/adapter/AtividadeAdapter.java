@@ -138,7 +138,8 @@ public class AtividadeAdapter extends RecyclerView.Adapter<AtividadeAdapter.Ativ
 
     public static String getCurrentTimeStamp(){
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+
             String currentDateTime = dateFormat.format(new Date()); // Find todays date
 
             return currentDateTime;

@@ -3,6 +3,7 @@ package com.teste.progresscode.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,10 +29,13 @@ import java.util.List;
 public class AtividadesActivity extends AppCompatActivity {
 
     private static final String TAG = AtividadesActivity.class.getSimpleName();
+    private static final String LIST_STATE_KEY = "list_state";
     private Tutor tutor;
     private SyncDatabaseApi syncDatabaseApi;
     private List<Atividade> atividades;
     private Menu menuSync;
+    private LinearLayoutManager layoutManager;
+    private Parcelable listState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class AtividadesActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_name);
         setSupportActionBar(myToolbar);
+
+        layoutManager = new LinearLayoutManager(this);
 
         //RecyclerView.Adapter adapter = new InscritoAdapter(R.layout.list_item_inscrito, getApplicationContext());
 
@@ -58,11 +64,11 @@ public class AtividadesActivity extends AppCompatActivity {
 
         AtividadeDAO atividadeDAO = new AtividadeDAO(getApplicationContext());
         atividadeDAO.openConection();
-        atividades = atividadeDAO.getAllAtividades();
+        atividades = atividadeDAO.getAtividadesByInscrito(id_inscrito);
         atividadeDAO.closeConection();
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.inscritos_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(new AtividadeAdapter(atividades, id_inscrito, tutor.getId(), R.layout.list_item_inscrito, getApplicationContext()));
 
@@ -116,6 +122,27 @@ public class AtividadesActivity extends AppCompatActivity {
             // Remove the animation.
             m.getActionView().clearAnimation();
             m.setActionView(null);
+        }
+    }
+
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        listState = layoutManager.onSaveInstanceState();
+        state.putParcelable(LIST_STATE_KEY, listState);
+    }
+
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        // Retrieve list state and list/item positions
+        if(state != null)
+            listState = state.getParcelable(LIST_STATE_KEY);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (listState != null) {
+            layoutManager.onRestoreInstanceState(listState);
         }
     }
 }
