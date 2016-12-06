@@ -23,7 +23,7 @@
 						<td>{{ item.status }}</td>
 						<td>{{ item.timestamp }}</td>
 
-						<td>{% if item.dir_audio.url %}
+						<td>{% if item.dir_audio %}
 								<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
 							{% endif %}
 						</td>
