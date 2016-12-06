@@ -127,11 +127,11 @@ class Atividade(models.Model):
 class Feedback(models.Model):
     status = models.IntegerField()
     timestamp = models. DateTimeField(auto_now=False)
-    dir_audio = models.FileField(upload_to='sounds/')
+    dir_audio = models.FileField(upload_to='sounds/', null=True)
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     inscrito = models.ForeignKey(Inscrito, on_delete=models.CASCADE)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE)
-    observacao = models.TextField()
+    observacao = models.TextField(null=True)
 
     class Meta:
         db_table  =  'feedback'
