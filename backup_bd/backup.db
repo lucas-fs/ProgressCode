@@ -1,0 +1,555 @@
+-- MySQL dump 10.15  Distrib 10.0.18-MariaDB, for Linux (x86_64)
+--
+-- Host: localhost    Database: progress_code
+-- ------------------------------------------------------
+-- Server version	10.0.18-MariaDB-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `atividades`
+--
+
+DROP TABLE IF EXISTS `atividades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `atividades` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(200) NOT NULL,
+  `encontro_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `atividades_8763857a` (`encontro_id`),
+  CONSTRAINT `atividades_encontro_id_0c24af01_fk_encontros_id` FOREIGN KEY (`encontro_id`) REFERENCES `encontros` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `atividades`
+--
+
+LOCK TABLES `atividades` WRITE;
+/*!40000 ALTER TABLE `atividades` DISABLE KEYS */;
+INSERT INTO `atividades` VALUES (1,'Hora do Código -Labirinto',1),(2,'Hora do Código - Outro',1),(3,'App - Baixar imagens e som',1),(4,'App - Login no App Inventor',1),(5,'App - Inserir imagens',1),(6,'App - Inserir som',1),(7,'App - Selecionar blocos no designer',1),(8,'App - Ajustar parâmetros nos blocos',1),(9,'App - Iniciar emulador',1),(10,'App - Testar aplicativo',1),(11,'Hora do Código -Labirinto',2),(12,'Hora do Código - Outro',2),(13,'App - Baixar imagens e som',2),(14,'App - Login no App Inventor',2),(15,'App - Inserir imagens',2),(16,'App - Inserir som',2),(17,'App - Selecionar blocos no designer',2),(18,'App - Ajustar parâmetros nos blocos',2),(19,'App - Iniciar emulador',2),(20,'App - Testar aplicativo',2),(21,'Preparação - entrar no app inventor e localizar seus projetos',3),(22,'Projeto quiz - baixar e importar',3),(23,'Designer / blocos - aluno lembra como alternar esses modos?',3),(24,'Designer / blocos - aluno sabe procurar nos menus?',3),(25,'Quiz - Inicializar pontuacao',3),(26,'Quiz - inicializar indices',3),(27,'Quiz - Inicializar lista de questões',3),(28,'Quiz - inicializar lista de respostas',3),(29,'Quiz - inicializar lista de imagens',3),(30,'Quiz - bloco quando inicializar ok',3),(31,'Quiz - criar bloco responder associado ao botao1',3),(32,'Quiz - adicionar condicional para testar resposta',3),(33,'Quiz - adicionar condicional para percorrer lista',3),(34,'Quiz - bloco responder esta completo',3),(35,'Quiz - iniciar emulador',3),(36,'Quiz - testar aplicativo',3),(37,'Quiz - customizar',3),(38,'Quiz - publicar na galeria',3);
+/*!40000 ALTER TABLE `atividades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_group`
+--
+
+DROP TABLE IF EXISTS `auth_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group`
+--
+
+LOCK TABLES `auth_group` WRITE;
+/*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_group_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_group_permissions_group_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  KEY `auth_group_permissi_permission_id_84c5c92e_fk_auth_permission_id` (`permission_id`),
+  CONSTRAINT `auth_group_permissi_permission_id_84c5c92e_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group_permissions`
+--
+
+LOCK TABLES `auth_group_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_permission`
+--
+
+DROP TABLE IF EXISTS `auth_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_permission_content_type_id_01ab375a_uniq` (`content_type_id`,`codename`),
+  CONSTRAINT `auth_permissi_content_type_id_2f476e4b_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+LOCK TABLES `auth_permission` WRITE;
+/*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add permission',2,'add_permission'),(5,'Can change permission',2,'change_permission'),(6,'Can delete permission',2,'delete_permission'),(7,'Can add group',3,'add_group'),(8,'Can change group',3,'change_group'),(9,'Can delete group',3,'delete_group'),(10,'Can add content type',4,'add_contenttype'),(11,'Can change content type',4,'change_contenttype'),(12,'Can delete content type',4,'delete_contenttype'),(13,'Can add session',5,'add_session'),(14,'Can change session',5,'change_session'),(15,'Can delete session',5,'delete_session'),(16,'Can add api access',6,'add_apiaccess'),(17,'Can change api access',6,'change_apiaccess'),(18,'Can delete api access',6,'delete_apiaccess'),(19,'Can add api key',7,'add_apikey'),(20,'Can change api key',7,'change_apikey'),(21,'Can delete api key',7,'delete_apikey'),(22,'Can add encontro',8,'add_encontro'),(23,'Can change encontro',8,'change_encontro'),(24,'Can delete encontro',8,'delete_encontro'),(25,'Can add inscrito',9,'add_inscrito'),(26,'Can change inscrito',9,'change_inscrito'),(27,'Can delete inscrito',9,'delete_inscrito'),(28,'Can add evento',10,'add_evento'),(29,'Can change evento',10,'change_evento'),(30,'Can delete evento',10,'delete_evento'),(31,'Can add feedback',11,'add_feedback'),(32,'Can change feedback',11,'change_feedback'),(33,'Can delete feedback',11,'delete_feedback'),(34,'Can add tutor',12,'add_tutor'),(35,'Can change tutor',12,'change_tutor'),(36,'Can delete tutor',12,'delete_tutor'),(37,'Can add equipe',13,'add_equipe'),(38,'Can change equipe',13,'change_equipe'),(39,'Can delete equipe',13,'delete_equipe'),(40,'Can add equipe_tutor',14,'add_equipetutor'),(41,'Can change equipe_tutor',14,'change_equipetutor'),(42,'Can delete equipe_tutor',14,'delete_equipetutor'),(43,'Can add atividade',15,'add_atividade'),(44,'Can change atividade',15,'change_atividade'),(45,'Can delete atividade',15,'delete_atividade'),(46,'Can add evento_equipe',16,'add_eventoequipe'),(47,'Can change evento_equipe',16,'change_eventoequipe'),(48,'Can delete evento_equipe',16,'delete_eventoequipe'),(49,'Can add evento_inscrito',17,'add_eventoinscrito'),(50,'Can change evento_inscrito',17,'change_eventoinscrito'),(51,'Can delete evento_inscrito',17,'delete_eventoinscrito');
+/*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+DROP TABLE IF EXISTS `django_admin_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime(6) NOT NULL,
+  `object_id` longtext,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) unsigned NOT NULL,
+  `change_message` longtext NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` (`content_type_id`),
+  KEY `django_admin_log_user_id_c564eba6_fk_tutores_id` (`user_id`),
+  CONSTRAINT `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_tutores_id` FOREIGN KEY (`user_id`) REFERENCES `tutores` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+LOCK TABLES `django_admin_log` WRITE;
+/*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_content_type`
+--
+
+DROP TABLE IF EXISTS `django_content_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `django_content_type_app_label_76bd3d3b_uniq` (`app_label`,`model`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+LOCK TABLES `django_content_type` WRITE;
+/*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'contenttypes','contenttype'),(5,'sessions','session'),(6,'tastypie','apiaccess'),(7,'tastypie','apikey'),(15,'web_service','atividade'),(8,'web_service','encontro'),(13,'web_service','equipe'),(14,'web_service','equipetutor'),(10,'web_service','evento'),(16,'web_service','eventoequipe'),(17,'web_service','eventoinscrito'),(11,'web_service','feedback'),(9,'web_service','inscrito'),(12,'web_service','tutor');
+/*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_migrations`
+--
+
+DROP TABLE IF EXISTS `django_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_migrations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+LOCK TABLES `django_migrations` WRITE;
+/*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
+INSERT INTO `django_migrations` VALUES (1,'web_service','0001_initial','2016-11-25 16:33:50.546441'),(2,'contenttypes','0001_initial','2016-11-25 16:33:51.073300'),(3,'admin','0001_initial','2016-11-25 16:33:52.935777'),(4,'admin','0002_logentry_remove_auto_add','2016-11-25 16:33:53.036379'),(5,'contenttypes','0002_remove_content_type_name','2016-11-25 16:33:54.107079'),(6,'auth','0001_initial','2016-11-25 16:33:57.573932'),(7,'auth','0002_alter_permission_name_max_length','2016-11-25 16:33:58.169389'),(8,'auth','0003_alter_user_email_max_length','2016-11-25 16:33:58.222479'),(9,'auth','0004_alter_user_username_opts','2016-11-25 16:33:58.277379'),(10,'auth','0005_alter_user_last_login_null','2016-11-25 16:33:58.336382'),(11,'auth','0006_require_contenttypes_0002','2016-11-25 16:33:58.366649'),(12,'auth','0007_alter_validators_add_error_messages','2016-11-25 16:33:58.422375'),(13,'auth','0008_alter_user_username_max_length','2016-11-25 16:33:58.482277'),(14,'sessions','0001_initial','2016-11-25 16:33:59.014239'),(15,'tastypie','0001_initial','2016-11-25 16:34:00.385220'),(16,'web_service','0002_auto_20161031_0002','2016-11-25 16:34:03.041169'),(17,'web_service','0002_auto_20161027_0205','2016-11-25 16:34:05.284548'),(18,'web_service','0003_merge_20161104_1139','2016-11-25 16:34:05.306150'),(19,'web_service','0004_auto_20161119_0327','2016-11-25 16:34:05.350761'),(20,'web_service','0005_auto_20161120_1542','2016-11-25 16:34:08.241136'),(21,'web_service','0006_auto_20161120_1916','2016-11-25 16:34:08.341628'),(22,'web_service','0007_auto_20161120_1954','2016-11-25 16:34:08.405297'),(23,'web_service','0008_feedback_observacao','2016-11-25 16:34:09.121666'),(24,'web_service','0009_auto_20161121_0306','2016-11-25 16:34:09.210971'),(25,'web_service','0007_auto_20161120_2118','2016-11-25 16:34:09.266103'),(26,'web_service','0010_merge_20161121_0404','2016-11-25 16:34:09.288624'),(27,'web_service','0011_auto_20161121_0404','2016-11-25 16:34:09.367499'),(28,'web_service','0012_auto_20161125_1434','2016-11-25 16:34:24.698926'),(29,'web_service','0010_merge_20161121_1937','2016-11-26 06:46:14.423041'),(30,'web_service','0013_merge_20161126_0446','2016-11-26 06:46:14.650223'),(31,'web_service','0012_merge_20161125_2005','2016-12-06 02:55:25.058125'),(32,'web_service','0014_merge_20161205_2243','2016-12-06 02:55:25.135774'),(33,'web_service','0015_auto_20161205_2252','2016-12-06 02:55:25.724224'),(34,'web_service','0016_auto_20161205_2254','2016-12-06 02:55:26.199611');
+/*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_session`
+--
+
+DROP TABLE IF EXISTS `django_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_de54fa62` (`expire_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_session`
+--
+
+LOCK TABLES `django_session` WRITE;
+/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('479y4xzai4qm29wr8i5q4hho0ryh2k9u','ZDNhODA2YmI1NzUwYzQzZmEzZmNhMDA1MzcyM2IwNWM2NjE4YzBkNzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6IndlYl9wYWdlLmJhY2tlbmRzLkVtYWlsQXV0aEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIyZDI4NGFjYmUwZmNiYmQyM2Y4YmNjY2Q5NDRjM2I5YzFjNTg1ZWE4IiwiX2F1dGhfdXNlcl9pZCI6IjMifQ==','2016-12-10 15:19:34.799126'),('6ip13zybtybmbqtadszdre386iylmogx','MGFhMjNmMWVkNDEyOGQ5ZWRiMzA3MGU1OGI0MGY1NTRmNWQxZjE1Mjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6IndlYl9wYWdlLmJhY2tlbmRzLkVtYWlsQXV0aEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmNWYwMmM1ZjMzMGYyNDIxZWQzM2QzYzljM2E5ZjVlMDcxNjY2MDVmIiwiX2F1dGhfdXNlcl9pZCI6IjEifQ==','2016-12-17 10:16:14.511737'),('7z4hq5utemgs12g66xy992emg51ntmmr','N2IwZGU5MWNkOWI0NTI3NDhkZjlkM2MwMmU1N2YyNjZiNGQwZmU5YTp7Il9hdXRoX3VzZXJfaGFzaCI6IjJiYTBiNWRhYWUwZGUyNzhlNTNlMzRkNzc4ZmE0OGI1ODMwYjVkYTgiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJ3ZWJfcGFnZS5iYWNrZW5kcy5FbWFpbEF1dGhCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjgifQ==','2016-12-13 18:15:38.740562'),('ar61g7kle2svriojd97jkke526lvt0bq','NDMwNWI0NGVmYWY3OWQ2MDY5ZDNmZDZmODJlMGZiZjg3N2E4OTI5NTp7Il9hdXRoX3VzZXJfaGFzaCI6IjJkMjg0YWNiZTBmY2JiZDIzZjhiY2NjZDk0NGMzYjljMWM1ODVlYTgiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJ3ZWJfcGFnZS5iYWNrZW5kcy5FbWFpbEF1dGhCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjMifQ==','2016-12-20 16:20:19.531874'),('cgrwggjoae1cdgcr5z4wxwvtyupq28f3','Y2U0NzUwODhjZjA4OGJlZmUzZTBkZTBlZWJmOWY1ZGU5ZTFiMzc0Zjp7Il9hdXRoX3VzZXJfaGFzaCI6IjRhMzE4MTgyN2Q4MzczZjE0NWU1NGRlNDIyNGU4NjU5M2E2NDcxMTMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJ3ZWJfcGFnZS5iYWNrZW5kcy5FbWFpbEF1dGhCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjcifQ==','2016-12-11 01:04:17.610789'),('dodjy7uq5s2wtyhbla1djnlq5y949vc1','ODBmODFmOWI0OTQ5YWQxZTM5YjgyNjAzNDU1YmI3ZDVjZGVhMTcwMzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6IndlYl9wYWdlLmJhY2tlbmRzLkVtYWlsQXV0aEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoiMTEiLCJfYXV0aF91c2VyX2hhc2giOiI1NmU0M2VjOTEwNGE1MmFlOTM3ZTYxNDBmNDc1ZDIyMjFjYzI3MjE5In0=','2017-04-01 23:29:56.681109'),('m1xolpan0cw6y661fik5mevl7uzlx9k1','Mzk5N2M2ZjUzYWFjOTdjYzdkZGJjZmJmMzhkZjdlODdiZmU5ZjkxNDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6IndlYl9wYWdlLmJhY2tlbmRzLkVtYWlsQXV0aEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoiMyIsIl9hdXRoX3VzZXJfaGFzaCI6IjJkMjg0YWNiZTBmY2JiZDIzZjhiY2NjZDk0NGMzYjljMWM1ODVlYTgifQ==','2016-12-28 17:18:14.890923'),('pskxitpeeqfxtkmofdyb5s8t35dav3ce','OGRiN2U5ZTUzYzhiZDAzYTcyYTUyYThjN2VmZTY0ZTg0NDBkYWU0Zjp7Il9hdXRoX3VzZXJfaGFzaCI6IjM2ZDk1Yjc2Njc4MGFhNjUxOTI4YjJiMGU0NjA5ZmZmZGFlN2U4NjMiLCJfYXV0aF91c2VyX2lkIjoiNCIsIl9hdXRoX3VzZXJfYmFja2VuZCI6IndlYl9wYWdlLmJhY2tlbmRzLkVtYWlsQXV0aEJhY2tlbmQifQ==','2016-12-10 00:47:27.626953'),('zjolvmkeomb5gfmxb4d8dk6yor49y5mf','YmJlM2VkZWQyNWEzNDEzNWU0NWQ5MmQ0ZDA4YWZmZDBjMzJkOGIzMzp7Il9hdXRoX3VzZXJfaGFzaCI6IjA2ZWE5OTBlZTg4YjcyZGRlZWUzYmQ0NzkxYmE1NDQxZGYwOTcyNDQiLCJfYXV0aF91c2VyX2lkIjoiNSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6IndlYl9wYWdlLmJhY2tlbmRzLkVtYWlsQXV0aEJhY2tlbmQifQ==','2016-12-10 01:11:43.053533');
+/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `encontros`
+--
+
+DROP TABLE IF EXISTS `encontros`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `encontros` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `data_realizao` date NOT NULL,
+  `evento_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `encontros_afb29da0` (`evento_id`),
+  CONSTRAINT `encontros_evento_id_2d29e00a_fk_eventos_id` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `encontros`
+--
+
+LOCK TABLES `encontros` WRITE;
+/*!40000 ALTER TABLE `encontros` DISABLE KEYS */;
+INSERT INTO `encontros` VALUES (1,'2016-11-26',1),(2,'2016-11-26',2),(3,'2016-12-03',2);
+/*!40000 ALTER TABLE `encontros` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `equipe_tutor`
+--
+
+DROP TABLE IF EXISTS `equipe_tutor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `equipe_tutor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `equipe_id` int(11) NOT NULL,
+  `tutor_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `equipe_tutor_equipe_id_6857881c_fk_equipes_id` (`equipe_id`),
+  KEY `equipe_tutor_1ba55b7f` (`tutor_id`),
+  CONSTRAINT `equipe_tutor_equipe_id_6857881c_fk_equipes_id` FOREIGN KEY (`equipe_id`) REFERENCES `equipes` (`id`),
+  CONSTRAINT `equipe_tutor_tutor_id_f9ee4d63_fk_tutores_id` FOREIGN KEY (`tutor_id`) REFERENCES `tutores` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipe_tutor`
+--
+
+LOCK TABLES `equipe_tutor` WRITE;
+/*!40000 ALTER TABLE `equipe_tutor` DISABLE KEYS */;
+INSERT INTO `equipe_tutor` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6);
+/*!40000 ALTER TABLE `equipe_tutor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `equipes`
+--
+
+DROP TABLE IF EXISTS `equipes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `equipes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipes`
+--
+
+LOCK TABLES `equipes` WRITE;
+/*!40000 ALTER TABLE `equipes` DISABLE KEYS */;
+INSERT INTO `equipes` VALUES (1,'Equipe 334/338');
+/*!40000 ALTER TABLE `equipes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `evento_equipe`
+--
+
+DROP TABLE IF EXISTS `evento_equipe`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `evento_equipe` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `equipe_id` int(11) NOT NULL,
+  `evento_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `evento_equipe_equipe_id_b70bbecc_fk_equipes_id` (`equipe_id`),
+  KEY `evento_equipe_evento_id_3cd2959c_fk_eventos_id` (`evento_id`),
+  CONSTRAINT `evento_equipe_equipe_id_b70bbecc_fk_equipes_id` FOREIGN KEY (`equipe_id`) REFERENCES `equipes` (`id`),
+  CONSTRAINT `evento_equipe_evento_id_3cd2959c_fk_eventos_id` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `evento_equipe`
+--
+
+LOCK TABLES `evento_equipe` WRITE;
+/*!40000 ALTER TABLE `evento_equipe` DISABLE KEYS */;
+INSERT INTO `evento_equipe` VALUES (1,1,2);
+/*!40000 ALTER TABLE `evento_equipe` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `evento_inscrito`
+--
+
+DROP TABLE IF EXISTS `evento_inscrito`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `evento_inscrito` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `evento_id` int(11) NOT NULL,
+  `inscrito_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `evento_inscrito_evento_id_88e94abc_fk_eventos_id` (`evento_id`),
+  KEY `evento_inscrito_c97bcd6f` (`inscrito_id`),
+  CONSTRAINT `evento_inscrito_evento_id_88e94abc_fk_eventos_id` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`),
+  CONSTRAINT `evento_inscrito_inscrito_id_7ba15f0d_fk_inscritos_id` FOREIGN KEY (`inscrito_id`) REFERENCES `inscritos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `evento_inscrito`
+--
+
+LOCK TABLES `evento_inscrito` WRITE;
+/*!40000 ALTER TABLE `evento_inscrito` DISABLE KEYS */;
+INSERT INTO `evento_inscrito` VALUES (1,2,1),(2,2,2),(3,2,3),(4,2,4),(5,2,5),(6,2,6),(7,2,7),(8,2,8),(9,2,9),(10,2,10),(11,2,11),(12,2,12),(13,2,13),(14,2,14),(15,2,15),(16,2,16),(17,2,17),(18,2,18),(19,2,19),(20,2,20),(21,2,21),(22,2,22),(23,2,23),(24,2,24),(25,2,25),(26,2,26),(27,2,27),(28,2,28),(29,2,29),(30,2,30);
+/*!40000 ALTER TABLE `evento_inscrito` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `eventos`
+--
+
+DROP TABLE IF EXISTS `eventos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `eventos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_evento` varchar(150) NOT NULL,
+  `descricao` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `eventos`
+--
+
+LOCK TABLES `eventos` WRITE;
+/*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
+INSERT INTO `eventos` VALUES (1,'Oficina de Criação de Aplicativos Móveis','Oficina aberta ao público, dias 26/11 e 03/12'),(2,'Oficina de Criação de Aplicativos Móveis','Oficina aberta ao público, dias 26/11 e 03/12');
+/*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `feedback`
+--
+
+DROP TABLE IF EXISTS `feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
+  `timestamp` datetime(6) NOT NULL,
+  `dir_audio` varchar(100) DEFAULT NULL,
+  `atividade_id` int(11) NOT NULL,
+  `inscrito_id` int(11) NOT NULL,
+  `tutor_id` int(11) NOT NULL,
+  `observacao` longtext,
+  PRIMARY KEY (`id`),
+  KEY `feedback_c97bcd6f` (`inscrito_id`),
+  KEY `feedback_1ba55b7f` (`tutor_id`),
+  KEY `feedback_atividade_id_71cdf286_fk_atividades_id` (`atividade_id`),
+  CONSTRAINT `feedback_atividade_id_71cdf286_fk_atividades_id` FOREIGN KEY (`atividade_id`) REFERENCES `atividades` (`id`),
+  CONSTRAINT `feedback_inscrito_id_f7ff0380_fk_inscritos_id` FOREIGN KEY (`inscrito_id`) REFERENCES `inscritos` (`id`),
+  CONSTRAINT `feedback_tutor_id_ce0ead97_fk_tutores_id` FOREIGN KEY (`tutor_id`) REFERENCES `tutores` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `feedback`
+--
+
+LOCK TABLES `feedback` WRITE;
+/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `feedback` VALUES (30,3,'2016-11-26 11:39:33.724000','',1,8,1,''),(31,3,'2016-11-26 11:39:39.082000','',2,8,1,''),(32,3,'2016-11-26 11:39:41.433000','',3,8,1,''),(33,3,'2016-11-26 11:40:17.045000','',1,6,1,''),(34,3,'2016-11-26 11:40:24.332000','',2,6,1,''),(35,3,'2016-11-26 11:40:25.951000','',3,6,1,''),(36,3,'2016-11-26 11:42:56.697000','',1,6,1,''),(37,3,'2016-11-26 11:42:57.476000','',2,6,1,''),(38,3,'2016-11-26 11:42:59.439000','',3,6,1,''),(39,3,'2016-11-26 11:43:01.255000','',4,6,1,''),(40,3,'2016-11-26 06:21:17.909000','',1,5,3,''),(41,3,'2016-11-26 11:44:40.490000','',1,5,1,''),(42,3,'2016-11-26 11:44:41.325000','',2,5,1,''),(43,3,'2016-11-26 11:44:43.300000','',3,5,1,''),(44,3,'2016-11-26 12:05:33.062000','',1,5,1,''),(45,3,'2016-11-26 12:05:34.046000','',2,5,1,''),(46,3,'2016-11-26 12:05:36.491000','',3,5,1,''),(47,3,'2016-11-26 12:05:38.165000','',4,5,1,''),(48,3,'2016-11-26 12:05:39.629000','',5,5,1,''),(49,3,'2016-11-26 12:09:44.633000','',1,6,3,''),(50,3,'2016-11-26 12:10:32.205000','',3,6,3,''),(51,3,'2016-11-26 14:13:51.463000','',1,25,1,''),(52,3,'2016-11-26 14:14:07.647000','',3,25,1,''),(53,3,'2016-11-26 14:14:09.312000','',4,25,1,''),(54,3,'2016-11-26 14:14:16.704000','',5,25,1,''),(55,3,'2016-11-26 14:14:18.129000','',6,25,1,''),(56,3,'2016-11-26 14:14:20.439000','',7,25,1,''),(57,3,'2016-11-26 14:14:21.611000','',8,25,1,''),(58,3,'2016-11-26 14:14:29.680000','',9,25,1,''),(59,3,'2016-11-26 14:14:31.887000','',10,25,1,''),(60,2,'2016-12-03 04:42:09.092000','',11,25,3,''),(61,3,'2016-12-03 05:18:58.703000','',11,25,3,''),(62,3,'2016-12-03 13:43:52.228000','',14,14,3,''),(63,3,'2016-12-03 13:43:53.806000','',15,14,3,''),(64,3,'2016-12-03 13:43:55.057000','',16,14,3,''),(65,3,'2016-12-03 13:43:56.269000','',17,14,3,''),(66,3,'2016-12-03 13:44:03.862000','',19,14,3,''),(67,2,'2016-12-03 13:44:10.319000','',18,14,3,''),(68,3,'2016-12-03 13:44:11.707000','',18,14,3,''),(69,3,'2016-12-06 15:06:03.204000','',16,17,3,NULL),(70,2,'2016-12-06 15:06:04.046000','',17,17,3,NULL),(71,1,'2016-12-06 15:06:05.292000','',18,17,3,NULL),(72,2,'2016-12-06 15:06:21.140000','',15,17,3,NULL),(73,3,'2017-03-18 20:07:43.273000','',1,2,10,NULL),(74,1,'2017-03-18 20:08:05.297000','',2,2,10,NULL),(75,2,'2017-03-18 20:08:08.537000','',3,2,10,NULL);
+/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inscritos`
+--
+
+DROP TABLE IF EXISTS `inscritos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `inscritos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `data_nasc` date NOT NULL,
+  `escola` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inscritos`
+--
+
+LOCK TABLES `inscritos` WRITE;
+/*!40000 ALTER TABLE `inscritos` DISABLE KEYS */;
+INSERT INTO `inscritos` VALUES (1,'Luiz Schneider','2000-01-01','CMID'),(2,'Henrique peixe','2000-01-01','Ensino médio\r'),(3,'Beatris Freitas da Costa','2000-01-01','Marista Santa Marta\r'),(4,'Ester Pereira da Silva Rosa','2000-01-01','Escola Marista Santa Marta\r'),(5,'KALITA BEMONTE DE OLIVERA','2000-01-01','Escola marista santa marta\r'),(6,'Rafael azevedo pena','2000-01-01','Escola Marista Santa Marta\r'),(7,'Deivid da Silva Gonçalves','2000-01-01','Escola Marista Santa Marta\r'),(8,'Amanda Camargo da Silva','2000-01-01','Escola Marista Santa Marta\r'),(9,'José Carlos da Silca Carrion','2000-01-01','Escola Marista Santa Marta\r'),(10,'Theodoro ferreira marinho','2000-01-01','Escola Marista Santa Marta\r'),(11,'Gustavo Nunes','2000-01-01','Marista Santa Marta\r'),(12,'Gleen Eduards Menezes Soares','2000-01-01','Unifra\r'),(13,'Álisson Severo Nascimento','2000-01-01','CMID\r'),(14,'Camili Vitória Goulart','2000-01-01','CMID\r'),(15,'Endrigo Ernesto Oliveira','2000-01-01','CMID\r'),(16,'Lucas Fontoura de Castro','2000-01-01','CMID\r'),(17,'Alisson Ruan da Rosa Farias','2000-01-01','CMID\r'),(18,'Gustavo Souza de Lima Ernesto','2000-01-01','Escola Marista Santa Marta\r'),(19,'DIONATHAN FERREIRA DE MORAES','2000-01-01','ESC. MUNIC. JÚLIO DO CANTO\r'),(20,'João Lucas Costa Sarturi','2000-01-01','Escola Estadual de Ensino Fundamental Protásio Lima de Moaraes\r'),(21,'MATHEUS BECKER FAVERO','2000-01-01','Escola Vicente Farencena\r'),(22,'Lucas Caetano','2000-01-01','CTISM\r'),(23,'Ana Clara da Cruz Plausinaitis','2000-01-01','Colégio Técnico Industrial de Santa Maria\r'),(24,'Gabriel Medina Bortolotto','2000-01-01','Tottem\r'),(25,'Daniel Farias do Nascimento','2000-01-01','Colégio Riachuelo\r'),(26,'Luis Gustavo Costas Hoehr','2000-01-01','Escola Medianeira\r'),(27,'Camila Müller Agostta','2000-01-01','Centro Social Marista Santa Mart'),(28,'Henrique Peixe','2001-01-01','Maneco'),(29,'Yago Fenalti','2001-01-01','Maneco'),(30,'Gabrielle Moreira Serdotte','2001-01-01','Maneco'),(31,'Ádrian Silva Belarmino','2000-01-01','Escola Municipal Miguel Beltrame'),(32,'Samuel Rech Cassanego','2000-01-01','Ctism'),(33,'Adriano dos Santos Rodrigues Filho','2000-01-01','Olavo Bilac'),(34,'Francisco Moreira Palermo','2000-01-01','CTISM');
+/*!40000 ALTER TABLE `inscritos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tastypie_apiaccess`
+--
+
+DROP TABLE IF EXISTS `tastypie_apiaccess`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tastypie_apiaccess` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `request_method` varchar(10) NOT NULL,
+  `accessed` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tastypie_apiaccess`
+--
+
+LOCK TABLES `tastypie_apiaccess` WRITE;
+/*!40000 ALTER TABLE `tastypie_apiaccess` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tastypie_apiaccess` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tastypie_apikey`
+--
+
+DROP TABLE IF EXISTS `tastypie_apikey`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tastypie_apikey` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `key` varchar(128) NOT NULL,
+  `created` datetime(6) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  KEY `tastypie_apikey_3c6e0b8a` (`key`),
+  CONSTRAINT `tastypie_apikey_user_id_8c8fa920_fk_tutores_id` FOREIGN KEY (`user_id`) REFERENCES `tutores` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tastypie_apikey`
+--
+
+LOCK TABLES `tastypie_apikey` WRITE;
+/*!40000 ALTER TABLE `tastypie_apikey` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tastypie_apikey` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tutores`
+--
+
+DROP TABLE IF EXISTS `tutores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tutores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `is_admin` tinyint(1) NOT NULL,
+  `joined` datetime(6) NOT NULL,
+  `last_login` datetime(6),
+  `password` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `tutores_email_189613ed_uniq` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tutores`
+--
+
+LOCK TABLES `tutores` WRITE;
+/*!40000 ALTER TABLE `tutores` DISABLE KEYS */;
+INSERT INTO `tutores` VALUES (1,'Andrea Schwertner Charão','andrea@inf.ufsm.br',1,0,'2016-11-25 22:44:31.539412','2016-12-03 10:16:14.356266','sha1$$61d6ff71ebb7b7e0db03db7338e9015a998d88e1'),(2,'Iago Corrêa','icorrea@inf.ufsm.br',1,0,'2016-11-25 23:32:08.661108','2017-03-17 15:59:43.510929','sha1$$853e56aee66f34e1150fd1c3d5c753108f650ca9'),(3,'Lucas Ferreira da Silva','lferreira@inf.ufsm.br',1,0,'2016-11-25 23:33:12.005808','2016-12-14 17:18:14.739711','sha1$$df2bc6453425f42fcc49eeb793c8e0191ddd4810'),(4,'Vinicius Dreifke','vdreifke@inf.ufsm.br',1,0,'2016-11-26 00:47:18.155150','2016-11-26 00:47:27.589881','sha1$$bbe561b6ef589afe70664df390c86fe1fac08fb9'),(5,'Rafael Pavani Guimarães','rpguimaraes@inf.ufsm.br',1,0,'2016-11-26 01:11:30.726244','2016-11-26 01:11:43.027921','sha1$$112b0a611efa24c66711cf5baa74ecdfa151aafd'),(6,'Jéferson Farias da Silva','jfarias@inf.ufsm.br',1,0,'2016-11-26 02:21:46.586712','2016-11-26 02:57:00.192830','sha1$$f87c0a788ebb951d7261eee435fc60fc521c60a9'),(7,'Ana Veroneze','alsolorzano@inf.ufsm.br',1,0,'2016-11-27 01:04:07.807018','2016-11-27 01:04:17.576511','sha1$$f72f235b623ab53e6e2aa87adde783d8435a745c'),(8,'Cassiano Andrei','cschneider@inf.ufsm.br',1,0,'2016-11-29 18:15:30.625420','2016-11-29 18:15:38.703564','sha1$$fcab40bcb97a6638f86a6e066fbcb613d9f64f0b'),(9,'User','user@prints.br',1,0,'2017-03-17 16:14:30.435288','2017-03-17 16:14:36.030562','sha1$$d7316a3074d562269cf4302e4eed46369b523687'),(10,'UserDefault','user@email.com',1,0,'2017-03-18 21:00:22.291949','2017-03-18 21:00:32.646758','sha1$$40bd001563085fc35165329ea1ff5c5ecbdbbeef'),(11,'User','user@user.com',1,0,'2017-03-18 23:29:49.191123','2017-03-18 23:29:56.642091','sha1$$40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+/*!40000 ALTER TABLE `tutores` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-07-01  3:02:24

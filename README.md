@@ -109,23 +109,23 @@ http://127.0.0.1:8000/api/webservice/tutores/?format=json&email__contains=lferre
 | 16/09 | Criação do banco de dados | x |
 | 23/09 | Criação do CRUD do banco de dados | x | 
 | 23/09 | Criação do Web Service RESTful | x |
-| 30/09 | Criação de funções de request do app mobile |   |
-| 30/09 | Criação de funções de response do app mobile |   |
-| 05/10 | Criação de funções de request do sistema web |   |
-| 05/10 | Criação de funções de response do sistema web |   |
-| 10/10 | Criação de funções de autenticação no app mobile e no sistema web |   |
-| 10/10 | Criação das Activities basicas no app mobile |   |
-| 14/10 | Criação dos Models, Views e Templates basicos no sistema web |   |
-| 18/10 | Criação de funções de cadastro de evento e encontros no app mobile |   |
-| 18/10 | Criação de funções de cadastro de evento e encontros no sistema web |   |
-| 23/10 | Criação de funções de cadastro de tutores e equipes no app mobile |   |
-| 23/10 | Criação de funções de cadastro de tutores e equipes no sistema web |   |
-| 25/10 | Criação das funções de feedback de alunos |   |
-| 05/11 | Criação das funções de manipulação e envio do áudio capturado com o dispositivo |   |
-| 05/11 | Criação de funções de importação do .csv da listagem de participantes de cada evento |   |
-| 10/11 | Melhoramento de UX e design da interface mobile |   |
-| 12/11 | Melhoramento das páginas para visualização dos dados coletados com o app |   |
-| 16/11 | Melhoramento de UX e design da interface web |   |
-| 23/11 | Criação da função de chamada de alunos |   |
-| 30/11 | Testes|   |
+| 30/09 | Criação de funções de request do app mobile | X |
+| 30/09 | Criação de funções de response do app mobile | X |
+| 05/10 | Criação de funções de request do sistema web | X |
+| 05/10 | Criação de funções de response do sistema web | X |
+| 10/10 | Criação de funções de autenticação no app mobile e no sistema web | X |
+| 10/10 | Criação das Activities basicas no app mobile | X |
+| 14/10 | Criação dos Models, Views e Templates basicos no sistema web | X |
+| 18/10 | Criação de funções de cadastro de evento e encontros no app mobile | X |
+| 18/10 | Criação de funções de cadastro de evento e encontros no sistema web | X |
+| 23/10 | Criação de funções de cadastro de tutores e equipes no app mobile | X |
+| 23/10 | Criação de funções de cadastro de tutores e equipes no sistema web | X |
+| 25/10 | Criação das funções de feedback de alunos | X |
+| 05/11 | Criação das funções de manipulação e envio do áudio capturado com o dispositivo | X |
+| 05/11 | Criação de funções de importação do .csv da listagem de participantes de cada evento | X |
+| 10/11 | Melhoramento de UX e design da interface mobile | X |
+| 12/11 | Melhoramento das páginas para visualização dos dados coletados com o app | X |
+| 16/11 | Melhoramento de UX e design da interface web | X |
+| 23/11 | Criação da função de chamada de alunos | X |
+| 30/11 | Testes| X |
 

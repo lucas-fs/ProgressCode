@@ -7,7 +7,7 @@
 				<th>N⁰ Audio</th>
 				<th>Status</th>
 				<th>Data do Registro</th>
-				<th>audio</th>
+				<th>Audio</th>
 				<th>Tutor</th>
 				<th>Observação</th>
 			</tr><br><br>
@@ -16,10 +16,12 @@
 					<td>{{ item.id }}</td>
 					<td>{{ item.status }}</td>
 					<td>{{ item.timestamp }}</td>
-					<td>{% if item.dir_audio.url %}
-								<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
-							{% endif %}
+					
+					<td>{% if item.dir_audio %}
+							<audio id="Player" src="{{ item.dir_audio.url }}" preload="auto" controls></audio>
+						{% endif %}
 					</td>
+					
 					<td>{{ item.nome_t }}</td>
 					<td>{{ item.observacao }}</td>
 				</tr>
